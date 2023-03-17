@@ -1,6 +1,6 @@
-# pregnancy-tracker-app
+# JoyfulJourney
 
-Welcome to the PregnancyTracker source code repository! This is a mobile app that provides a comprehensive and user-friendly platform for expectant mothers to manage their pregnancy journey. With features such as user registration and login, users can easily create and manage their account, ensuring their privacy and security.
+Welcome to the JoyfulJourney source code repository! This is a mobile app that provides a comprehensive and user-friendly platform for expectant mothers to manage their pregnancy journey. With features such as user registration and login, users can easily create and manage their account, ensuring their privacy and security.
 
 Users can also create and edit their profile, allowing them to share information about themselves, such as their due date and personal preferences.
 
@@ -14,12 +14,12 @@ The pregnancy calendar provides users with a clear and visual representation of 
 
 Finally, the appointment setter and reminder feature ensures users don't miss important appointments, helping them to stay on track and receive the care they need. Overall, your pregnancy tracker app provides a valuable and essential resource for expectant mothers, making their journey easier, more enjoyable, and more informed.
 
-| Group Members | ID |
-| ------ | ----------- |
-| Daniel Wossen   | UGR/4400/13 |
-| Naol Belete | UGR/0655/13 |
-| Ananiya Tesfahun    | UGR/4663/13|
-| Mariam Gustavo    | UGR/1997/13|
-| Haile Adugna    | UGR/7191/13|
+| Group Members | ID | Section |
+| ------ | ----------- | 3|
+| Daniel Wossen   | UGR/4400/13 | 3|
+| Naol Belete | UGR/0655/13 |3|
+| Ananiya Tesfahun    | UGR/4663/13|3|
+| Mariam Gustavo    | UGR/1997/13|3|
+| Haile Adugna    | UGR/7191/13|3|
 
 
