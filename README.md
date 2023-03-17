@@ -15,7 +15,7 @@ The pregnancy calendar provides users with a clear and visual representation of 
 Finally, the appointment setter and reminder feature ensures users don't miss important appointments, helping them to stay on track and receive the care they need. Overall, your pregnancy tracker app provides a valuable and essential resource for expectant mothers, making their journey easier, more enjoyable, and more informed.
 
 | Group Members | ID | Section |
-| ------ | ----------- | 3|
+| ------ | ----------- |--------|
 | Daniel Wossen   | UGR/4400/13 | 3|
 | Naol Belete | UGR/0655/13 |3|
 | Ananiya Tesfahun    | UGR/4663/13|3|
