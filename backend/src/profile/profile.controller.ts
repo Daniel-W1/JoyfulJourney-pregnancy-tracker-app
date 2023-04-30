@@ -8,9 +8,7 @@ export class ProfileController {
     constructor(private readonly profileService: ProfileService) { }
 
     @Get()
-    async findAll() {
-        // console.log("here");
-        
+    async findAll() {        
         return await this.profileService.findAll();
     }
 
@@ -21,8 +19,6 @@ export class ProfileController {
 
     @Post()
     async createProfile(@Body() profileDto: ProfileDto) {
-        console.log("here");
-
         return await this.profileService.create(profileDto);
     }
 

@@ -21,14 +21,12 @@ let ProfileController = class ProfileController {
         this.profileService = profileService;
     }
     async findAll() {
-        console.log("here");
         return await this.profileService.findAll();
     }
     async findOne(id) {
         return await this.profileService.findOne(id);
     }
     async createProfile(profileDto) {
-        console.log("here");
         return await this.profileService.create(profileDto);
     }
     async update(id, updateProfileDto) {

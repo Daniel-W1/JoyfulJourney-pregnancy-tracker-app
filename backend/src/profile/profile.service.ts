@@ -30,7 +30,7 @@ export class ProfileService {
             const profile = this.ProfileModel.findById(id).exec();
             return profile;
         } catch (error) {
-            throw new NotFoundException('Message Not Found');
+            throw new NotFoundException('Profile Not Found');
         }
 
     }
