@@ -12,11 +12,13 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const profile_module_1 = require("./profile/profile.module");
+const post_module_1 = require("./post/post.module");
+const comments_module_1 = require("./comments/comments.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [profile_module_1.ProfileModule, mongoose_1.MongooseModule.forRoot('mongodb+srv://Leinad:Leinad@cluster0.ul4bqb4.mongodb.net/?retryWrites=true&w=majority')],
+        imports: [profile_module_1.ProfileModule, mongoose_1.MongooseModule.forRoot('mongodb+srv://Leinad:Leinad@cluster0.ul4bqb4.mongodb.net/?retryWrites=true&w=majority'), post_module_1.PostModule, comments_module_1.CommentsModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

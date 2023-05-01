@@ -36,11 +36,19 @@ export class ProfileService {
     }
 
     async updateProfile(id: string, updateProfileDto: ProfileDto): Promise<Profile> {
-        return this.ProfileModel.findByIdAndUpdate(id, updateProfileDto, { new: true }).exec();
+        try {
+            return this.ProfileModel.findByIdAndUpdate(id, updateProfileDto, { new: true }).exec();
+        } catch (error) {
+            throw error;
+        }
     }
 
     async removeProfile(id: string): Promise<any> {
-        return this.ProfileModel.deleteOne({ _id: id }).exec();
+        try {
+            return this.ProfileModel.deleteOne({ _id: id }).exec();
+        } catch (error) {
+            throw error;
+        }
     }
 
 }

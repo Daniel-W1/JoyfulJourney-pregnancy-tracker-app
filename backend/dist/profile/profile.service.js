@@ -39,14 +39,24 @@ let ProfileService = class ProfileService {
             return profile;
         }
         catch (error) {
-            throw new common_1.NotFoundException('Message Not Found');
+            throw new common_1.NotFoundException('Profile Not Found');
         }
     }
     async updateProfile(id, updateProfileDto) {
-        return this.ProfileModel.findByIdAndUpdate(id, updateProfileDto, { new: true }).exec();
+        try {
+            return this.ProfileModel.findByIdAndUpdate(id, updateProfileDto, { new: true }).exec();
+        }
+        catch (error) {
+            throw error;
+        }
     }
     async removeProfile(id) {
-        return this.ProfileModel.deleteOne({ _id: id }).exec();
+        try {
+            return this.ProfileModel.deleteOne({ _id: id }).exec();
+        }
+        catch (error) {
+            throw error;
+        }
     }
 };
 ProfileService = __decorate([
