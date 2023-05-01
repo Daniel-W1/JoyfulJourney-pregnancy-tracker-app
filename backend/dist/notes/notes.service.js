@@ -12,22 +12,22 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProfileService = void 0;
+exports.NotesService = void 0;
 const common_1 = require("@nestjs/common");
+const note_entity_1 = require("./entities/note.entity");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const profile_schema_1 = require("../schemas/profile.schema");
-let ProfileService = class ProfileService {
-    constructor(ProfileModel) {
-        this.ProfileModel = ProfileModel;
+let NotesService = class NotesService {
+    constructor(NoteModel) {
+        this.NoteModel = NoteModel;
     }
     async findAll() {
-        return this.ProfileModel.find().exec();
+        return this.NoteModel.find().exec();
     }
-    async create(newProfile) {
+    async create(newNote) {
         try {
-            const createdProfile = new this.ProfileModel(newProfile);
-            return await createdProfile.save();
+            const createdNote = new this.NoteModel(newNote);
+            return await createdNote.save();
         }
         catch (error) {
             throw new common_1.HttpException('Bad Request', common_1.HttpStatus.BAD_REQUEST);
@@ -35,34 +35,34 @@ let ProfileService = class ProfileService {
     }
     async findOne(id) {
         try {
-            const profile = this.ProfileModel.findById(id).exec();
-            return profile;
+            const note = this.NoteModel.findById(id).exec();
+            return note;
         }
         catch (error) {
-            throw new common_1.NotFoundException('Profile Not Found');
+            throw new common_1.NotFoundException('Note Not Found');
         }
     }
-    async updateProfile(id, updateProfileDto) {
+    async updateNote(id, updateCreateNoteDto) {
         try {
-            return this.ProfileModel.findByIdAndUpdate(id, updateProfileDto, { new: true }).exec();
+            return this.NoteModel.findByIdAndUpdate(id, updateCreateNoteDto, { new: true }).exec();
         }
         catch (error) {
             throw new Error(`{error.message}`);
         }
     }
-    async removeProfile(id) {
+    async removeNote(id) {
         try {
-            return this.ProfileModel.deleteOne({ _id: id }).exec();
+            return this.NoteModel.deleteOne({ _id: id }).exec();
         }
         catch (error) {
             throw new Error(`{error.message}`);
         }
     }
 };
-ProfileService = __decorate([
+NotesService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(profile_schema_1.Profile.name)),
+    __param(0, (0, mongoose_1.InjectModel)(note_entity_1.Note.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
-], ProfileService);
-exports.ProfileService = ProfileService;
-//# sourceMappingURL=profile.service.js.map
+], NotesService);
+exports.NotesService = NotesService;
+//# sourceMappingURL=notes.service.js.map

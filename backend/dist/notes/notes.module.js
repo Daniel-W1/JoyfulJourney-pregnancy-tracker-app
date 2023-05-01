@@ -6,21 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.NotesModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
+const notes_service_1 = require("./notes.service");
+const notes_controller_1 = require("./notes.controller");
 const mongoose_1 = require("@nestjs/mongoose");
-const profile_module_1 = require("./profile/profile.module");
-const notes_module_1 = require("./notes/notes.module");
-let AppModule = class AppModule {
+const note_entity_1 = require("./entities/note.entity");
+let NotesModule = class NotesModule {
 };
-AppModule = __decorate([
+NotesModule = __decorate([
     (0, common_1.Module)({
-        imports: [profile_module_1.ProfileModule, mongoose_1.MongooseModule.forRoot('mongodb+srv://Leinad:Leinad@cluster0.ul4bqb4.mongodb.net/?retryWrites=true&w=majority'), notes_module_1.NotesModule],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        imports: [
+            mongoose_1.MongooseModule.forFeature([{ name: note_entity_1.Note.name, schema: note_entity_1.NoteSchema }]),
+        ],
+        controllers: [notes_controller_1.NotesController],
+        providers: [notes_service_1.NotesService]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], NotesModule);
+exports.NotesModule = NotesModule;
+//# sourceMappingURL=notes.module.js.map
