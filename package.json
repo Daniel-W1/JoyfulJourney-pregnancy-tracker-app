@@ -4,5 +4,10 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "mongoose": "^7.1.0"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^9.4.0",
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1"
   }
 }

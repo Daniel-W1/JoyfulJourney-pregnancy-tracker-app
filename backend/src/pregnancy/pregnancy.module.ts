@@ -2,9 +2,8 @@ import { Module } from '@nestjs/common';
 import { PregnancyService} from './pregnancy.service';
 import { PregnancyController } from './pregnancy.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Pregnancy,PregnancySchema} from './entities/pregnancy.entities';
-
-
+import { Pregnancy} from './entities/pregnancy.entities';
+import { PregnancySchema} from './entities/pregnancy.entities';
 
 @Module({
   imports: [
