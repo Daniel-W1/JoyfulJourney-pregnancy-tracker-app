@@ -1,0 +1,61 @@
+{
+  "name": "@nestjs/mongoose",
+  "version": "9.2.2",
+  "description": "Nest - modern, fast, powerful node.js web framework (@mongoose)",
+  "author": "Kamil Mysliwiec",
+  "repository": "https://github.com/nestjs/mongoose.git",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint \"lib/**/*.ts\" --fix",
+    "format": "prettier \"lib/**/*.ts\" --write",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "precommit": "lint-staged",
+    "prepublish:npm": "npm run build",
+    "publish:npm": "npm publish --access public",
+    "prepublish:next": "npm run build",
+    "publish:next": "npm publish --access public --tag next",
+    "prerelease": "npm run build",
+    "release": "release-it",
+    "test:e2e": "jest --config ./tests/jest-e2e.json --runInBand",
+    "test:e2e:dev": "jest --config ./tests/jest-e2e.json --runInBand --watch",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.4.4",
+    "@commitlint/config-angular": "17.4.4",
+    "@nestjs/common": "9.3.10",
+    "@nestjs/core": "9.3.10",
+    "@nestjs/platform-express": "9.3.10",
+    "@nestjs/testing": "9.3.10",
+    "@types/jest": "29.5.0",
+    "@types/node": "18.15.3",
+    "@typescript-eslint/eslint-plugin": "5.55.0",
+    "@typescript-eslint/parser": "5.55.0",
+    "eslint": "8.36.0",
+    "eslint-config-prettier": "8.7.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-prettier": "4.2.1",
+    "husky": "8.0.3",
+    "jest": "29.5.0",
+    "lint-staged": "13.2.0",
+    "mongoose": "6.10.3",
+    "prettier": "2.8.4",
+    "reflect-metadata": "0.1.13",
+    "release-it": "15.9.0",
+    "rxjs": "7.8.0",
+    "supertest": "6.3.3",
+    "ts-jest": "29.0.5",
+    "ts-node": "10.9.1",
+    "typescript": "5.0.2"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^8.0.0 || ^9.0.0",
+    "@nestjs/core": "^8.0.0 || ^9.0.0",
+    "mongoose": "^6.0.2 || ^7.0.0",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^7.0.0"
+  },
+  "lint-staged": {
+    "**/*.{ts,json}": []
+  }
+}
