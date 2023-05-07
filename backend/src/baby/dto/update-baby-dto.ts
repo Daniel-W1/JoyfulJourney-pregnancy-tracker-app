@@ -10,10 +10,12 @@ export class updateBabyDto {
   pregId: Pregnancy;
 
   @IsNotEmpty()
-  @IsDate()
-  week: Number;
+  @IsNumber()
+  week: number;
   
   @IsNotEmpty()
   @IsNumber()
-  sizeImageUrl: String;
+  sizeImageUrl: string;
+
+  pregnancy:Pregnancy
 }

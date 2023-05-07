@@ -1,19 +1,22 @@
 import { IsString,IsNumber, IsNotEmpty } from 'class-validator';
 import { Pregnancy} from 'src/pregnancy/entities/pregnancy.entities';
+import {Types} from 'mongoose';
 export class createBabyDto {
   @IsNotEmpty()
   @IsString()
-  babyId: string;
+  babyId: Types.ObjectId
 
   @IsNotEmpty()
   @IsString()
-  pregId: Pregnancy;
+  pregId: Types.ObjectId
 
   @IsNotEmpty()
-  @IsDate()
-  week: Number;
+  @IsNumber()
+  week: number;
   
   @IsNotEmpty()
-  @IsNumber()
-  sizeImageUrl: String;
+  @IsString()
+  sizeImageUrl: string;
+
+  pregnancy:Pregnancy
 }

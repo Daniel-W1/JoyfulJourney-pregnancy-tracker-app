@@ -11,10 +11,10 @@ export class Baby{
   babyId: Types.ObjectId;
 
   @Prop({ required: true })
-  week: Number;
+  week: number;
 
   @Prop({ required: true })
-  sizeImageUrl: String;
+  sizeImageUrl: string;
 }
 
 export const BabySchema = SchemaFactory.createForClass(Baby);
