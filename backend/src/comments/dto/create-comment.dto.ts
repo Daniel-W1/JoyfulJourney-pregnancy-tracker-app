@@ -3,10 +3,11 @@ import mongoose from "mongoose";
 
 export class CreateCommentDto {
     @IsNotEmpty()
-    author: mongoose.Schema.Types.ObjectId;
+    author: string;
 
     @IsNotEmpty()
     body: string;
 
-    postId: [string];
+    @IsNotEmpty()
+    postId: string;
 }

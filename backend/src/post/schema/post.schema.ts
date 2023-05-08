@@ -16,6 +16,4 @@ export class Post {
   comments: [string];
 }
 
-export type CatDocument = HydratedDocument<Post>;
-
 export const PostSchema = SchemaFactory.createForClass(Post);

@@ -7,22 +7,22 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
-  create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentsService.create(createCommentDto);
+  async create(@Body() createCommentDto: CreateCommentDto) {
+    return this.commentsService.createComment(createCommentDto);
   }
 
-  @Get()
-  findAll() {
-    return this.commentsService.findAll();
+  @Get('/post')
+  async findCommentByPost(@Body() postId: string) {
+    return this.commentsService.findCommentByPost(postId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.commentsService.findOne(+id);
+  @Get('/author')
+  async findCommentByAuthor(@Body() author: string) {
+    return this.commentsService.findCommentByAuthor(author);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commentsService.remove(+id);
+  async removeComment(@Param('id') id: string) {
+    return this.commentsService.removeComment(id);
   }
 }
