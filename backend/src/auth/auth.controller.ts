@@ -1,32 +1,26 @@
-import { Controller, Post, Body, UseGuards, Get, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { Roles } from './roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import { RoleGuard } from 'src/auth/role.guard';
-import { Roles } from 'src/auth/roles.decorator';
-import { AuthService } from './auth.service';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
+
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('/login')
-  async login(@Body() loginData) {
-    return this.authService.login(loginData);
-  }
-  @Post('/signup')
-  async signup(@Body() authDto: CreateUserDto) {
-    return this.authService.signup(authDto);
-  }
-  @Post('/logout')
-  async logout() {
-    return this.authService.logout();
+  @Post('login')
+  async login(@Body() body) {
+    return await this.authService.login(body);
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Get('/protected')
-  @Roles('admin')
-  async protected(@Req() req: Request) {
-    return req.user;
+  @Post('signup')
+  async signup(@Body() body) {
+    return await this.authService.signup(body);
+  }
+
+  @Post('logout')
+  async logout(@Body() body) {
+    return await this.authService.logout();
   }
 }

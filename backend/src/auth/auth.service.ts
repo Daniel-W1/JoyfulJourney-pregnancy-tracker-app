@@ -1,27 +1,23 @@
-import {
-  Injectable,
-  ForbiddenException,
-  HttpCode,
-  HttpStatus,
-} from '@nestjs/common';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { ForbiddenException, HttpCode, HttpStatus, Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { compare, hash } from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+import { compare } from 'bcrypt';
+import { Role } from './roles.enum';
 
 @Injectable()
 export class AuthService {
-  constructor(
+  constructor (
     private userService: UserService,
     private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
 
   @HttpCode(HttpStatus.CREATED)
-  async signup(authDto: CreateUserDto) {
+  async signup(userDto: CreateUserDto) {
     try {
-      const user = await this.userService.create(authDto);
+      const user = await this.userService.create(userDto);
       return user;
     } catch (e) {
       throw e;
@@ -30,9 +26,11 @@ export class AuthService {
 
   @HttpCode(HttpStatus.CREATED)
   async login(loginData) {
-    console.log(loginData, 'loginData');
-    const { userName, password } = loginData;
-    const user = await this.userService.findUserByUserName(userName);
+    // console.log(loginData, 'loginData');
+    const { username, password } = loginData;
+    // console.log(username);
+    const user = await this.userService.findOneByUsername(username);
+    // console.log(user);
 
     if (!user) {
       throw new ForbiddenException('Access Denied');
@@ -46,20 +44,22 @@ export class AuthService {
       throw new ForbiddenException('Access Denied');
     }
 
-    const token = await this.getToken(userName, user._id);
+    console.log(user.role, 'user.role');
+    const token = await this.getToken(username, user._id, user.roles);
 
-    return { id: user._id, email: user.email, userName: user.username, ...token };
+    return { id: user._id, username: user.username, ...token };
   }
 
-  async getToken(username: string, id: string) {
-    const payload = { username, sub: id };
-    const token = this.jwtService.sign(payload, {
-      secret: this.configService.get('jwt_key'),
-      expiresIn: 3600 * 24 * 7, // for 7 days
+  async getToken(username: string, id: string, roles: Role[]) {
+    const payload = { username, sub: id, roles: roles };
+    const token = await this.jwtService.sign(payload, {
+      secret: this.configService.get('JWT_SECRET'),
+      expiresIn: 3600 * 24 * 7 * 2,
     });
 
     return { access_token: token };
   }
-
+  
   async logout() {}
 }
+

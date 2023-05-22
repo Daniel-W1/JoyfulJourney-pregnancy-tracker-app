@@ -10,10 +10,10 @@ export interface SocialMedia {
 @Schema()
 export class Profile {
 
-    @Prop({ required: true })
+    @Prop()
     firstname: string;
 
-    @Prop({ required: true })
+    @Prop()
     lastname: string
 
     @Prop({ required: true })
