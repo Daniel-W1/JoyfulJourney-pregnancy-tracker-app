@@ -8,9 +8,11 @@ import { CommentsModule } from './comments/comments.module';
 import { NotesModule } from './notes/notes.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { AppointmentModule } from './appointment/appointment.module';
+import { TipsModule } from './tips/tips.module';
 
 @Module({
-  imports: [ProfileModule, MongooseModule.forRoot('mongodb+srv://Leinad:Leinad@cluster0.ul4bqb4.mongodb.net/?retryWrites=true&w=majority'), NotesModule, UserModule, AuthModule],
+  imports: [ProfileModule, MongooseModule.forRoot('mongodb+srv://Leinad:Leinad@cluster0.ul4bqb4.mongodb.net/?retryWrites=true&w=majority'), PostModule, CommentsModule, NotesModule, UserModule, AuthModule, AppointmentModule, TipsModule],
   controllers: [AppController],
   providers: [AppService],
 })
