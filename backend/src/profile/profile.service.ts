@@ -25,6 +25,15 @@ export class ProfileService {
         }
     }
 
+    async createFirst(username: String) {
+        try {
+            const createdProfile = new this.ProfileModel({ username: username });
+            return await createdProfile.save()
+        } catch (error) {
+            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+        }
+    }
+
     async findOne(id: string): Promise<Profile> {
         try {
             const profile = this.ProfileModel.findById(id).exec();
