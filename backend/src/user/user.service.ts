@@ -9,6 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { ProfileService } from 'src/profile/profile.service';
 import { Role } from 'src/auth/roles.enum';
 
+
 @Injectable()
 export class UserService {
   constructor(
@@ -31,6 +32,34 @@ export class UserService {
     user.password = password;
     savedUser = await user.save();
     return savedUser;
+  }
+
+  async checkUserName(userName: string) {
+    let user = await this.userModel.findOne({ userName }, { password: 0 });
+    if (!user) {
+      return false;
+    }
+    return true;
+  }
+
+  async hashAndSave(user: UserInterface) {
+    const salt = 10;
+    let savedUser: UserInterface;
+    let password: string = await bcrypt.hash(user.password, salt);
+    user.password = password;
+    savedUser = await user.save();
+    return savedUser;
+  }
+
+  async findUserByUserName(userName: string) {
+    let user: UserInterface;
+    try {
+      user = await this.userModel.findOne({ userName });
+    } catch (err) {
+      throw new NotFoundException('User Not Found');
+    }
+
+    return user;
   }
 
   async create(createUserDto: CreateUserDto) {
@@ -107,7 +136,7 @@ export class UserService {
     return updatedUser;
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     try {
       return this.userModel.deleteOne({ _id: id }).exec();
     } catch (error) {

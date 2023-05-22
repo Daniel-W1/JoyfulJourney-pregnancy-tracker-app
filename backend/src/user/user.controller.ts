@@ -7,8 +7,10 @@ import { Roles } from 'src/auth/roles.decorator';
 import { Role } from 'src/auth/roles.enum';
 import { RolesGuard } from 'src/auth/role.guard';
 
+
 @UseGuards(AuthGuard('jwt'))
 @Controller('user')
+@UseGuards(AuthGuard('jwt'))
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
