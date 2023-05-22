@@ -34,23 +34,6 @@ export class UserService {
     return savedUser;
   }
 
-  async checkUserName(userName: string) {
-    let user = await this.userModel.findOne({ userName }, { password: 0 });
-    if (!user) {
-      return false;
-    }
-    return true;
-  }
-
-  async hashAndSave(user: UserInterface) {
-    const salt = 10;
-    let savedUser: UserInterface;
-    let password: string = await bcrypt.hash(user.password, salt);
-    user.password = password;
-    savedUser = await user.save();
-    return savedUser;
-  }
-
   async findUserByUserName(userName: string) {
     let user: UserInterface;
     try {
