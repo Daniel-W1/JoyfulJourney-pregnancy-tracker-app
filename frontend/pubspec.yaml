@@ -31,6 +31,7 @@ dependencies:
   http: ^0.13.6
   json_annotation: ^4.8.1
   json_serializable: ^6.6.2
+  timeline_list: ^0.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,36 +1,22 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:frontend/infrastructure/note/note_dto.dart';
+import 'package:frontend/infrastructure/note/note_form_dto.dart';
+
+import '../../util/custom_http_client.dart';
+
 class NoteAPI {
   CustomHttpClient _customHttpClient = CustomHttpClient();
 
-  Future<> createAnswer(AnswerFormDto answerFormDto) async {
+  Future<NoteDto> createNote(NoteFormDto noteFormDto) async {
     var answer = await _customHttpClient.post("answers",
-        body: json.encode(answerFormDto.toJson()));
+        body: json.encode(noteFormDto.toJson()));
 
     if (answer.statusCode == 201) {
-      return AnswerDto.fromJson(jsonDecode(answer.body));
+      return NoteDto.fromJson(jsonDecode(answer.body));
     } else {
       throw Exception("Failed to create answer"); //TODO: handle the exceptions
     }
   }
-
-  // Future<Note> createNote({
-  //   required String title,
-  //   required String content,
-  // }) async {
-  //   final response = await _customHttpClient.post(
-  //     '/notes',
-  //     body: jsonEncode({
-  //       'title': title,
-  //       'content': content,
-  //     }),
-  //   );
-
-  //   if (response.statusCode == 201) {
-  //     return Note.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Failed to create note');
-  //   }
-  // }
-
-
-
 }
