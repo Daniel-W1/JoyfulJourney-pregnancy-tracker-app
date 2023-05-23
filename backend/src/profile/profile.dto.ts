@@ -6,25 +6,19 @@ import { IsNotEmpty } from "class-validator";
 export class ProfileDto{
 
     @IsNotEmpty()
-    firstname: string;
+    firstname: String[];
 
-    lastname: string
+    lastname: String[]
 
     @IsNotEmpty()
-    username: string
+    username: String[]
 
-    image: string;
-
-    bio: string;
-
-    followers: Types.ObjectId[]
-
-    following: Types.ObjectId[]
-
-    comments: Types.ObjectId[];
-
-    posts: Types.ObjectId[];
-
-    socialMedia: SocialMedia[];
+    image: String;
+    bio: String;
+    followers: String[];
+    following: String[];
+    comments: String[];
+    posts: String[];
+    socialMedia: String[];
 
 }

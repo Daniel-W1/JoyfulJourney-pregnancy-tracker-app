@@ -5,9 +5,9 @@ export const AppointmentSchema = new mongose.Schema({
     description: { type: String, required: true},
     status: { type: String, required: true},
     date: { type: String, required: true},
-    hour: { type: String, required: true},
-    minute: { type: String, required: true},
-    gmt: { type: String, required: true}
+    time: { type: String, required: true},
+    gmt: { type: String, required: true},
+    user_id: { type: String, required: true},
 
 }, {timestamps:true})
 
@@ -17,8 +17,8 @@ export interface Appointment {
     description: string;
     status: string;
     date: string;
-    hour: string;
-    minute: string;
+    time: string;
     gmt: string;
+    user_id: string;
 
 }

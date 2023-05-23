@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Baby,BabyDocument} from './entity/baby.entity';
+import { Baby} from './entity/baby.entity';
 import { createBabyDto } from './dto/create-baby-dto';
-import { updateBabyDto } from './dto/update-baby-dto';
 
 @Injectable()
 export class BabyService {
   constructor(
-    @InjectModel(Baby.name) private  BabyModel: Model<BabyDocument>) {}
+    @InjectModel(Baby.name) private  BabyModel: Model<Baby>) {}
 
   async create(createBabyDto: createBabyDto): Promise<Baby> {
     try {
@@ -39,7 +38,7 @@ export class BabyService {
     }
   }
 
-  async update(id: string, updateBabyDto: updateBabyDto): Promise<Baby> {
+  async update(id: string, updateBabyDto: createBabyDto): Promise<Baby> {
     try {
       const updatedBaby = await this.BabyModel.findByIdAndUpdate(id, updateBabyDto, {new: true});
       if (!updatedBaby) {

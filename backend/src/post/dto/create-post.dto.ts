@@ -3,7 +3,7 @@ import mongoose, { Types } from 'mongoose';
 
 export class CreatePostDto {
   @IsNotEmpty()
-  author: mongoose.Schema.Types.ObjectId;
+  author: string;
 
   @IsNotEmpty()
   body: string;

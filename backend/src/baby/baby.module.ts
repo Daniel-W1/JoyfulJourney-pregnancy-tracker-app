@@ -7,7 +7,7 @@ import { BabySchema} from './entity/baby.entity';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Baby.name, schema: BabySchema }]),
+    MongooseModule.forFeature([{ name: "Baby", schema: BabySchema }]),
   ],
   controllers: [BabyController],
   providers: [BabyService]

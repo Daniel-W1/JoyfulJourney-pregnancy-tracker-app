@@ -10,9 +10,11 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { TipsModule } from './tips/tips.module';
+import { BabyModule } from './baby/baby.module';
+import { PregnancyModule } from './pregnancy/pregnancy.module';
 
 @Module({
-  imports: [ProfileModule, MongooseModule.forRoot('mongodb+srv://Leinad:Leinad@cluster0.ul4bqb4.mongodb.net/?retryWrites=true&w=majority'), PostModule, CommentsModule, NotesModule, UserModule, AuthModule, AppointmentModule, TipsModule],
+  imports: [ProfileModule,BabyModule,PregnancyModule, MongooseModule.forRoot('mongodb+srv://Leinad:Leinad@cluster0.ul4bqb4.mongodb.net/?retryWrites=true&w=majority'), PostModule, CommentsModule, NotesModule, UserModule, AuthModule, AppointmentModule, TipsModule],
   controllers: [AppController],
   providers: [AppService],
 })

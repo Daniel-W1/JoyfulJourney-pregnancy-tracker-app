@@ -3,7 +3,7 @@ export class CreateAppointmentDto {
     description: string;
     status: string;
     date: string;
-    hour: string;
-    minute: string;
+    time: string;
+    user_id: string;
     gmt: string;
 }

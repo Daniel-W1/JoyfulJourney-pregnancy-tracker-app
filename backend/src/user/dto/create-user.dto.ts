@@ -14,5 +14,5 @@ export class CreateUserDto {
     @IsNotEmpty()
     role: string;
 
-    profileId: Types.ObjectId;
+    profileId: string;
 }

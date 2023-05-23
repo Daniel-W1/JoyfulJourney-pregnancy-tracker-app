@@ -1,65 +1,26 @@
-import {
-  Injectable,
-  ForbiddenException,
-  HttpCode,
-  HttpStatus,
-} from '@nestjs/common';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { UserService } from 'src/user/user.service';
-import { JwtService } from '@nestjs/jwt';
-import { compare, hash } from 'bcrypt';
-import { ConfigService } from '@nestjs/config';
+import { Injectable } from '@nestjs/common';
+import { CreateAuthDto } from './dto/create-auth.dto';
+import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private userService: UserService,
-    private jwtService: JwtService,
-    private configService: ConfigService,
-  ) {}
-
-  @HttpCode(HttpStatus.CREATED)
-  async signup(authDto: CreateUserDto) {
-    try {
-      const user = await this.userService.create(authDto);
-      return user;
-    } catch (e) {
-      throw e;
-    }
+  create(createAuthDto: CreateAuthDto) {
+    return 'This action adds a new auth';
   }
 
-  @HttpCode(HttpStatus.CREATED)
-  async login(loginData) {
-    console.log(loginData, 'loginData');
-    const { userName, password } = loginData;
-    const user = await this.userService.findUserByUserName(userName);
-
-    if (!user) {
-      throw new ForbiddenException('Access Denied');
-    }
-
-    const match = await compare(password, user.password);
-
-    if (!match) {
-      console.log("passowrd don't match");
-
-      throw new ForbiddenException('Access Denied');
-    }
-
-    const token = await this.getToken(userName, user._id);
-
-    return { id: user._id, email: user.email, userName: user.username, ...token };
+  findAll() {
+    return `This action returns all auth`;
   }
 
-  async getToken(username: string, id: string) {
-    const payload = { username, sub: id };
-    const token = this.jwtService.sign(payload, {
-      secret: this.configService.get('jwt_key'),
-      expiresIn: 3600 * 24 * 7, // for 7 days
-    });
-
-    return { access_token: token };
+  findOne(id: number) {
+    return `This action returns a #${id} auth`;
   }
 
-  async logout() {}
+  update(id: number, updateAuthDto: UpdateAuthDto) {
+    return `This action updates a #${id} auth`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} auth`;
+  }
 }

@@ -10,6 +10,6 @@ export class CreateNoteDto {
     body:string;
 
     @IsNotEmpty()
-    user_id: Types.ObjectId
+    user_id: string;
 }
 

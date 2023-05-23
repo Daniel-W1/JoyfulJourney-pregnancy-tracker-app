@@ -1,14 +1,24 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import {Types} from 'mongoose';
 import { Pregnancy} from 'src/Pregnancy/entities/pregnancy.entities';
-export type BabyDocument = Baby & Document;
+import { string } from 'yargs';
+
+
+// export const BabySchema = new mongoose.Schema({
+//   pregID: { type: Types.ObjectId, ref: Pregnancy },
+//   babyId: { type: String, required: true },
+//   week: {type:Number, required:true},
+//   sizeImageUrl{type:String, required:true}
+
+// )}
+
 @Schema()
 export class Baby{
-  @Prop({ type: Types.ObjectId, ref: Pregnancy })
-  pregID: Types.ObjectId;
+  @Prop({ type: String })
+  pregID: String;
 
   @Prop({ required: true })
-  babyId: Types.ObjectId;
+  babyId: String;
 
   @Prop({ required: true })
   week: number;
