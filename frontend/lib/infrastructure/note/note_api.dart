@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:frontend/infrastructure/note/note_dto.dart';
 import 'package:frontend/infrastructure/note/note_form_dto.dart';
 
-import '../../util/custom_http_client.dart';
+import '../../util/joyful_http_client.dart';
 
 class NoteAPI {
-  CustomHttpClient _customHttpClient = CustomHttpClient();
+  JoyfulHttpClient _customHttpClient = JoyfulHttpClient();
 
   Future<NoteDto> createNote(NoteFormDto noteFormDto) async {
-    var answer = await _customHttpClient.post("answers",
+    var note = await _customHttpClient.post("note",
         body: json.encode(noteFormDto.toJson()));
 
-    if (answer.statusCode == 201) {
-      return NoteDto.fromJson(jsonDecode(answer.body));
+    if (note.statusCode == 201) {
+      return NoteDto.fromJson(jsonDecode(note.body));
     } else {
-      throw Exception("Failed to create answer"); //TODO: handle the exceptions
+      throw Exception("Failed to create note"); //TODO: handle the exceptions
     }
   }
 }

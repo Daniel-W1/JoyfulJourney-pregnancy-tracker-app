@@ -3,13 +3,13 @@ import 'package:http/http.dart' as http;
 import './string_extension.dart';
 
 // Custom HTTP client to streamline the HTTP requests.
-class CustomHttpClient {
+class JoyfulHttpClient {
   static String baseUrl = "http://localhost:3000";
 
   final http.Client _httpClient = http.Client();
   String? _authToken;
 
-  CustomHttpClient();
+  JoyfulHttpClient();
 
   set authToken(String? value) {
     _authToken = value;
