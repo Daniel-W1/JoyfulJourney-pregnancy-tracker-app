@@ -1,6 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
 import { Types } from 'mongoose';
+import { Role } from 'src/auth/roles.enum';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
     username: string;
@@ -8,7 +9,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     password: string;
 
     email: string;
-    role: string;
+    roles: Role[];
 
     profileId: Types.ObjectId;
 }

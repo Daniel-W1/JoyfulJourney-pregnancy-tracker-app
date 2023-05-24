@@ -10,5 +10,6 @@ import { ProfileService } from './profile.service';
   ],
   controllers: [ProfileController],
   providers: [ProfileService],
+  exports: [ProfileService]
 })
 export class ProfileModule {}
