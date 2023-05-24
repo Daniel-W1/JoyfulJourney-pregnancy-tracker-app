@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class AppointmentBodyDomain extends Equatable {
   String? app_body;
+
   AppointmentBodyDomain({required this.app_body}) {
     if (!RegExp(r'^[a-zA-Z . _ 0-9 ]+$').hasMatch(this.app_body!)) {
       throw Exception('Enter correct medicine description');
