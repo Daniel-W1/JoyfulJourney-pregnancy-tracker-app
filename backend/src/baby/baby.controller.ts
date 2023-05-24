@@ -1,8 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { BabyService } from './baby.service';
 import { Baby } from './entity/baby.entity';
 import { createBabyDto } from './dto/create-baby-dto';
-import { updateBabyDto } from './dto/update-baby-dto';
 
 @Controller('baby')
 export class BabyController {
@@ -15,6 +14,7 @@ export class BabyController {
 
   @Get()
   async findAll(): Promise<Baby[]> {
+    console.log("baby.controller.ts: findAll()");
     return await this.BabyService.findAll();
   }
 
@@ -23,8 +23,8 @@ export class BabyController {
     return await this.BabyService.findOne(id);
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateBabyDto: updateBabyDto): Promise<Baby> {
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateBabyDto: createBabyDto): Promise<Baby> {
     return await this.BabyService.update(id, updateBabyDto);
   }
 

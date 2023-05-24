@@ -5,10 +5,10 @@ export type PregnancyDocument = Pregnancy & Document;
 @Schema()
 export class Pregnancy{
   @Prop({ required: true })
-  pregID: Types.ObjectId;
+  pregID: String;
 
-  @Prop({ type: Types.ObjectId, ref: User})
-  userId: Types.ObjectId;
+  @Prop({ type: String})
+  userId: String;
 
   @Prop({ required: true })
   dueDate: Date;
