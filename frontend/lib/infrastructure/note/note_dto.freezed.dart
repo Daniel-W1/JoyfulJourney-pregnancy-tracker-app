@@ -20,9 +20,10 @@ NoteDto _$NoteDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NoteDto {
-  String? get body => throw _privateConstructorUsedError;
-  String? get title => throw _privateConstructorUsedError;
-  String? get user_id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get body => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  String get user_id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $NoteDtoCopyWith<$Res> {
   factory $NoteDtoCopyWith(NoteDto value, $Res Function(NoteDto) then) =
       _$NoteDtoCopyWithImpl<$Res, NoteDto>;
   @useResult
-  $Res call({String? body, String? title, String? user_id});
+  $Res call({String id, String body, String title, String user_id});
 }
 
 /// @nodoc
@@ -50,23 +51,28 @@ class _$NoteDtoCopyWithImpl<$Res, $Val extends NoteDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? body = freezed,
-    Object? title = freezed,
-    Object? user_id = freezed,
+    Object? id = null,
+    Object? body = null,
+    Object? title = null,
+    Object? user_id = null,
   }) {
     return _then(_value.copyWith(
-      body: freezed == body
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
+              as String,
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      user_id: freezed == user_id
+              as String,
+      user_id: null == user_id
           ? _value.user_id
           : user_id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -78,7 +84,7 @@ abstract class _$$_NoteDtoCopyWith<$Res> implements $NoteDtoCopyWith<$Res> {
       __$$_NoteDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? body, String? title, String? user_id});
+  $Res call({String id, String body, String title, String user_id});
 }
 
 /// @nodoc
@@ -91,23 +97,28 @@ class __$$_NoteDtoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? body = freezed,
-    Object? title = freezed,
-    Object? user_id = freezed,
+    Object? id = null,
+    Object? body = null,
+    Object? title = null,
+    Object? user_id = null,
   }) {
     return _then(_$_NoteDto(
-      body: freezed == body
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
+              as String,
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      user_id: freezed == user_id
+              as String,
+      user_id: null == user_id
           ? _value.user_id
           : user_id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -116,22 +127,27 @@ class __$$_NoteDtoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_NoteDto extends _NoteDto {
   const _$_NoteDto(
-      {required this.body, required this.title, required this.user_id})
+      {required this.id,
+      required this.body,
+      required this.title,
+      required this.user_id})
       : super._();
 
   factory _$_NoteDto.fromJson(Map<String, dynamic> json) =>
       _$$_NoteDtoFromJson(json);
 
   @override
-  final String? body;
+  final String id;
   @override
-  final String? title;
+  final String body;
   @override
-  final String? user_id;
+  final String title;
+  @override
+  final String user_id;
 
   @override
   String toString() {
-    return 'NoteDto(body: $body, title: $title, user_id: $user_id)';
+    return 'NoteDto(id: $id, body: $body, title: $title, user_id: $user_id)';
   }
 
   @override
@@ -139,6 +155,7 @@ class _$_NoteDto extends _NoteDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_NoteDto &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.body, body) || other.body == body) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.user_id, user_id) || other.user_id == user_id));
@@ -146,7 +163,7 @@ class _$_NoteDto extends _NoteDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, body, title, user_id);
+  int get hashCode => Object.hash(runtimeType, id, body, title, user_id);
 
   @JsonKey(ignore: true)
   @override
@@ -164,19 +181,22 @@ class _$_NoteDto extends _NoteDto {
 
 abstract class _NoteDto extends NoteDto {
   const factory _NoteDto(
-      {required final String? body,
-      required final String? title,
-      required final String? user_id}) = _$_NoteDto;
+      {required final String id,
+      required final String body,
+      required final String title,
+      required final String user_id}) = _$_NoteDto;
   const _NoteDto._() : super._();
 
   factory _NoteDto.fromJson(Map<String, dynamic> json) = _$_NoteDto.fromJson;
 
   @override
-  String? get body;
+  String get id;
   @override
-  String? get title;
+  String get body;
   @override
-  String? get user_id;
+  String get title;
+  @override
+  String get user_id;
   @override
   @JsonKey(ignore: true)
   _$$_NoteDtoCopyWith<_$_NoteDto> get copyWith =>

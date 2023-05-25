@@ -16,9 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CommentForm {
-  String get description =>
-      throw _privateConstructorUsedError; //TODO: Change to image
-  String get postid => throw _privateConstructorUsedError;
+  String get body => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CommentFormCopyWith<CommentForm> get copyWith =>
@@ -31,7 +29,7 @@ abstract class $CommentFormCopyWith<$Res> {
           CommentForm value, $Res Function(CommentForm) then) =
       _$CommentFormCopyWithImpl<$Res, CommentForm>;
   @useResult
-  $Res call({String description, String postid});
+  $Res call({String body});
 }
 
 /// @nodoc
@@ -47,17 +45,12 @@ class _$CommentFormCopyWithImpl<$Res, $Val extends CommentForm>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = null,
-    Object? postid = null,
+    Object? body = null,
   }) {
     return _then(_value.copyWith(
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      postid: null == postid
-          ? _value.postid
-          : postid // ignore: cast_nullable_to_non_nullable
+      body: null == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -71,7 +64,7 @@ abstract class _$$_CommentFormCopyWith<$Res>
       __$$_CommentFormCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String description, String postid});
+  $Res call({String body});
 }
 
 /// @nodoc
@@ -85,17 +78,12 @@ class __$$_CommentFormCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = null,
-    Object? postid = null,
+    Object? body = null,
   }) {
     return _then(_$_CommentForm(
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      postid: null == postid
-          ? _value.postid
-          : postid // ignore: cast_nullable_to_non_nullable
+      body: null == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -104,17 +92,14 @@ class __$$_CommentFormCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CommentForm implements _CommentForm {
-  _$_CommentForm({required this.description, required this.postid});
+  _$_CommentForm({required this.body});
 
   @override
-  final String description;
-//TODO: Change to image
-  @override
-  final String postid;
+  final String body;
 
   @override
   String toString() {
-    return 'CommentForm(description: $description, postid: $postid)';
+    return 'CommentForm(body: $body)';
   }
 
   @override
@@ -122,13 +107,11 @@ class _$_CommentForm implements _CommentForm {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CommentForm &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.postid, postid) || other.postid == postid));
+            (identical(other.body, body) || other.body == body));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, description, postid);
+  int get hashCode => Object.hash(runtimeType, body);
 
   @JsonKey(ignore: true)
   @override
@@ -138,14 +121,10 @@ class _$_CommentForm implements _CommentForm {
 }
 
 abstract class _CommentForm implements CommentForm {
-  factory _CommentForm(
-      {required final String description,
-      required final String postid}) = _$_CommentForm;
+  factory _CommentForm({required final String body}) = _$_CommentForm;
 
   @override
-  String get description;
-  @override //TODO: Change to image
-  String get postid;
+  String get body;
   @override
   @JsonKey(ignore: true)
   _$$_CommentFormCopyWith<_$_CommentForm> get copyWith =>
