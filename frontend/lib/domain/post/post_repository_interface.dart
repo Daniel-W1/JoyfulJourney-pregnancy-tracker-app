@@ -10,5 +10,7 @@ abstract class PostRepositoryInterface {
   Future<Either<Postfailure, PostDomain>> addPost(PostForm post);
   Future<Either<Postfailure, PostDomain>> updatePost(PostForm post, String postId);
   Future<Either<Postfailure, Unit>> deletePost(String postId);
+
   Future<Either<Postfailure, PostDomain>> changeLike(String liker, String postId);
 }
+

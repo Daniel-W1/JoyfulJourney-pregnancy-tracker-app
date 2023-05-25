@@ -10,7 +10,6 @@ abstract class CommentRepositoryInterface {
   Future<Either<Commentfailure, List<CommentDomain>>> getUserComments(
       String userid);
   Future<Either<Commentfailure, CommentDomain>> addComment(CommentForm comment);
-  Future<Either<Commentfailure, CommentDomain>> updateComment(
-      CommentForm commentForm, String commentId);
-  Future<void> deleteComment(String commentId);
+  Future<Either<Commentfailure, CommentDomain>> updateComment(CommentForm commentForm, String commentId);
+  Future<Either<Commentfailure, Unit>> deleteComment(String commentId);
 }
