@@ -1,10 +1,11 @@
-import 'package:frontend/domain/profile/edit_profile_domain.dart';
+import 'package:dartz/dartz.dart';
 import 'package:frontend/domain/profile/profile_domain.dart';
+import 'package:frontend/domain/profile/profile_failure.dart';
+import 'package:frontend/domain/profile/profile_form.dart';
 
 abstract class ProfileRepositoryInterface {
-  Future<Profile> updateProfile({required EditProfileForm profileForm});
+  Future<Either<ProfileFailure, ProfileDomain>> updateProfile({required ProfileForm profileForm, required String profileId});
 
-  Future<Profile> getProfile();
+  Future<Either<ProfileFailure, ProfileDomain>> getProfile(String profileId);
 
-  Future<void> deleteAccount();
 }

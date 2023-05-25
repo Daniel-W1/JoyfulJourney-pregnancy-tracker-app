@@ -25,6 +25,7 @@ mixin _$AuthFailure {
     required TResult Function() invalidEmail,
     required TResult Function() invalidPassword,
     required TResult Function() unexpected,
+    required TResult Function() invalidUserName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +37,7 @@ mixin _$AuthFailure {
     TResult? Function()? invalidEmail,
     TResult? Function()? invalidPassword,
     TResult? Function()? unexpected,
+    TResult? Function()? invalidUserName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +49,7 @@ mixin _$AuthFailure {
     TResult Function()? invalidEmail,
     TResult Function()? invalidPassword,
     TResult Function()? unexpected,
+    TResult Function()? invalidUserName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,6 +63,7 @@ mixin _$AuthFailure {
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(InvalidPassword value) invalidPassword,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidUserName value) invalidUserName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,6 +76,7 @@ mixin _$AuthFailure {
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(InvalidPassword value)? invalidPassword,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidUserName value)? invalidUserName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -84,6 +89,7 @@ mixin _$AuthFailure {
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(InvalidPassword value)? invalidPassword,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidUserName value)? invalidUserName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -152,6 +158,7 @@ class _$ServerError implements ServerError {
     required TResult Function() invalidEmail,
     required TResult Function() invalidPassword,
     required TResult Function() unexpected,
+    required TResult Function() invalidUserName,
   }) {
     return serverError();
   }
@@ -166,6 +173,7 @@ class _$ServerError implements ServerError {
     TResult? Function()? invalidEmail,
     TResult? Function()? invalidPassword,
     TResult? Function()? unexpected,
+    TResult? Function()? invalidUserName,
   }) {
     return serverError?.call();
   }
@@ -180,6 +188,7 @@ class _$ServerError implements ServerError {
     TResult Function()? invalidEmail,
     TResult Function()? invalidPassword,
     TResult Function()? unexpected,
+    TResult Function()? invalidUserName,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -199,6 +208,7 @@ class _$ServerError implements ServerError {
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(InvalidPassword value) invalidPassword,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidUserName value) invalidUserName,
   }) {
     return serverError(this);
   }
@@ -214,6 +224,7 @@ class _$ServerError implements ServerError {
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(InvalidPassword value)? invalidPassword,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidUserName value)? invalidUserName,
   }) {
     return serverError?.call(this);
   }
@@ -229,6 +240,7 @@ class _$ServerError implements ServerError {
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(InvalidPassword value)? invalidPassword,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidUserName value)? invalidUserName,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -287,6 +299,7 @@ class _$NetworkError implements NetworkError {
     required TResult Function() invalidEmail,
     required TResult Function() invalidPassword,
     required TResult Function() unexpected,
+    required TResult Function() invalidUserName,
   }) {
     return networkError();
   }
@@ -301,6 +314,7 @@ class _$NetworkError implements NetworkError {
     TResult? Function()? invalidEmail,
     TResult? Function()? invalidPassword,
     TResult? Function()? unexpected,
+    TResult? Function()? invalidUserName,
   }) {
     return networkError?.call();
   }
@@ -315,6 +329,7 @@ class _$NetworkError implements NetworkError {
     TResult Function()? invalidEmail,
     TResult Function()? invalidPassword,
     TResult Function()? unexpected,
+    TResult Function()? invalidUserName,
     required TResult orElse(),
   }) {
     if (networkError != null) {
@@ -334,6 +349,7 @@ class _$NetworkError implements NetworkError {
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(InvalidPassword value) invalidPassword,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidUserName value) invalidUserName,
   }) {
     return networkError(this);
   }
@@ -349,6 +365,7 @@ class _$NetworkError implements NetworkError {
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(InvalidPassword value)? invalidPassword,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidUserName value)? invalidUserName,
   }) {
     return networkError?.call(this);
   }
@@ -364,6 +381,7 @@ class _$NetworkError implements NetworkError {
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(InvalidPassword value)? invalidPassword,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidUserName value)? invalidUserName,
     required TResult orElse(),
   }) {
     if (networkError != null) {
@@ -427,6 +445,7 @@ class _$InvalidEmailAndPasswordCombination
     required TResult Function() invalidEmail,
     required TResult Function() invalidPassword,
     required TResult Function() unexpected,
+    required TResult Function() invalidUserName,
   }) {
     return invalidEmailAndPasswordCombination();
   }
@@ -441,6 +460,7 @@ class _$InvalidEmailAndPasswordCombination
     TResult? Function()? invalidEmail,
     TResult? Function()? invalidPassword,
     TResult? Function()? unexpected,
+    TResult? Function()? invalidUserName,
   }) {
     return invalidEmailAndPasswordCombination?.call();
   }
@@ -455,6 +475,7 @@ class _$InvalidEmailAndPasswordCombination
     TResult Function()? invalidEmail,
     TResult Function()? invalidPassword,
     TResult Function()? unexpected,
+    TResult Function()? invalidUserName,
     required TResult orElse(),
   }) {
     if (invalidEmailAndPasswordCombination != null) {
@@ -474,6 +495,7 @@ class _$InvalidEmailAndPasswordCombination
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(InvalidPassword value) invalidPassword,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidUserName value) invalidUserName,
   }) {
     return invalidEmailAndPasswordCombination(this);
   }
@@ -489,6 +511,7 @@ class _$InvalidEmailAndPasswordCombination
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(InvalidPassword value)? invalidPassword,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidUserName value)? invalidUserName,
   }) {
     return invalidEmailAndPasswordCombination?.call(this);
   }
@@ -504,6 +527,7 @@ class _$InvalidEmailAndPasswordCombination
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(InvalidPassword value)? invalidPassword,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidUserName value)? invalidUserName,
     required TResult orElse(),
   }) {
     if (invalidEmailAndPasswordCombination != null) {
@@ -563,6 +587,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     required TResult Function() invalidEmail,
     required TResult Function() invalidPassword,
     required TResult Function() unexpected,
+    required TResult Function() invalidUserName,
   }) {
     return emailAlreadyInUse();
   }
@@ -577,6 +602,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     TResult? Function()? invalidEmail,
     TResult? Function()? invalidPassword,
     TResult? Function()? unexpected,
+    TResult? Function()? invalidUserName,
   }) {
     return emailAlreadyInUse?.call();
   }
@@ -591,6 +617,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     TResult Function()? invalidEmail,
     TResult Function()? invalidPassword,
     TResult Function()? unexpected,
+    TResult Function()? invalidUserName,
     required TResult orElse(),
   }) {
     if (emailAlreadyInUse != null) {
@@ -610,6 +637,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(InvalidPassword value) invalidPassword,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidUserName value) invalidUserName,
   }) {
     return emailAlreadyInUse(this);
   }
@@ -625,6 +653,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(InvalidPassword value)? invalidPassword,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidUserName value)? invalidUserName,
   }) {
     return emailAlreadyInUse?.call(this);
   }
@@ -640,6 +669,7 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(InvalidPassword value)? invalidPassword,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidUserName value)? invalidUserName,
     required TResult orElse(),
   }) {
     if (emailAlreadyInUse != null) {
@@ -698,6 +728,7 @@ class _$InvalidEmail implements InvalidEmail {
     required TResult Function() invalidEmail,
     required TResult Function() invalidPassword,
     required TResult Function() unexpected,
+    required TResult Function() invalidUserName,
   }) {
     return invalidEmail();
   }
@@ -712,6 +743,7 @@ class _$InvalidEmail implements InvalidEmail {
     TResult? Function()? invalidEmail,
     TResult? Function()? invalidPassword,
     TResult? Function()? unexpected,
+    TResult? Function()? invalidUserName,
   }) {
     return invalidEmail?.call();
   }
@@ -726,6 +758,7 @@ class _$InvalidEmail implements InvalidEmail {
     TResult Function()? invalidEmail,
     TResult Function()? invalidPassword,
     TResult Function()? unexpected,
+    TResult Function()? invalidUserName,
     required TResult orElse(),
   }) {
     if (invalidEmail != null) {
@@ -745,6 +778,7 @@ class _$InvalidEmail implements InvalidEmail {
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(InvalidPassword value) invalidPassword,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidUserName value) invalidUserName,
   }) {
     return invalidEmail(this);
   }
@@ -760,6 +794,7 @@ class _$InvalidEmail implements InvalidEmail {
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(InvalidPassword value)? invalidPassword,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidUserName value)? invalidUserName,
   }) {
     return invalidEmail?.call(this);
   }
@@ -775,6 +810,7 @@ class _$InvalidEmail implements InvalidEmail {
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(InvalidPassword value)? invalidPassword,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidUserName value)? invalidUserName,
     required TResult orElse(),
   }) {
     if (invalidEmail != null) {
@@ -833,6 +869,7 @@ class _$InvalidPassword implements InvalidPassword {
     required TResult Function() invalidEmail,
     required TResult Function() invalidPassword,
     required TResult Function() unexpected,
+    required TResult Function() invalidUserName,
   }) {
     return invalidPassword();
   }
@@ -847,6 +884,7 @@ class _$InvalidPassword implements InvalidPassword {
     TResult? Function()? invalidEmail,
     TResult? Function()? invalidPassword,
     TResult? Function()? unexpected,
+    TResult? Function()? invalidUserName,
   }) {
     return invalidPassword?.call();
   }
@@ -861,6 +899,7 @@ class _$InvalidPassword implements InvalidPassword {
     TResult Function()? invalidEmail,
     TResult Function()? invalidPassword,
     TResult Function()? unexpected,
+    TResult Function()? invalidUserName,
     required TResult orElse(),
   }) {
     if (invalidPassword != null) {
@@ -880,6 +919,7 @@ class _$InvalidPassword implements InvalidPassword {
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(InvalidPassword value) invalidPassword,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidUserName value) invalidUserName,
   }) {
     return invalidPassword(this);
   }
@@ -895,6 +935,7 @@ class _$InvalidPassword implements InvalidPassword {
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(InvalidPassword value)? invalidPassword,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidUserName value)? invalidUserName,
   }) {
     return invalidPassword?.call(this);
   }
@@ -910,6 +951,7 @@ class _$InvalidPassword implements InvalidPassword {
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(InvalidPassword value)? invalidPassword,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidUserName value)? invalidUserName,
     required TResult orElse(),
   }) {
     if (invalidPassword != null) {
@@ -968,6 +1010,7 @@ class _$Unexpected implements Unexpected {
     required TResult Function() invalidEmail,
     required TResult Function() invalidPassword,
     required TResult Function() unexpected,
+    required TResult Function() invalidUserName,
   }) {
     return unexpected();
   }
@@ -982,6 +1025,7 @@ class _$Unexpected implements Unexpected {
     TResult? Function()? invalidEmail,
     TResult? Function()? invalidPassword,
     TResult? Function()? unexpected,
+    TResult? Function()? invalidUserName,
   }) {
     return unexpected?.call();
   }
@@ -996,6 +1040,7 @@ class _$Unexpected implements Unexpected {
     TResult Function()? invalidEmail,
     TResult Function()? invalidPassword,
     TResult Function()? unexpected,
+    TResult Function()? invalidUserName,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -1015,6 +1060,7 @@ class _$Unexpected implements Unexpected {
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(InvalidPassword value) invalidPassword,
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidUserName value) invalidUserName,
   }) {
     return unexpected(this);
   }
@@ -1030,6 +1076,7 @@ class _$Unexpected implements Unexpected {
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(InvalidPassword value)? invalidPassword,
     TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidUserName value)? invalidUserName,
   }) {
     return unexpected?.call(this);
   }
@@ -1045,6 +1092,7 @@ class _$Unexpected implements Unexpected {
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(InvalidPassword value)? invalidPassword,
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidUserName value)? invalidUserName,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -1056,4 +1104,145 @@ class _$Unexpected implements Unexpected {
 
 abstract class Unexpected implements AuthFailure {
   const factory Unexpected() = _$Unexpected;
+}
+
+/// @nodoc
+abstract class _$$InvalidUserNameCopyWith<$Res> {
+  factory _$$InvalidUserNameCopyWith(
+          _$InvalidUserName value, $Res Function(_$InvalidUserName) then) =
+      __$$InvalidUserNameCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidUserNameCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidUserName>
+    implements _$$InvalidUserNameCopyWith<$Res> {
+  __$$InvalidUserNameCopyWithImpl(
+      _$InvalidUserName _value, $Res Function(_$InvalidUserName) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$InvalidUserName implements InvalidUserName {
+  const _$InvalidUserName();
+
+  @override
+  String toString() {
+    return 'AuthFailure.invalidUserName()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InvalidUserName);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() serverError,
+    required TResult Function() networkError,
+    required TResult Function() invalidEmailAndPasswordCombination,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() invalidEmail,
+    required TResult Function() invalidPassword,
+    required TResult Function() unexpected,
+    required TResult Function() invalidUserName,
+  }) {
+    return invalidUserName();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? serverError,
+    TResult? Function()? networkError,
+    TResult? Function()? invalidEmailAndPasswordCombination,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? invalidPassword,
+    TResult? Function()? unexpected,
+    TResult? Function()? invalidUserName,
+  }) {
+    return invalidUserName?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? serverError,
+    TResult Function()? networkError,
+    TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? invalidEmail,
+    TResult Function()? invalidPassword,
+    TResult Function()? unexpected,
+    TResult Function()? invalidUserName,
+    required TResult orElse(),
+  }) {
+    if (invalidUserName != null) {
+      return invalidUserName();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(NetworkError value) networkError,
+    required TResult Function(InvalidEmailAndPasswordCombination value)
+        invalidEmailAndPasswordCombination,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(InvalidPassword value) invalidPassword,
+    required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InvalidUserName value) invalidUserName,
+  }) {
+    return invalidUserName(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(NetworkError value)? networkError,
+    TResult? Function(InvalidEmailAndPasswordCombination value)?
+        invalidEmailAndPasswordCombination,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(InvalidPassword value)? invalidPassword,
+    TResult? Function(Unexpected value)? unexpected,
+    TResult? Function(InvalidUserName value)? invalidUserName,
+  }) {
+    return invalidUserName?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ServerError value)? serverError,
+    TResult Function(NetworkError value)? networkError,
+    TResult Function(InvalidEmailAndPasswordCombination value)?
+        invalidEmailAndPasswordCombination,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(InvalidPassword value)? invalidPassword,
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(InvalidUserName value)? invalidUserName,
+    required TResult orElse(),
+  }) {
+    if (invalidUserName != null) {
+      return invalidUserName(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidUserName implements AuthFailure {
+  const factory InvalidUserName() = _$InvalidUserName;
 }

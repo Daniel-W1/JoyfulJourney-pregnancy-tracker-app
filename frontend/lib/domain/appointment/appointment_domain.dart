@@ -6,8 +6,10 @@ class AppointmentDomain {
   String time;
   String user_id;
   String status;
+  String id;
 
   AppointmentDomain({
+    required this.id,
     required this.title,
     required this.description,
     required this.date,

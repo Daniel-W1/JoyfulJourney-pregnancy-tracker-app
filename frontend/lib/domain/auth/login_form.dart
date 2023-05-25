@@ -11,4 +11,4 @@ class LoginForm with _$LoginForm {
     required Username username,
     required Password password,
   }) = _LoginForm;
-}
+} 
