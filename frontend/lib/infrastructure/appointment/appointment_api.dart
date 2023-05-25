@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import '../../util/custom_http_exception.dart';
 import '../../util/joyful_http_client.dart';
+import 'appointment_dto.dart';
 
 class AppointmentFormDto {}
 
@@ -16,7 +18,7 @@ class AppointmentAPI {
     if (appointment.statusCode == 201) {
       return AppointmentDto.fromJson(jsonDecode(appointment.body));
     } else {
-      throw QHttpException(
+      throw CustomHttpException(
           json.decode(appointment.body)['message'] ?? "Unknown error",
           appointment.statusCode);
     }
@@ -29,7 +31,7 @@ class AppointmentAPI {
     if (apppointment.statusCode == 201) {
       return AppointmentDto.fromJson(jsonDecode(apppointment.body));
     } else {
-      throw QHttpException(
+      throw CustomHttpException(
           json.decode(apppointment.body)['message'] ?? "Unknown error",
           apppointment.statusCode);
     }
@@ -39,7 +41,7 @@ class AppointmentAPI {
     var response = await _customHttpClient.delete("appointment");
 
     if (response.statusCode != 204) {
-      throw QHttpException(
+      throw CustomHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);
     }
@@ -53,23 +55,37 @@ class AppointmentAPI {
           .map((e) => AppointmentDto.fromJson(e))
           .toList();
     } else {
-      throw QHttpException(
+      throw CustomHttpException(
           json.decode(appointment.body)['message'] ?? "Unknown error",
           appointment.statusCode);
     }
   }
 
   Future<AppointmentDto> getOneAppointment(String id) async {
-    var apppointment = await _customHttpClient.get("appointment/" + id);
+    var apppointment = await _customHttpClient.get("appointment/$id");
 
     if (apppointment.statusCode == 201 && apppointment.body != null) {
       return AppointmentDto.fromJson(jsonDecode(apppointment.body));
     } else if (apppointment.body == null) {
-      throw QHttpException("Appointment not found", apppointment.statusCode);
+      throw CustomHttpException("Appointment not found", apppointment.statusCode);
     } else {
-      throw QHttpException(
+      throw CustomHttpException(
           json.decode(apppointment.body)['message'] ?? "Unknown error",
           apppointment.statusCode);
+    }
+  }
+
+  Future<List<AppointmentDto>> getAppointmentsByUser(String author) async {
+    var appointment = await _customHttpClient.get("appointment/user/$author");
+
+    if (appointment.statusCode == 201) {
+      return (jsonDecode(appointment.body) as List)
+          .map((e) => AppointmentDto.fromJson(e))
+          .toList();
+    } else {
+      throw CustomHttpException(
+          json.decode(appointment.body)['message'] ?? "Unknown error",
+          appointment.statusCode);
     }
   }
 }

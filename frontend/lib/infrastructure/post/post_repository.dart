@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:developer' as developer;
 
+import 'package:dartz/dartz.dart';
+
 class PostRepository implements PostRepositoryInterface {
   final PostApi postApi;
 
