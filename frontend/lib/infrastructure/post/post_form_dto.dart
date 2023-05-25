@@ -10,7 +10,7 @@ class PostFormDto with _$PostFormDto {
   const factory PostFormDto({
     required String body,
     required List<String> comments,
-    required int likes,
+    required List<String> likes,
   }) = _PostFormDto;
 
   factory PostFormDto.fromJson(Map<String, dynamic> json) =>

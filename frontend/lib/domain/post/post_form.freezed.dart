@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PostForm {
   String get body => throw _privateConstructorUsedError;
   List<String> get comments => throw _privateConstructorUsedError;
-  int get likes => throw _privateConstructorUsedError;
+  List<String> get likes => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostFormCopyWith<PostForm> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $PostFormCopyWith<$Res> {
   factory $PostFormCopyWith(PostForm value, $Res Function(PostForm) then) =
       _$PostFormCopyWithImpl<$Res, PostForm>;
   @useResult
-  $Res call({String body, List<String> comments, int likes});
+  $Res call({String body, List<String> comments, List<String> likes});
 }
 
 /// @nodoc
@@ -62,7 +62,7 @@ class _$PostFormCopyWithImpl<$Res, $Val extends PostForm>
       likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
     ) as $Val);
   }
 }
@@ -74,7 +74,7 @@ abstract class _$$_PostFormCopyWith<$Res> implements $PostFormCopyWith<$Res> {
       __$$_PostFormCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String body, List<String> comments, int likes});
+  $Res call({String body, List<String> comments, List<String> likes});
 }
 
 /// @nodoc
@@ -102,9 +102,9 @@ class __$$_PostFormCopyWithImpl<$Res>
           : comments // ignore: cast_nullable_to_non_nullable
               as List<String>,
       likes: null == likes
-          ? _value.likes
+          ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
     ));
   }
 }
@@ -115,8 +115,9 @@ class _$_PostForm implements _PostForm {
   _$_PostForm(
       {required this.body,
       required final List<String> comments,
-      required this.likes})
-      : _comments = comments;
+      required final List<String> likes})
+      : _comments = comments,
+        _likes = likes;
 
   @override
   final String body;
@@ -128,8 +129,13 @@ class _$_PostForm implements _PostForm {
     return EqualUnmodifiableListView(_comments);
   }
 
+  final List<String> _likes;
   @override
-  final int likes;
+  List<String> get likes {
+    if (_likes is EqualUnmodifiableListView) return _likes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_likes);
+  }
 
   @override
   String toString() {
@@ -143,12 +149,15 @@ class _$_PostForm implements _PostForm {
             other is _$_PostForm &&
             (identical(other.body, body) || other.body == body) &&
             const DeepCollectionEquality().equals(other._comments, _comments) &&
-            (identical(other.likes, likes) || other.likes == likes));
+            const DeepCollectionEquality().equals(other._likes, _likes));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, body, const DeepCollectionEquality().hash(_comments), likes);
+      runtimeType,
+      body,
+      const DeepCollectionEquality().hash(_comments),
+      const DeepCollectionEquality().hash(_likes));
 
   @JsonKey(ignore: true)
   @override
@@ -161,14 +170,14 @@ abstract class _PostForm implements PostForm {
   factory _PostForm(
       {required final String body,
       required final List<String> comments,
-      required final int likes}) = _$_PostForm;
+      required final List<String> likes}) = _$_PostForm;
 
   @override
   String get body;
   @override
   List<String> get comments;
   @override
-  int get likes;
+  List<String> get likes;
   @override
   @JsonKey(ignore: true)
   _$$_PostFormCopyWith<_$_PostForm> get copyWith =>

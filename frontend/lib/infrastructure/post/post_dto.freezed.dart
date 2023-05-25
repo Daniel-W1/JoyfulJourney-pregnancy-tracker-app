@@ -24,7 +24,7 @@ mixin _$PostDto {
   String get body => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
   List<String> get comments => throw _privateConstructorUsedError;
-  int get likes => throw _privateConstructorUsedError;
+  List<String> get likes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +41,7 @@ abstract class $PostDtoCopyWith<$Res> {
       String body,
       String author,
       List<String> comments,
-      int likes});
+      List<String> likes});
 }
 
 /// @nodoc
@@ -83,7 +83,7 @@ class _$PostDtoCopyWithImpl<$Res, $Val extends PostDto>
       likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
     ) as $Val);
   }
 }
@@ -100,7 +100,7 @@ abstract class _$$_PostDtoCopyWith<$Res> implements $PostDtoCopyWith<$Res> {
       String body,
       String author,
       List<String> comments,
-      int likes});
+      List<String> likes});
 }
 
 /// @nodoc
@@ -137,9 +137,9 @@ class __$$_PostDtoCopyWithImpl<$Res>
           : comments // ignore: cast_nullable_to_non_nullable
               as List<String>,
       likes: null == likes
-          ? _value.likes
+          ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
     ));
   }
 }
@@ -152,8 +152,9 @@ class _$_PostDto extends _PostDto {
       required this.body,
       required this.author,
       required final List<String> comments,
-      required this.likes})
+      required final List<String> likes})
       : _comments = comments,
+        _likes = likes,
         super._();
 
   factory _$_PostDto.fromJson(Map<String, dynamic> json) =>
@@ -173,8 +174,13 @@ class _$_PostDto extends _PostDto {
     return EqualUnmodifiableListView(_comments);
   }
 
+  final List<String> _likes;
   @override
-  final int likes;
+  List<String> get likes {
+    if (_likes is EqualUnmodifiableListView) return _likes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_likes);
+  }
 
   @override
   String toString() {
@@ -190,13 +196,18 @@ class _$_PostDto extends _PostDto {
             (identical(other.body, body) || other.body == body) &&
             (identical(other.author, author) || other.author == author) &&
             const DeepCollectionEquality().equals(other._comments, _comments) &&
-            (identical(other.likes, likes) || other.likes == likes));
+            const DeepCollectionEquality().equals(other._likes, _likes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, body, author,
-      const DeepCollectionEquality().hash(_comments), likes);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      body,
+      author,
+      const DeepCollectionEquality().hash(_comments),
+      const DeepCollectionEquality().hash(_likes));
 
   @JsonKey(ignore: true)
   @override
@@ -218,7 +229,7 @@ abstract class _PostDto extends PostDto {
       required final String body,
       required final String author,
       required final List<String> comments,
-      required final int likes}) = _$_PostDto;
+      required final List<String> likes}) = _$_PostDto;
   const _PostDto._() : super._();
 
   factory _PostDto.fromJson(Map<String, dynamic> json) = _$_PostDto.fromJson;
@@ -232,7 +243,7 @@ abstract class _PostDto extends PostDto {
   @override
   List<String> get comments;
   @override
-  int get likes;
+  List<String> get likes;
   @override
   @JsonKey(ignore: true)
   _$$_PostDtoCopyWith<_$_PostDto> get copyWith =>

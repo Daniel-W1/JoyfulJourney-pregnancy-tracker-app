@@ -11,7 +11,7 @@ _$_PostFormDto _$$_PostFormDtoFromJson(Map<String, dynamic> json) =>
       body: json['body'] as String,
       comments:
           (json['comments'] as List<dynamic>).map((e) => e as String).toList(),
-      likes: json['likes'] as int,
+      likes: (json['likes'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$_PostFormDtoToJson(_$_PostFormDto instance) =>

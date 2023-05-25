@@ -83,4 +83,15 @@ class PostAPI {
           posts.statusCode);
     }
   }
+
+  Future<PostDto> changeLike(String liker, String postId) async {
+    var post = await jjHttpClient.patch("post/like/$postId", body: json.encode({"liker": liker}));
+
+    if (post.statusCode == 201) {
+      return PostDto.fromJson(jsonDecode(post.body));
+    } else {
+      throw JJHttpException(json.decode(post.body)['message'] ?? "Unknown error",
+          post.statusCode);
+    }
+  }
 }

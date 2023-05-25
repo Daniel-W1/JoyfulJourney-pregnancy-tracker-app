@@ -9,7 +9,7 @@ class PostEntity with _$PostEntity {
      required String body,
     required String author,
     required List<String> comments,
-    required int likes,
+    required List<String> likes,
     required String id,
   }) = _PostEntity;
 

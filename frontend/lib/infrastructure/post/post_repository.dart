@@ -67,4 +67,15 @@ class PostRepository implements PostRepositoryInterface {
       return left(Postfailure.serverError());
     }
   }
+
+  @override
+  Future<Either<Postfailure, PostDomain>> changeLike(
+      String liker, String postId) async {
+    try {
+      var updatedPost = await postApi.changeLike(liker, postId);
+      return right(PostDomain.fromJson(updatedPost.toJson()));
+    } catch (e) {
+      return left(const Postfailure.serverError());
+    }
+  }
 }
