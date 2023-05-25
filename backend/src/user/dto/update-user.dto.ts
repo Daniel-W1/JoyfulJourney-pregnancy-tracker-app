@@ -10,6 +10,4 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
 
     email: string;
     roles: Role[];
-
-    profileId: Types.ObjectId;
 }
