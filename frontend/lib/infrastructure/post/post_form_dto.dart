@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'postform_dto.freezed.dart';
-part 'postform_dto.g.dart';
+part 'post_form_dto.freezed.dart';
+part 'post_form_dto.g.dart';
 
 @freezed
 class PostFormDto with _$PostFormDto {

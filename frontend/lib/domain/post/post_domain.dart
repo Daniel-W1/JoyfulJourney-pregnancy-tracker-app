@@ -10,8 +10,8 @@ class PostDomain with _$PostDomain{
   const factory PostDomain({
     required String body,
     required String author,
-    required String comment,
-    required String likes,
+    required List<String> comments,
+    required int likes,
     required String id
   }) = _PostDomain;
 

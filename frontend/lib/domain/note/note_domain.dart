@@ -5,10 +5,6 @@ part 'note_domain.g.dart';
 
 @freezed
 class NoteDomain with _$NoteDomain {
-  // it has title, body, user_id
-  // it has a constructor that takes title, body, user_id
-  // it has a toString method
-  // it has a props method
 
   const factory NoteDomain({
     required String id,

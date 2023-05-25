@@ -5,73 +5,69 @@ import 'package:dartz/dartz.dart';
 import 'package:frontend/domain/post/post_domain.dart';
 import 'package:frontend/domain/post/post_failure.dart';
 import 'package:frontend/domain/post/post_form.dart';
-import 'package:frontend/domain/post/post_id_domain.dart';
 import 'package:frontend/domain/post/post_repository_interface.dart';
 import 'package:frontend/infrastructure/post/post_api.dart';
+import 'package:frontend/infrastructure/post/post_dto.dart';
+import 'package:frontend/infrastructure/post/post_form_mapper.dart';
 
 class PostRepository implements PostRepositoryInterface {
-  final PostApi postApi;
+  final PostAPI postApi;
 
   PostRepository(this.postApi);
 
   @override
-  Future<Either<Postfailure, PostDomain>> updatePost({required PostForm postForm, required PostIdDomain post_id}) async {
+  Future<Either<Postfailure, List<PostDomain>>> getPosts() async {
     try {
-      var post = await postApi.updatePost();
-      return right(questions
-          .map((QuestionDto questionDto) =>
-              Question.fromJson(questionDto.toJson()))
+      var posts = await postApi.getPosts();
+      return right(posts
+          .map((PostDto postDto) => PostDomain.fromJson(postDto.toJson()))
           .toList());
-    }
-    // TODO: handle more errors
-    // TODO: Make sure user is authenticated
-    catch (e) {
-      return left(const QuestionFailure.serverError());
-    }
-
-    try {
-      PostDto postDto = await postApi.updatePost(postForm: postForm);
-      return Either(val: postDto.toPost());
-    } on QHttpException catch (e) {
-      return Either(error: Error(e.message));
-    } on SocketException catch (_) {
-      return Either(error: Error("Check your internet connection"));
-    } on Exception catch (e) {
-      developer.log("Unexpected error while updating post in Post Repo",
-          error: e);
-      return Either(error: Error("Unknown error"));
+    } catch (e) {
+      return left(const Postfailure.serverError());
     }
   }
 
   @override
-  Future<Either<Post>> getPost() async {
+  Future<Either<Postfailure, List<PostDomain>>> getPostsForAuthor(
+      String author) async {
     try {
-      PostDto postDto = await postApi.getPost();
-      return Either(val: postDto.toPost());
-    } on QHttpException catch (e) {
-      return Either(error: Error(e.message));
-    } on SocketException catch (_) {
-      return Either(error: Error("Check your internet connection"));
-    } on Exception catch (e) {
-      developer.log("Unexpected error while getting post in Post Repo",
-          error: e);
-      return Either(error: Error("Unknown error"));
+      var posts = await postApi.getPostByUser(author);
+      return right(posts
+          .map((PostDto postDto) => PostDomain.fromJson(postDto.toJson()))
+          .toList());
+    } catch (e) {
+      return left(const Postfailure.serverError());
     }
   }
 
   @override
-  Future<Either<void>> deletePost() async {
+  Future<Either<Postfailure, PostDomain>> addPost(PostForm postForm) async {
     try {
-      await postApi.deletePost();
-      return Either();
-    } on QHttpException catch (e) {
-      return Either(error: Error(e.message));
-    } on SocketException catch (_) {
-      return Either(error: Error("Check your internet connection"));
-    } on Exception catch (e) {
-      developer.log("Unexpected error while deleting post in Post Repo",
-          error: e);
-      return Either(error: Error("Unknown error"));
+      var createdPost = await postApi.createPost(postForm.toDto());
+      return right(PostDomain.fromJson(createdPost.toJson()));
+    } catch (e) {
+      return left(const Postfailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<Postfailure, PostDomain>> updatePost(
+      PostForm postForm, String postId) async {
+    try {
+      var updatedPost = await postApi.updatePost(postForm.toDto(), postId);
+      return right(PostDomain.fromJson(updatedPost.toJson()));
+    } catch (e) {
+      return left(const Postfailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<Postfailure, Unit>> deletePost(String postId) async {
+    try {
+      await postApi.deletePost(postId);
+      return right(unit);
+    } catch (e) {
+      return left(Postfailure.serverError());
     }
   }
 }
