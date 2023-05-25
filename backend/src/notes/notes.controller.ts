@@ -16,6 +16,11 @@ export class NotesController {
     return this.notesService.findAll();
   }
 
+  @Get('user/:user_id')
+  findByUser(@Param('user_id') user_id: string) {
+    return this.notesService.findByUser(user_id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.notesService.findOne(id);
