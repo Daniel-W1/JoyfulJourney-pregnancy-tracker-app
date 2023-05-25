@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import '../../util/custom_http_exception.dart';
 import '../../util/joyful_http_client.dart';
+import 'profile_dto.dart';
+import 'profile_form_dto.dart';
 
 class ProfileAPI {
   JoyfulHttpClient _customHttpClient = JoyfulHttpClient();
@@ -14,7 +17,7 @@ class ProfileAPI {
     if (profile.statusCode == 201) {
       return ProfileDto.fromJson(jsonDecode(profile.body));
     } else {
-      throw QHttpException(
+      throw CustomHttpException(
           json.decode(profile.body)['message'] ?? "Unknown error",
           profile.statusCode);
     }
@@ -27,7 +30,7 @@ class ProfileAPI {
     if (profile.statusCode == 201) {
       return ProfileDto.fromJson(jsonDecode(profile.body));
     } else {
-      throw QHttpException(
+      throw CustomHttpException(
           json.decode(profile.body)['message'] ?? "Unknown error",
           profile.statusCode);
     }
@@ -37,7 +40,7 @@ class ProfileAPI {
     var response = await _customHttpClient.delete("profile");
 
     if (response.statusCode != 204) {
-      throw QHttpException(
+      throw CustomHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);
     }
@@ -51,21 +54,35 @@ class ProfileAPI {
           .map((e) => ProfileDto.fromJson(e))
           .toList();
     } else {
-      throw QHttpException(
+      throw CustomHttpException(
           json.decode(profile.body)['message'] ?? "Unknown error",
           profile.statusCode);
     }
   }
 
   Future<ProfileDto> getOneProfile(String id) async {
-    var profile = await _customHttpClient.get("profile/" + id);
+    var profile = await _customHttpClient.get("profile/$id");
 
     if (profile.statusCode == 201 && profile.body != null) {
       return ProfileDto.fromJson(jsonDecode(profile.body));
     } else if (profile.body == null) {
-      throw QHttpException("Profile not found", profile.statusCode);
+      throw CustomHttpException("Profile not found", profile.statusCode);
     } else {
-      throw QHttpException(
+      throw CustomHttpException(
+          json.decode(profile.body)['message'] ?? "Unknown error",
+          profile.statusCode);
+    }
+  }
+
+  Future<ProfileDto> getProfileByUsername(String userName) async {
+    var profile = await _customHttpClient.get("profile/user/$userName");
+
+    if (profile.statusCode == 201 && profile.body != null) {
+      return ProfileDto.fromJson(jsonDecode(profile.body));
+    } else if (profile.body == null) {
+      throw CustomHttpException("Profile not found", profile.statusCode);
+    } else {
+      throw CustomHttpException(
           json.decode(profile.body)['message'] ?? "Unknown error",
           profile.statusCode);
     }

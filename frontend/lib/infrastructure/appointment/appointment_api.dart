@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import '../../util/custom_http_exception.dart';
 import '../../util/joyful_http_client.dart';
 import 'appointment_dto.dart';
-
-class AppointmentFormDto {}
+import 'appointment_form_dto.dart';
 
 class AppointmentAPI {
   JoyfulHttpClient _customHttpClient = JoyfulHttpClient();
