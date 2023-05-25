@@ -1,26 +1,22 @@
-class NoteDomain {
+
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'note_domain.freezed.dart';
+part 'note_domain.g.dart';
+
+@freezed
+class NoteDomain with _$NoteDomain {
   // it has title, body, user_id
   // it has a constructor that takes title, body, user_id
   // it has a toString method
   // it has a props method
 
-  String id;
-  String body;
-  String title;
-  String user_id;
+  const factory NoteDomain({
+    required String id,
+    required String body,
+    required String title,
+    required String user_id,
+  }) = _NoteDomain;
 
-  NoteDomain({
-    required this.id,
-    required this.body,
-    required this.title,
-    required this.user_id,
-  });
-
-  @override
-  String toString() {
-    return 'NoteDomain(body: $body, title: $title, user_id: $user_id)';
-  }
-
-  @override
-  List<Object> get props => [body, title, user_id];
+  factory NoteDomain.fromJson(Map<String, dynamic> json) =>
+      _$NoteDomainFromJson(json);
 }

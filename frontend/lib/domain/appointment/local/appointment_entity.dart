@@ -12,7 +12,6 @@ class AppointmentEntity with _$AppointmentEntity {
     required String date,
     required String time,
     required String user_id,
-    required String status,
   }) = _AppointmentEntity;
 
   factory AppointmentEntity.fromJson(Map<String, dynamic> json) =>
