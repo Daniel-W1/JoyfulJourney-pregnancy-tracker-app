@@ -3,7 +3,7 @@ import 'package:frontend/domain/tip/tip_domain.dart';
 import 'package:frontend/domain/tip/tip_failure.dart';
 import 'package:frontend/domain/tip/tip_form.dart';
 
-abstract class TipRepository {
+abstract class TipRepositoryInterface {
   Future<Either<Tipfailure, List<TipDomain>>> getTips();
   Future<Either<Tipfailure, List<TipDomain>>> getTipsByType(String type);
   Future<Either<Tipfailure, TipDomain>> addTip(TipForm tip);
