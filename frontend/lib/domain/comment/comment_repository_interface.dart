@@ -3,7 +3,7 @@ import 'package:frontend/domain/comment/comment_domain.dart';
 import 'package:frontend/domain/comment/comment_failure.dart';
 import 'package:frontend/domain/comment/comment_form.dart';
 
-abstract class CommentRepository {
+abstract class CommentRepositoryInterface {
   Future<Either<Commentfailure, List<CommentDomain>>> getCommentsForPost(
       String postId);
   Future<Either<Commentfailure, List<CommentDomain>>> getComments();
