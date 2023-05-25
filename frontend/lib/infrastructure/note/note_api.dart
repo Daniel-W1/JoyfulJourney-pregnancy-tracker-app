@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/infrastructure/note/note_dto.dart';
 import 'package:frontend/infrastructure/note/note_form_dto.dart';
-
 import '../../util/custom_http_client.dart';
 
 class NoteAPI {
