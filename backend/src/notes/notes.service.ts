@@ -34,6 +34,15 @@ export class NotesService {
 
   }
 
+  async findByUser(user_id: string) {
+    try{
+      const finder = {user_id: user_id};
+      return await this.NoteModel.find(finder).exec();
+    } catch (error) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async updateNote(id: string, updateCreateNoteDto: CreateNoteDto): Promise<Note> {
     try {
 

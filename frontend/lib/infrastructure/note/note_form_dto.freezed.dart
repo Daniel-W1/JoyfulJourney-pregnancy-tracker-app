@@ -22,7 +22,6 @@ NoteFormDto _$NoteFormDtoFromJson(Map<String, dynamic> json) {
 mixin _$NoteFormDto {
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get user_id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +35,7 @@ abstract class $NoteFormDtoCopyWith<$Res> {
           NoteFormDto value, $Res Function(NoteFormDto) then) =
       _$NoteFormDtoCopyWithImpl<$Res, NoteFormDto>;
   @useResult
-  $Res call({String title, String description, String user_id});
+  $Res call({String title, String description});
 }
 
 /// @nodoc
@@ -54,7 +53,6 @@ class _$NoteFormDtoCopyWithImpl<$Res, $Val extends NoteFormDto>
   $Res call({
     Object? title = null,
     Object? description = null,
-    Object? user_id = null,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -64,10 +62,6 @@ class _$NoteFormDtoCopyWithImpl<$Res, $Val extends NoteFormDto>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      user_id: null == user_id
-          ? _value.user_id
-          : user_id // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -81,7 +75,7 @@ abstract class _$$_NoteFormDtoCopyWith<$Res>
       __$$_NoteFormDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, String description, String user_id});
+  $Res call({String title, String description});
 }
 
 /// @nodoc
@@ -97,7 +91,6 @@ class __$$_NoteFormDtoCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? description = null,
-    Object? user_id = null,
   }) {
     return _then(_$_NoteFormDto(
       title: null == title
@@ -108,10 +101,6 @@ class __$$_NoteFormDtoCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      user_id: null == user_id
-          ? _value.user_id
-          : user_id // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -119,8 +108,7 @@ class __$$_NoteFormDtoCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_NoteFormDto implements _NoteFormDto {
-  const _$_NoteFormDto(
-      {required this.title, required this.description, required this.user_id});
+  const _$_NoteFormDto({required this.title, required this.description});
 
   factory _$_NoteFormDto.fromJson(Map<String, dynamic> json) =>
       _$$_NoteFormDtoFromJson(json);
@@ -129,12 +117,10 @@ class _$_NoteFormDto implements _NoteFormDto {
   final String title;
   @override
   final String description;
-  @override
-  final String user_id;
 
   @override
   String toString() {
-    return 'NoteFormDto(title: $title, description: $description, user_id: $user_id)';
+    return 'NoteFormDto(title: $title, description: $description)';
   }
 
   @override
@@ -144,13 +130,12 @@ class _$_NoteFormDto implements _NoteFormDto {
             other is _$_NoteFormDto &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.user_id, user_id) || other.user_id == user_id));
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, description, user_id);
+  int get hashCode => Object.hash(runtimeType, title, description);
 
   @JsonKey(ignore: true)
   @override
@@ -169,8 +154,7 @@ class _$_NoteFormDto implements _NoteFormDto {
 abstract class _NoteFormDto implements NoteFormDto {
   const factory _NoteFormDto(
       {required final String title,
-      required final String description,
-      required final String user_id}) = _$_NoteFormDto;
+      required final String description}) = _$_NoteFormDto;
 
   factory _NoteFormDto.fromJson(Map<String, dynamic> json) =
       _$_NoteFormDto.fromJson;
@@ -179,8 +163,6 @@ abstract class _NoteFormDto implements NoteFormDto {
   String get title;
   @override
   String get description;
-  @override
-  String get user_id;
   @override
   @JsonKey(ignore: true)
   _$$_NoteFormDtoCopyWith<_$_NoteFormDto> get copyWith =>

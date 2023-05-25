@@ -1,55 +1,72 @@
-import 'dart:io';
-import 'dart:developer' as developer;
+import 'package:dartz/dartz.dart';
+import 'package:frontend/domain/tip/tip_domain.dart';
+import 'package:frontend/domain/tip/tip_failure.dart';
+import 'package:frontend/domain/tip/tip_form.dart';
+import 'package:frontend/domain/tip/tip_repository_interface.dart';
+import 'package:frontend/infrastructure/tip/tip_api.dart';
+import 'package:frontend/infrastructure/tip/tip_dto.dart';
+import 'package:frontend/infrastructure/tip/tip_form_mapper.dart';
 
 class TipRepository implements TipRepositoryInterface {
-  final TipApi tipApi;
+  final TipAPI tipApi;
 
   TipRepository(this.tipApi);
 
   @override
-  Future<Either<Tip>> updateTip({required EditTipForm tipForm}) async {
+  Future<Either<Tipfailure, TipDomain>> addTip(
+      TipForm tipForm) async {
     try {
-      TipDto tipDto = await tipApi.updateTip(tipForm: tipForm);
-      return Either(val: tipDto.toTip());
-    } on QHttpException catch (e) {
-      return Either(error: Error(e.message));
-    } on SocketException catch (_) {
-      return Either(error: Error("Check your internet connection"));
-    } on Exception catch (e) {
-      developer.log("Unexpected error while updating tip in Tip Repo",
-          error: e);
-      return Either(error: Error("Unknown error"));
+      var tip = await tipApi.createTip(tipForm.toDto());
+      return right(TipDomain.fromJson(tip.toJson()));
+    } catch (e) {
+      return left(const Tipfailure.serverError());
     }
   }
 
   @override
-  Future<Either<Tip>> getTip() async {
+  Future<Either<Tipfailure, TipDomain>> updateTip(
+      TipForm tipForm, String tipId) async {
     try {
-      TipDto tipDto = await tipApi.getTip();
-      return Either(val: tipDto.toTip());
-    } on QHttpException catch (e) {
-      return Either(error: Error(e.message));
-    } on SocketException catch (_) {
-      return Either(error: Error("Check your internet connection"));
-    } on Exception catch (e) {
-      developer.log("Unexpected error while getting tip in Tip Repo", error: e);
-      return Either(error: Error("Unknown error"));
+      var updatedTipDto =
+          await tipApi.updateTip(tipForm.toDto(), tipId);
+      return right(TipDomain.fromJson(updatedTipDto.toJson()));
+    } catch (e) {
+      return left(const Tipfailure.serverError());
     }
   }
 
   @override
-  Future<Either<void>> deleteTip() async {
+  Future<Either<Tipfailure, Unit>> deleteTip(String tipId) async {
     try {
-      await tipApi.deleteTip();
-      return Either();
-    } on QHttpException catch (e) {
-      return Either(error: Error(e.message));
-    } on SocketException catch (_) {
-      return Either(error: Error("Check your internet connection"));
-    } on Exception catch (e) {
-      developer.log("Unexpected error while deleting tip in Tip Repo",
-          error: e);
-      return Either(error: Error("Unknown error"));
+      await tipApi.deleteTip(tipId);
+      return right(unit);
+    } catch (e) {
+      return left(const Tipfailure.serverError());
     }
   }
+
+  @override
+  Future<Either<Tipfailure, List<TipDomain>>> getTipsByType(
+      String tipId) async {
+    try {
+      var tips = await tipApi.getTipsByType(tipId);
+      return right(tips
+          .map((TipDto tipDto) => TipDomain.fromJson(tipDto.toJson()))
+          .toList());
+    } catch (e) {
+      return left(const Tipfailure.serverError());
+    }
+  }
+  @override
+  Future<Either<Tipfailure, List<TipDomain>>> getTips() async {
+    try {
+      var tips = await tipApi.getTips();
+      return right(tips
+          .map((TipDto tipDto) => TipDomain.fromJson(tipDto.toJson()))
+          .toList());
+    } catch (e) {
+      return left(const Tipfailure.serverError());
+    }
+  }
+
 }

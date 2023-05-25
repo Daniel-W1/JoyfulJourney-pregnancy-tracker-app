@@ -1,15 +1,33 @@
-import 'package:frontend/domain/note/note_body_domain.dart';
 import 'package:frontend/domain/note/note_domain.dart';
-import 'package:frontend/domain/note/note_title_domain.dart';
-import 'package:frontend/domain/note/note_user_id_domain.dart';
+import 'package:frontend/domain/note/local/note_entity.dart';
 import 'package:frontend/infrastructure/note/note_dto.dart';
 
-extension NoteMapper on NoteDto {
-  NoteDomain toNote() {
+extension on NoteDto {
+  NoteDto fromNoteEntity(NoteEntity note) {
+    return NoteDto(
+      id: note.id,
+      title: note.title,
+      body: note.body,
+      user_id: note.user_id,
+    );
+  }
+
+  NoteEntity toNoteEntity() {
+    return NoteEntity(
+      id: id,
+      title: title,
+      body: body,
+      user_id: user_id,
+    );
+  }
+
+  NoteDomain toNoteDomain() {
     return NoteDomain(
-      body: Notebody(notebody: body),
-      title: Notetitle(notetitle: title),
-      user_id: Noteuserid(user_id: user_id),
+      id: id,
+      title: title,
+      body: body,
+      user_id: user_id,
+
     );
   }
 }

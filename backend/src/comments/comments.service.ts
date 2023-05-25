@@ -43,7 +43,23 @@ export class CommentsService {
     }
   }
 
-  removeComment(id: string) {
-    return `This action removes a #${id} comment`;
+  async updateComment(id: string, updateCommentDto: CreateCommentDto) {
+    try{
+      const filter = {_id: id};
+      const updatedComment = this.commentModel.findByIdAndUpdate(filter, updateCommentDto, {new: true}).exec();
+      return updatedComment;
+    } catch(error) {
+      throw new Error(`Couldn't update comment: ${error.message}`);
+    }
   }
+
+  async removeComment(id: string) {
+    const filter = {_id: id};
+    try{
+      const deletedComment = this.commentModel.findByIdAndRemove(filter).exec();
+
+  } catch(error) {
+    throw new Error(`Couldn't delete comment: ${error.message}`);
+  }
+}
 }

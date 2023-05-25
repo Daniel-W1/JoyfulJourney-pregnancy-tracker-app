@@ -1,22 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'note_dto.dart';
+part of 'tip_form_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_NoteDto _$$_NoteDtoFromJson(Map<String, dynamic> json) => _$_NoteDto(
-      id: json['id'] as String,
+_$_TipFormDto _$$_TipFormDtoFromJson(Map<String, dynamic> json) =>
+    _$_TipFormDto(
       body: json['body'] as String,
       title: json['title'] as String,
-      user_id: json['user_id'] as String,
+      type: json['type'] as String,
     );
 
-Map<String, dynamic> _$$_NoteDtoToJson(_$_NoteDto instance) =>
+Map<String, dynamic> _$$_TipFormDtoToJson(_$_TipFormDto instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'body': instance.body,
       'title': instance.title,
-      'user_id': instance.user_id,
+      'type': instance.type,
     };

@@ -9,7 +9,6 @@ class NoteFormDto with _$NoteFormDto {
   const factory NoteFormDto({
     required String title,
     required String description,
-    required String user_id,
   }) = _NoteFormDto;
 
   factory NoteFormDto.fromJson(Map<String, dynamic> json) =>

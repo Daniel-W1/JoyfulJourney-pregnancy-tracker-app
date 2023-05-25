@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
 import 'package:frontend/infrastructure/appointment/appointment_form_dto.dart';
 import 'package:frontend/util/jj_http_client.dart';

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'note_dto.dart';
+part of 'tip_form_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,34 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-NoteDto _$NoteDtoFromJson(Map<String, dynamic> json) {
-  return _NoteDto.fromJson(json);
+TipFormDto _$TipFormDtoFromJson(Map<String, dynamic> json) {
+  return _TipFormDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$NoteDto {
-  String get id => throw _privateConstructorUsedError;
+mixin _$TipFormDto {
   String get body => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get user_id => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $NoteDtoCopyWith<NoteDto> get copyWith => throw _privateConstructorUsedError;
+  $TipFormDtoCopyWith<TipFormDto> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $NoteDtoCopyWith<$Res> {
-  factory $NoteDtoCopyWith(NoteDto value, $Res Function(NoteDto) then) =
-      _$NoteDtoCopyWithImpl<$Res, NoteDto>;
+abstract class $TipFormDtoCopyWith<$Res> {
+  factory $TipFormDtoCopyWith(
+          TipFormDto value, $Res Function(TipFormDto) then) =
+      _$TipFormDtoCopyWithImpl<$Res, TipFormDto>;
   @useResult
-  $Res call({String id, String body, String title, String user_id});
+  $Res call({String body, String title, String type});
 }
 
 /// @nodoc
-class _$NoteDtoCopyWithImpl<$Res, $Val extends NoteDto>
-    implements $NoteDtoCopyWith<$Res> {
-  _$NoteDtoCopyWithImpl(this._value, this._then);
+class _$TipFormDtoCopyWithImpl<$Res, $Val extends TipFormDto>
+    implements $TipFormDtoCopyWith<$Res> {
+  _$TipFormDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -51,16 +52,11 @@ class _$NoteDtoCopyWithImpl<$Res, $Val extends NoteDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? body = null,
     Object? title = null,
-    Object? user_id = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
@@ -69,44 +65,41 @@ class _$NoteDtoCopyWithImpl<$Res, $Val extends NoteDto>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      user_id: null == user_id
-          ? _value.user_id
-          : user_id // ignore: cast_nullable_to_non_nullable
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_NoteDtoCopyWith<$Res> implements $NoteDtoCopyWith<$Res> {
-  factory _$$_NoteDtoCopyWith(
-          _$_NoteDto value, $Res Function(_$_NoteDto) then) =
-      __$$_NoteDtoCopyWithImpl<$Res>;
+abstract class _$$_TipFormDtoCopyWith<$Res>
+    implements $TipFormDtoCopyWith<$Res> {
+  factory _$$_TipFormDtoCopyWith(
+          _$_TipFormDto value, $Res Function(_$_TipFormDto) then) =
+      __$$_TipFormDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String body, String title, String user_id});
+  $Res call({String body, String title, String type});
 }
 
 /// @nodoc
-class __$$_NoteDtoCopyWithImpl<$Res>
-    extends _$NoteDtoCopyWithImpl<$Res, _$_NoteDto>
-    implements _$$_NoteDtoCopyWith<$Res> {
-  __$$_NoteDtoCopyWithImpl(_$_NoteDto _value, $Res Function(_$_NoteDto) _then)
+class __$$_TipFormDtoCopyWithImpl<$Res>
+    extends _$TipFormDtoCopyWithImpl<$Res, _$_TipFormDto>
+    implements _$$_TipFormDtoCopyWith<$Res> {
+  __$$_TipFormDtoCopyWithImpl(
+      _$_TipFormDto _value, $Res Function(_$_TipFormDto) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? body = null,
     Object? title = null,
-    Object? user_id = null,
+    Object? type = null,
   }) {
-    return _then(_$_NoteDto(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$_TipFormDto(
       body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
@@ -115,9 +108,9 @@ class __$$_NoteDtoCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      user_id: null == user_id
-          ? _value.user_id
-          : user_id // ignore: cast_nullable_to_non_nullable
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -125,80 +118,72 @@ class __$$_NoteDtoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_NoteDto extends _NoteDto {
-  const _$_NoteDto(
-      {required this.id,
-      required this.body,
-      required this.title,
-      required this.user_id})
+class _$_TipFormDto extends _TipFormDto {
+  const _$_TipFormDto(
+      {required this.body, required this.title, required this.type})
       : super._();
 
-  factory _$_NoteDto.fromJson(Map<String, dynamic> json) =>
-      _$$_NoteDtoFromJson(json);
+  factory _$_TipFormDto.fromJson(Map<String, dynamic> json) =>
+      _$$_TipFormDtoFromJson(json);
 
-  @override
-  final String id;
   @override
   final String body;
   @override
   final String title;
   @override
-  final String user_id;
+  final String type;
 
   @override
   String toString() {
-    return 'NoteDto(id: $id, body: $body, title: $title, user_id: $user_id)';
+    return 'TipFormDto(body: $body, title: $title, type: $type)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NoteDto &&
-            (identical(other.id, id) || other.id == id) &&
+            other is _$_TipFormDto &&
             (identical(other.body, body) || other.body == body) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.user_id, user_id) || other.user_id == user_id));
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, body, title, user_id);
+  int get hashCode => Object.hash(runtimeType, body, title, type);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NoteDtoCopyWith<_$_NoteDto> get copyWith =>
-      __$$_NoteDtoCopyWithImpl<_$_NoteDto>(this, _$identity);
+  _$$_TipFormDtoCopyWith<_$_TipFormDto> get copyWith =>
+      __$$_TipFormDtoCopyWithImpl<_$_TipFormDto>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_NoteDtoToJson(
+    return _$$_TipFormDtoToJson(
       this,
     );
   }
 }
 
-abstract class _NoteDto extends NoteDto {
-  const factory _NoteDto(
-      {required final String id,
-      required final String body,
+abstract class _TipFormDto extends TipFormDto {
+  const factory _TipFormDto(
+      {required final String body,
       required final String title,
-      required final String user_id}) = _$_NoteDto;
-  const _NoteDto._() : super._();
+      required final String type}) = _$_TipFormDto;
+  const _TipFormDto._() : super._();
 
-  factory _NoteDto.fromJson(Map<String, dynamic> json) = _$_NoteDto.fromJson;
+  factory _TipFormDto.fromJson(Map<String, dynamic> json) =
+      _$_TipFormDto.fromJson;
 
-  @override
-  String get id;
   @override
   String get body;
   @override
   String get title;
   @override
-  String get user_id;
+  String get type;
   @override
   @JsonKey(ignore: true)
-  _$$_NoteDtoCopyWith<_$_NoteDto> get copyWith =>
+  _$$_TipFormDtoCopyWith<_$_TipFormDto> get copyWith =>
       throw _privateConstructorUsedError;
 }

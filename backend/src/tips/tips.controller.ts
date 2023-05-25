@@ -16,6 +16,11 @@ export class TipsController {
     return this.tipsService.findAll();
   }
 
+  @Get('bytype/:type')
+  async findByType(@Param('type') type: string) {
+    return this.tipsService.findByType(type);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.tipsService.findOne(id);
