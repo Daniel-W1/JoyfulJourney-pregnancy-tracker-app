@@ -46,6 +46,15 @@ export class PostService {
         }
     }
     
+    async findPostByAuthor(author: string): Promise<Post[]> {
+        try {
+          const posts = await this.postModel.find({ author: author }).exec();
+          return posts;
+        } catch (error) {
+          throw new Error(`Failed to find post: ${error.message}`);
+        }
+    }
+    
     async updatePost(id: string, updatePostDto: UpdatePostDto) {
       try {
         const updatedPost = await this.postModel.findByIdAndUpdate(id, updatePostDto, { new: true }).exec();

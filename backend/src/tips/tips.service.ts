@@ -17,7 +17,6 @@ export class TipsService {
     try {
       const newTips = new this.TopicModul(createTipDto);
       const result = await newTips.save();
-      // console.log(result)
       return result;
     } catch (error) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
@@ -26,22 +25,43 @@ export class TipsService {
   }
 
   async findAll() {
-    return this.TopicModul.find().exec();
+    try {
+      return await this.TopicModul.find().exec();
+    } catch (error) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
-  findOne(id: string) {
-    return this.TopicModul.findOne().exec();
+  async findOne(id: string) {
+    try {
+      return await this.TopicModul.findOne({_id: id}).exec();
+    } catch(error) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async findByType(type: string) {
+    try {
+      const finder = {type: type};
+    return await this.TopicModul.find(finder).exec();
+  } catch (error) {
+    throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+  }
   }
 
   async update(id: string, updateTipDto: CreateTipDto):Promise<Tips> {
     try {
-    return this.TopicModul.findByIdAndUpdate(id, updateTipDto, {new: true}).exec();
+    return await this.TopicModul.findByIdAndUpdate(id, updateTipDto, {new: true}).exec();
     } catch (error) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
   }
 
   async remove(id: string): Promise<any>  {
-    return this.TopicModul.deleteOne({_id: id}).exec();
+    try {
+      return await this.TopicModul.findByIdAndDelete(id).exec();
+    } catch (error) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 }

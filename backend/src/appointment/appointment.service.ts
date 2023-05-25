@@ -17,7 +17,6 @@ export class AppointmentService {
     try {
       const newAppointment = new this.appointmentModel(createAppointmentDto);
       const result = await newAppointment.save();
-      // console.log(result)
       return result;
     } catch (error) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
@@ -26,11 +25,29 @@ export class AppointmentService {
   }
 
   async findAll() {
-    return this.appointmentModel.find().exec();
+    try{
+      return this.appointmentModel.find().exec();
+    } catch(error) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async findOne(id:  string): Promise<Appointment> {
-    return this.appointmentModel.findById(id).exec();
+    try{
+      return this.appointmentModel.findById(id).exec();
+    } catch(error) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+    
+  }
+
+  async findByUser(user_id: string): Promise<Appointment[]> {
+    try {
+      const finder = {user_id: user_id};
+      return this.appointmentModel.find(finder).exec();
+    } catch(error) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
   }
 
   async update(id: string, updateAppointmentDto: UpdateAppointmentDto): Promise<Appointment> {
@@ -41,7 +58,12 @@ export class AppointmentService {
       }
   }
 
-  remove(id: string): Promise<any> {
-    return  this.appointmentModel.findByIdAndDelete({_id: id}).exec();
+  async remove(id: string): Promise<any> {
+    try{
+      return await this.appointmentModel.findByIdAndDelete({_id: id}).exec();
+    } catch(error) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+    
   }
 }
