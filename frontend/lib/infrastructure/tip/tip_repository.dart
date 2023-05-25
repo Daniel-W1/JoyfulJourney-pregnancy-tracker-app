@@ -34,6 +34,15 @@ class TipRepository implements TipRepositoryInterface {
       return left(const Tipfailure.serverError());
     }
   }
+  @override
+  Future<Either<Tipfailure, TipDomain>> getTipById(String tipId) async {
+    try {
+      var tip = await tipApi.getOneTip(tipId);
+      return right(TipDomain.fromJson(tip.toJson()));
+    } catch (e) {
+      return left(const Tipfailure.serverError());
+    }
+  }
 
   @override
   Future<Either<Tipfailure, Unit>> deleteTip(String tipId) async {

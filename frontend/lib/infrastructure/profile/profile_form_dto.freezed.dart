@@ -20,15 +20,12 @@ ProfileFormDto _$ProfileFormDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProfileFormDto {
-  String get userName => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
-  String get profilePictureUrl => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
   String get bio => throw _privateConstructorUsedError;
   List<String> get followers => throw _privateConstructorUsedError;
   List<String> get following => throw _privateConstructorUsedError;
-  List<String> get posts => throw _privateConstructorUsedError;
-  List<String> get comments => throw _privateConstructorUsedError;
   List<String> get socialmedias => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,15 +41,12 @@ abstract class $ProfileFormDtoCopyWith<$Res> {
       _$ProfileFormDtoCopyWithImpl<$Res, ProfileFormDto>;
   @useResult
   $Res call(
-      {String userName,
-      String firstName,
+      {String firstName,
       String lastName,
-      String profilePictureUrl,
+      String image,
       String bio,
       List<String> followers,
       List<String> following,
-      List<String> posts,
-      List<String> comments,
       List<String> socialmedias});
 }
 
@@ -69,22 +63,15 @@ class _$ProfileFormDtoCopyWithImpl<$Res, $Val extends ProfileFormDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userName = null,
     Object? firstName = null,
     Object? lastName = null,
-    Object? profilePictureUrl = null,
+    Object? image = null,
     Object? bio = null,
     Object? followers = null,
     Object? following = null,
-    Object? posts = null,
-    Object? comments = null,
     Object? socialmedias = null,
   }) {
     return _then(_value.copyWith(
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String,
       firstName: null == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -93,9 +80,9 @@ class _$ProfileFormDtoCopyWithImpl<$Res, $Val extends ProfileFormDto>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
-      profilePictureUrl: null == profilePictureUrl
-          ? _value.profilePictureUrl
-          : profilePictureUrl // ignore: cast_nullable_to_non_nullable
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String,
       bio: null == bio
           ? _value.bio
@@ -108,14 +95,6 @@ class _$ProfileFormDtoCopyWithImpl<$Res, $Val extends ProfileFormDto>
       following: null == following
           ? _value.following
           : following // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      posts: null == posts
-          ? _value.posts
-          : posts // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      comments: null == comments
-          ? _value.comments
-          : comments // ignore: cast_nullable_to_non_nullable
               as List<String>,
       socialmedias: null == socialmedias
           ? _value.socialmedias
@@ -134,15 +113,12 @@ abstract class _$$_ProfileFormDtoCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String userName,
-      String firstName,
+      {String firstName,
       String lastName,
-      String profilePictureUrl,
+      String image,
       String bio,
       List<String> followers,
       List<String> following,
-      List<String> posts,
-      List<String> comments,
       List<String> socialmedias});
 }
 
@@ -157,22 +133,15 @@ class __$$_ProfileFormDtoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userName = null,
     Object? firstName = null,
     Object? lastName = null,
-    Object? profilePictureUrl = null,
+    Object? image = null,
     Object? bio = null,
     Object? followers = null,
     Object? following = null,
-    Object? posts = null,
-    Object? comments = null,
     Object? socialmedias = null,
   }) {
     return _then(_$_ProfileFormDto(
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String,
       firstName: null == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -181,9 +150,9 @@ class __$$_ProfileFormDtoCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
-      profilePictureUrl: null == profilePictureUrl
-          ? _value.profilePictureUrl
-          : profilePictureUrl // ignore: cast_nullable_to_non_nullable
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String,
       bio: null == bio
           ? _value.bio
@@ -197,14 +166,6 @@ class __$$_ProfileFormDtoCopyWithImpl<$Res>
           ? _value._following
           : following // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      posts: null == posts
-          ? _value._posts
-          : posts // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      comments: null == comments
-          ? _value._comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       socialmedias: null == socialmedias
           ? _value._socialmedias
           : socialmedias // ignore: cast_nullable_to_non_nullable
@@ -217,33 +178,26 @@ class __$$_ProfileFormDtoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ProfileFormDto implements _ProfileFormDto {
   const _$_ProfileFormDto(
-      {required this.userName,
-      required this.firstName,
+      {required this.firstName,
       required this.lastName,
-      required this.profilePictureUrl,
+      required this.image,
       required this.bio,
       required final List<String> followers,
       required final List<String> following,
-      required final List<String> posts,
-      required final List<String> comments,
       required final List<String> socialmedias})
       : _followers = followers,
         _following = following,
-        _posts = posts,
-        _comments = comments,
         _socialmedias = socialmedias;
 
   factory _$_ProfileFormDto.fromJson(Map<String, dynamic> json) =>
       _$$_ProfileFormDtoFromJson(json);
 
   @override
-  final String userName;
-  @override
   final String firstName;
   @override
   final String lastName;
   @override
-  final String profilePictureUrl;
+  final String image;
   @override
   final String bio;
   final List<String> _followers;
@@ -262,22 +216,6 @@ class _$_ProfileFormDto implements _ProfileFormDto {
     return EqualUnmodifiableListView(_following);
   }
 
-  final List<String> _posts;
-  @override
-  List<String> get posts {
-    if (_posts is EqualUnmodifiableListView) return _posts;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_posts);
-  }
-
-  final List<String> _comments;
-  @override
-  List<String> get comments {
-    if (_comments is EqualUnmodifiableListView) return _comments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_comments);
-  }
-
   final List<String> _socialmedias;
   @override
   List<String> get socialmedias {
@@ -288,7 +226,7 @@ class _$_ProfileFormDto implements _ProfileFormDto {
 
   @override
   String toString() {
-    return 'ProfileFormDto(userName: $userName, firstName: $firstName, lastName: $lastName, profilePictureUrl: $profilePictureUrl, bio: $bio, followers: $followers, following: $following, posts: $posts, comments: $comments, socialmedias: $socialmedias)';
+    return 'ProfileFormDto(firstName: $firstName, lastName: $lastName, image: $image, bio: $bio, followers: $followers, following: $following, socialmedias: $socialmedias)';
   }
 
   @override
@@ -296,21 +234,16 @@ class _$_ProfileFormDto implements _ProfileFormDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProfileFormDto &&
-            (identical(other.userName, userName) ||
-                other.userName == userName) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
-            (identical(other.profilePictureUrl, profilePictureUrl) ||
-                other.profilePictureUrl == profilePictureUrl) &&
+            (identical(other.image, image) || other.image == image) &&
             (identical(other.bio, bio) || other.bio == bio) &&
             const DeepCollectionEquality()
                 .equals(other._followers, _followers) &&
             const DeepCollectionEquality()
                 .equals(other._following, _following) &&
-            const DeepCollectionEquality().equals(other._posts, _posts) &&
-            const DeepCollectionEquality().equals(other._comments, _comments) &&
             const DeepCollectionEquality()
                 .equals(other._socialmedias, _socialmedias));
   }
@@ -319,15 +252,12 @@ class _$_ProfileFormDto implements _ProfileFormDto {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      userName,
       firstName,
       lastName,
-      profilePictureUrl,
+      image,
       bio,
       const DeepCollectionEquality().hash(_followers),
       const DeepCollectionEquality().hash(_following),
-      const DeepCollectionEquality().hash(_posts),
-      const DeepCollectionEquality().hash(_comments),
       const DeepCollectionEquality().hash(_socialmedias));
 
   @JsonKey(ignore: true)
@@ -346,38 +276,29 @@ class _$_ProfileFormDto implements _ProfileFormDto {
 
 abstract class _ProfileFormDto implements ProfileFormDto {
   const factory _ProfileFormDto(
-      {required final String userName,
-      required final String firstName,
+      {required final String firstName,
       required final String lastName,
-      required final String profilePictureUrl,
+      required final String image,
       required final String bio,
       required final List<String> followers,
       required final List<String> following,
-      required final List<String> posts,
-      required final List<String> comments,
       required final List<String> socialmedias}) = _$_ProfileFormDto;
 
   factory _ProfileFormDto.fromJson(Map<String, dynamic> json) =
       _$_ProfileFormDto.fromJson;
 
   @override
-  String get userName;
-  @override
   String get firstName;
   @override
   String get lastName;
   @override
-  String get profilePictureUrl;
+  String get image;
   @override
   String get bio;
   @override
   List<String> get followers;
   @override
   List<String> get following;
-  @override
-  List<String> get posts;
-  @override
-  List<String> get comments;
   @override
   List<String> get socialmedias;
   @override
