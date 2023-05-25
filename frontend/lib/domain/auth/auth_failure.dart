@@ -12,4 +12,6 @@ class AuthFailure with _$AuthFailure {
   const factory AuthFailure.invalidEmail() = InvalidEmail;
   const factory AuthFailure.invalidPassword() = InvalidPassword;
   const factory AuthFailure.unexpected() = Unexpected;
+  // add user name
+  const factory AuthFailure.invalidUserName() = InvalidUserName;
 }
