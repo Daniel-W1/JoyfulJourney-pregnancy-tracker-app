@@ -21,7 +21,7 @@ class PostApi {
     }
   }
 
-  Future<PostDto> updatePost(PostFormDto postFormDto) async {
+  Future<PostDto> updatePost(PostFormDto postFormDto, ) async {
     var updatedPost = await _customHttpClient.put("post",
         body: json.encode(postFormDto.toJson()));
 

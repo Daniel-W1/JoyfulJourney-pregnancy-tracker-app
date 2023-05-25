@@ -6,14 +6,11 @@ part 'postform_dto.g.dart';
 
 @freezed
 class PostFormDto with _$PostFormDto {
-  const PostFormDto._();
 
   const factory PostFormDto({
-    required String id,
     required String body,
-    required String author,
     required List<String> comments,
-    required String likes,
+    required int likes,
   }) = _PostFormDto;
 
   factory PostFormDto.fromJson(Map<String, dynamic> json) =>

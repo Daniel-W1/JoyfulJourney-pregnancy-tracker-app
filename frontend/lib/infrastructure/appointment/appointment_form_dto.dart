@@ -12,7 +12,6 @@ class AppointmentFormDto with _$AppointmentFormDto {
     required String description,
     required String date,
     required String time,
-    required String user_id,
     required String status,
   }) = _AppointmentFormDto;
 

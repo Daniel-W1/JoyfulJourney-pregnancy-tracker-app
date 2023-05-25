@@ -7,6 +7,21 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   AppointmentRepository(this.appointmentApi);
 
   @override
+  Future<Either> addAppointment({required AppointmentForm appointmentForm}) async {
+    try {
+      await appointmentApi.addAppointment(appointmentForm: appointmentForm);
+    } on QHttpException catch (e) {
+      return Either(error: Error(e.message));
+    } on SocketException catch (_) {
+      return Either(error: Error("Check your internet connection"));
+    } on Exception catch (e) {
+      developer.log("Unexpected error while adding appointment in Appointment Repo",
+          error: e);
+      return Either(error: Error("Unknown error"));
+    }
+  }
+
+  @override
   Future<Either<Appointment>> updateAppointment(
       {required EditAppointmentForm appointmentForm}) async {
     try {

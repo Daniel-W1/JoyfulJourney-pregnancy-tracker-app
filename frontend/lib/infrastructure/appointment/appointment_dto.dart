@@ -9,6 +9,7 @@ class AppointmentDto with _$AppointmentDto {
   const AppointmentDto._();
 
   const factory AppointmentDto({
+    required String id,
     required String title,
     required String description,
     required String date,

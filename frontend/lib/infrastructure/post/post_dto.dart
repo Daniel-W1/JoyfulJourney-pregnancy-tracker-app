@@ -13,7 +13,7 @@ class PostDto with _$PostDto {
     required String body,
     required String author,
     required List<String> comments,
-    required String likes,
+    required int likes,
   }) = _PostDto;
 
   factory PostDto.fromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,7 @@
 import 'package:frontend/domain/post/post_author_domain.dart';
 import 'package:frontend/domain/post/post_body_domain.dart';
 import 'package:frontend/domain/post/post_comment_domain.dart';
+import 'package:frontend/domain/post/post_id_domain.dart';
 import 'package:frontend/domain/post/post_likes_domain.dart';
 
 class PostDomain {
@@ -8,8 +9,10 @@ class PostDomain {
   PostAuthorDomain author;
   PostCommentDomain comment;
   PostLikesDomain likes;
+  PostIdDomain id;
 
   PostDomain({
+    required this.id,
     required this.body,
     required this.author,
     required this.comment,

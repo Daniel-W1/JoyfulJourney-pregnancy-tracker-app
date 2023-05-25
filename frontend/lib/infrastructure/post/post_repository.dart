@@ -2,6 +2,12 @@ import 'dart:io';
 import 'dart:developer' as developer;
 
 import 'package:dartz/dartz.dart';
+import 'package:frontend/domain/post/post_domain.dart';
+import 'package:frontend/domain/post/post_failure.dart';
+import 'package:frontend/domain/post/post_form.dart';
+import 'package:frontend/domain/post/post_id_domain.dart';
+import 'package:frontend/domain/post/post_repository_interface.dart';
+import 'package:frontend/infrastructure/post/post_api.dart';
 
 class PostRepository implements PostRepositoryInterface {
   final PostApi postApi;
@@ -9,7 +15,20 @@ class PostRepository implements PostRepositoryInterface {
   PostRepository(this.postApi);
 
   @override
-  Future<Either<Post>> updatePost({required EditPostForm postForm}) async {
+  Future<Either<Postfailure, PostDomain>> updatePost({required PostForm postForm, required PostIdDomain post_id}) async {
+    try {
+      var post = await postApi.updatePost();
+      return right(questions
+          .map((QuestionDto questionDto) =>
+              Question.fromJson(questionDto.toJson()))
+          .toList());
+    }
+    // TODO: handle more errors
+    // TODO: Make sure user is authenticated
+    catch (e) {
+      return left(const QuestionFailure.serverError());
+    }
+
     try {
       PostDto postDto = await postApi.updatePost(postForm: postForm);
       return Either(val: postDto.toPost());
