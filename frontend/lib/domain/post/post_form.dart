@@ -6,6 +6,6 @@ class PostForm with _$PostForm {
   factory PostForm({
     required String body,
     required List<String> comments,
-    required int likes,
+    required List<String> likes,
   }) = _PostForm;
 }

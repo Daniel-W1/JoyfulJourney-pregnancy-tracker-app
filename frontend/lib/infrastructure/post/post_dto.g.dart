@@ -12,7 +12,7 @@ _$_PostDto _$$_PostDtoFromJson(Map<String, dynamic> json) => _$_PostDto(
       author: json['author'] as String,
       comments:
           (json['comments'] as List<dynamic>).map((e) => e as String).toList(),
-      likes: json['likes'] as int,
+      likes: (json['likes'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$_PostDtoToJson(_$_PostDto instance) =>

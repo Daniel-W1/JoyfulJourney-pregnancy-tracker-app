@@ -23,7 +23,7 @@ mixin _$PostDomain {
   String get body => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
   List<String> get comments => throw _privateConstructorUsedError;
-  int get likes => throw _privateConstructorUsedError;
+  List<String> get likes => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $PostDomainCopyWith<$Res> {
       {String body,
       String author,
       List<String> comments,
-      int likes,
+      List<String> likes,
       String id});
 }
 
@@ -81,7 +81,7 @@ class _$PostDomainCopyWithImpl<$Res, $Val extends PostDomain>
       likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -102,7 +102,7 @@ abstract class _$$_PostDomainCopyWith<$Res>
       {String body,
       String author,
       List<String> comments,
-      int likes,
+      List<String> likes,
       String id});
 }
 
@@ -137,9 +137,9 @@ class __$$_PostDomainCopyWithImpl<$Res>
           : comments // ignore: cast_nullable_to_non_nullable
               as List<String>,
       likes: null == likes
-          ? _value.likes
+          ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -155,9 +155,10 @@ class _$_PostDomain implements _PostDomain {
       {required this.body,
       required this.author,
       required final List<String> comments,
-      required this.likes,
+      required final List<String> likes,
       required this.id})
-      : _comments = comments;
+      : _comments = comments,
+        _likes = likes;
 
   factory _$_PostDomain.fromJson(Map<String, dynamic> json) =>
       _$$_PostDomainFromJson(json);
@@ -174,8 +175,14 @@ class _$_PostDomain implements _PostDomain {
     return EqualUnmodifiableListView(_comments);
   }
 
+  final List<String> _likes;
   @override
-  final int likes;
+  List<String> get likes {
+    if (_likes is EqualUnmodifiableListView) return _likes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_likes);
+  }
+
   @override
   final String id;
 
@@ -192,14 +199,19 @@ class _$_PostDomain implements _PostDomain {
             (identical(other.body, body) || other.body == body) &&
             (identical(other.author, author) || other.author == author) &&
             const DeepCollectionEquality().equals(other._comments, _comments) &&
-            (identical(other.likes, likes) || other.likes == likes) &&
+            const DeepCollectionEquality().equals(other._likes, _likes) &&
             (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, body, author,
-      const DeepCollectionEquality().hash(_comments), likes, id);
+  int get hashCode => Object.hash(
+      runtimeType,
+      body,
+      author,
+      const DeepCollectionEquality().hash(_comments),
+      const DeepCollectionEquality().hash(_likes),
+      id);
 
   @JsonKey(ignore: true)
   @override
@@ -220,7 +232,7 @@ abstract class _PostDomain implements PostDomain {
       {required final String body,
       required final String author,
       required final List<String> comments,
-      required final int likes,
+      required final List<String> likes,
       required final String id}) = _$_PostDomain;
 
   factory _PostDomain.fromJson(Map<String, dynamic> json) =
@@ -233,7 +245,7 @@ abstract class _PostDomain implements PostDomain {
   @override
   List<String> get comments;
   @override
-  int get likes;
+  List<String> get likes;
   @override
   String get id;
   @override

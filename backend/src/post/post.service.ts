@@ -64,12 +64,17 @@ export class PostService {
       }
       }
     
-    async addLike(postId: string, profileId: string) {
+    async changeLike(postId: string, profileId: string) {
         try {
             const post = await this.postModel.findById(postId).exec();
             const likes = post.likes;
             
-            likes.push(profileId);
+            if (likes.includes(profileId)){
+              var index = likes.indexOf(profileId);
+              likes.splice(index, 1);
+            } else {
+              likes.push(profileId);
+            }
 
             const update = {likes: likes}
             const updatedPost = await this.postModel.findByIdAndUpdate(postId, update, { new: true }).exec();
@@ -80,23 +85,6 @@ export class PostService {
             throw error;
         }
     }
-
-    async removeLike(postId: string, profileId: string) {
-      try {
-          const post = await this.postModel.findById(postId).exec();
-          const likes = post.likes;
-          
-          const newLikes = likes.filter((element) => element != profileId);
-
-          const update = {likes: newLikes}
-          const updatedPost = await this.postModel.findByIdAndUpdate(postId, update, { new: true }).exec();
-          
-          return updatedPost;
-
-      } catch (error) {
-          throw error;
-      }
-  }
     
     async removePost(id: string) {
       try{
