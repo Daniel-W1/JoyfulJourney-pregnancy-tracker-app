@@ -1,5 +1,11 @@
-import 'dart:io';
-import 'dart:developer' as developer;
+import 'package:dartz/dartz.dart';
+import 'package:frontend/domain/profile/profile_domain.dart';
+import 'package:frontend/domain/profile/profile_failure.dart';
+import 'package:frontend/domain/profile/profile_form.dart';
+import 'package:frontend/domain/profile/profile_repository_interface.dart';
+import 'package:frontend/infrastructure/profile/profile_api.dart';
+import 'package:frontend/infrastructure/profile/profile_form_mapper.dart';
+import 'package:frontend/infrastructure/profile/profile_model_mapper.dart';
 
 class ProfileRepository implements ProfileRepositoryInterface {
   final ProfileApi profileApi;
@@ -7,52 +13,32 @@ class ProfileRepository implements ProfileRepositoryInterface {
   ProfileRepository(this.profileApi);
 
   @override
-  Future<Either<Profile>> updateProfile(
-      {required EditProfileForm profileForm}) async {
+  Future<Either<ProfileFailure, ProfileDomain>> updateProfile(ProfileForm profileForm, String profileId) async {
     try {
-      ProfileDto profileDto =
-          await profileApi.updateProfile(profileForm: profileForm);
-      return Either(val: profileDto.toProfile());
-    } on QHttpException catch (e) {
-      return Either(error: Error(e.message));
-    } on SocketException catch (_) {
-      return Either(error: Error("Check your internet connection"));
-    } on Exception catch (e) {
-      developer.log("Unexpected error while updating profile in Profile Repo",
-          error: e);
-      return Either(error: Error("Unknown error"));
+      var profile = await profileApi.updateProfile(profileForm.toDto(), profileId);
+      return right(profile.toProfile());
+    } catch (e) {
+      return left(const ProfileFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Profile>> getProfile() async {
+  Future<Either<ProfileFailure, ProfileDomain>> getProfile(String userId) async {
     try {
-      ProfileDto profileDto = await profileApi.getProfile();
-      return Either(val: profileDto.toProfile());
-    } on QHttpException catch (e) {
-      return Either(error: Error(e.message));
-    } on SocketException catch (_) {
-      return Either(error: Error("Check your internet connection"));
-    } on Exception catch (e) {
-      developer.log("Unexpected error while getting profile in Profile Repo",
-          error: e);
-      return Either(error: Error("Unknown error"));
+      var profile = await profileApi.getProfile(userId);
+      return right(profile.toProfile());
+    } catch (e) {
+      return left(const ProfileFailure.serverError());
     }
   }
 
   @override
-  Future<Either<void>> deleteAccount() async {
+  Future<Either<ProfileFailure, Unit>> deleteAccount(String userId) async {
     try {
-      await profileApi.deleteAccount();
-      return Either();
-    } on QHttpException catch (e) {
-      return Either(error: Error(e.message));
-    } on SocketException catch (_) {
-      return Either(error: Error("Check your internet connection"));
-    } on Exception catch (e) {
-      developer.log("Unexpected error while deleting account in Profile Repo",
-          error: e);
-      return Either(error: Error("Unknown error"));
+      await profileApi.deleteAccount(userId);
+      return right(unit);
+    } catch (e) {
+      return left(const ProfileFailure.serverError());
     }
   }
 }

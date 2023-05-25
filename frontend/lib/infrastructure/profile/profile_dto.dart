@@ -12,7 +12,7 @@ class ProfileDto with _$ProfileDto {
     required String userName,
     required String firstName,
     required String lastName,
-    required String profilePictureUrl,
+    required String image,
     required String bio,
     required List<String> followers,
     required List<String> following,

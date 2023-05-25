@@ -6,6 +6,7 @@ import 'package:frontend/domain/tip/tip_form.dart';
 abstract class TipRepositoryInterface {
   Future<Either<Tipfailure, List<TipDomain>>> getTips();
   Future<Either<Tipfailure, List<TipDomain>>> getTipsByType(String type);
+  Future<Either<Tipfailure, TipDomain>> getTipById(String id);
   Future<Either<Tipfailure, TipDomain>> addTip(TipForm tip);
   Future<Either<Tipfailure, TipDomain>> updateTip(TipForm tip, String tipId);
   Future<Either<Tipfailure, Unit>> deleteTip(String tipId);

@@ -1,5 +1,6 @@
 import 'package:frontend/domain/tip/local/tip_entity.dart';
 import 'package:frontend/domain/tip/tip_domain.dart';
+import 'package:frontend/infrastructure/tip/tip_dto.dart';
 
 extension TipsEntityExtensions on TipEntity {
   TipDomain toTipDomain() {
