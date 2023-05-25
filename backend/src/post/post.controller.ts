@@ -27,14 +27,9 @@ export class PostController {
         return this.postService.findOne(id);
     }
 
-    @Patch('like')
-    addLike(@Body() body) {
-        return this.postService.addLike(body.postId, body.profileId);
-    }
-
-    @Patch('unlike')
-    removeLike(@Body() body) {
-        return this.postService.removeLike(body.postId, body.profileId);
+    @Patch('like/:id')
+    changeLike(@Param('id') id: string, @Body() body) {
+        return this.postService.changeLike(id, body.liker);
     }
 
     @Patch(':id')
