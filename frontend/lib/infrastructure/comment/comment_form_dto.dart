@@ -9,10 +9,7 @@ class CommentFormDto with _$CommentFormDto {
   const CommentFormDto._();
 
   const factory CommentFormDto({
-    required String id,
     required String body,
-    required String post_id,
-    required String author,
   }) = _CommentFormDto;
 
   factory CommentFormDto.fromJson(Map<String, dynamic> json) =>
