@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'post_domain.dart';
+part of 'post_form_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,42 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-PostDomain _$PostDomainFromJson(Map<String, dynamic> json) {
-  return _PostDomain.fromJson(json);
+PostFormDto _$PostFormDtoFromJson(Map<String, dynamic> json) {
+  return _PostFormDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$PostDomain {
+mixin _$PostFormDto {
   String get body => throw _privateConstructorUsedError;
-  String get author => throw _privateConstructorUsedError;
   List<String> get comments => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
-  String get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PostDomainCopyWith<PostDomain> get copyWith =>
+  $PostFormDtoCopyWith<PostFormDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PostDomainCopyWith<$Res> {
-  factory $PostDomainCopyWith(
-          PostDomain value, $Res Function(PostDomain) then) =
-      _$PostDomainCopyWithImpl<$Res, PostDomain>;
+abstract class $PostFormDtoCopyWith<$Res> {
+  factory $PostFormDtoCopyWith(
+          PostFormDto value, $Res Function(PostFormDto) then) =
+      _$PostFormDtoCopyWithImpl<$Res, PostFormDto>;
   @useResult
-  $Res call(
-      {String body,
-      String author,
-      List<String> comments,
-      int likes,
-      String id});
+  $Res call({String body, List<String> comments, int likes});
 }
 
 /// @nodoc
-class _$PostDomainCopyWithImpl<$Res, $Val extends PostDomain>
-    implements $PostDomainCopyWith<$Res> {
-  _$PostDomainCopyWithImpl(this._value, this._then);
+class _$PostFormDtoCopyWithImpl<$Res, $Val extends PostFormDto>
+    implements $PostFormDtoCopyWith<$Res> {
+  _$PostFormDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -60,19 +53,13 @@ class _$PostDomainCopyWithImpl<$Res, $Val extends PostDomain>
   @override
   $Res call({
     Object? body = null,
-    Object? author = null,
     Object? comments = null,
     Object? likes = null,
-    Object? id = null,
   }) {
     return _then(_value.copyWith(
       body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
-              as String,
-      author: null == author
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
               as String,
       comments: null == comments
           ? _value.comments
@@ -82,55 +69,40 @@ class _$PostDomainCopyWithImpl<$Res, $Val extends PostDomain>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as int,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_PostDomainCopyWith<$Res>
-    implements $PostDomainCopyWith<$Res> {
-  factory _$$_PostDomainCopyWith(
-          _$_PostDomain value, $Res Function(_$_PostDomain) then) =
-      __$$_PostDomainCopyWithImpl<$Res>;
+abstract class _$$_PostFormDtoCopyWith<$Res>
+    implements $PostFormDtoCopyWith<$Res> {
+  factory _$$_PostFormDtoCopyWith(
+          _$_PostFormDto value, $Res Function(_$_PostFormDto) then) =
+      __$$_PostFormDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String body,
-      String author,
-      List<String> comments,
-      int likes,
-      String id});
+  $Res call({String body, List<String> comments, int likes});
 }
 
 /// @nodoc
-class __$$_PostDomainCopyWithImpl<$Res>
-    extends _$PostDomainCopyWithImpl<$Res, _$_PostDomain>
-    implements _$$_PostDomainCopyWith<$Res> {
-  __$$_PostDomainCopyWithImpl(
-      _$_PostDomain _value, $Res Function(_$_PostDomain) _then)
+class __$$_PostFormDtoCopyWithImpl<$Res>
+    extends _$PostFormDtoCopyWithImpl<$Res, _$_PostFormDto>
+    implements _$$_PostFormDtoCopyWith<$Res> {
+  __$$_PostFormDtoCopyWithImpl(
+      _$_PostFormDto _value, $Res Function(_$_PostFormDto) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? body = null,
-    Object? author = null,
     Object? comments = null,
     Object? likes = null,
-    Object? id = null,
   }) {
-    return _then(_$_PostDomain(
+    return _then(_$_PostFormDto(
       body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
-              as String,
-      author: null == author
-          ? _value.author
-          : author // ignore: cast_nullable_to_non_nullable
               as String,
       comments: null == comments
           ? _value._comments
@@ -140,32 +112,24 @@ class __$$_PostDomainCopyWithImpl<$Res>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as int,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_PostDomain implements _PostDomain {
-  const _$_PostDomain(
+class _$_PostFormDto implements _PostFormDto {
+  const _$_PostFormDto(
       {required this.body,
-      required this.author,
       required final List<String> comments,
-      required this.likes,
-      required this.id})
+      required this.likes})
       : _comments = comments;
 
-  factory _$_PostDomain.fromJson(Map<String, dynamic> json) =>
-      _$$_PostDomainFromJson(json);
+  factory _$_PostFormDto.fromJson(Map<String, dynamic> json) =>
+      _$$_PostFormDtoFromJson(json);
 
   @override
   final String body;
-  @override
-  final String author;
   final List<String> _comments;
   @override
   List<String> get comments {
@@ -176,68 +140,58 @@ class _$_PostDomain implements _PostDomain {
 
   @override
   final int likes;
-  @override
-  final String id;
 
   @override
   String toString() {
-    return 'PostDomain(body: $body, author: $author, comments: $comments, likes: $likes, id: $id)';
+    return 'PostFormDto(body: $body, comments: $comments, likes: $likes)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PostDomain &&
+            other is _$_PostFormDto &&
             (identical(other.body, body) || other.body == body) &&
-            (identical(other.author, author) || other.author == author) &&
             const DeepCollectionEquality().equals(other._comments, _comments) &&
-            (identical(other.likes, likes) || other.likes == likes) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.likes, likes) || other.likes == likes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, body, author,
-      const DeepCollectionEquality().hash(_comments), likes, id);
+  int get hashCode => Object.hash(
+      runtimeType, body, const DeepCollectionEquality().hash(_comments), likes);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PostDomainCopyWith<_$_PostDomain> get copyWith =>
-      __$$_PostDomainCopyWithImpl<_$_PostDomain>(this, _$identity);
+  _$$_PostFormDtoCopyWith<_$_PostFormDto> get copyWith =>
+      __$$_PostFormDtoCopyWithImpl<_$_PostFormDto>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PostDomainToJson(
+    return _$$_PostFormDtoToJson(
       this,
     );
   }
 }
 
-abstract class _PostDomain implements PostDomain {
-  const factory _PostDomain(
+abstract class _PostFormDto implements PostFormDto {
+  const factory _PostFormDto(
       {required final String body,
-      required final String author,
       required final List<String> comments,
-      required final int likes,
-      required final String id}) = _$_PostDomain;
+      required final int likes}) = _$_PostFormDto;
 
-  factory _PostDomain.fromJson(Map<String, dynamic> json) =
-      _$_PostDomain.fromJson;
+  factory _PostFormDto.fromJson(Map<String, dynamic> json) =
+      _$_PostFormDto.fromJson;
 
   @override
   String get body;
-  @override
-  String get author;
   @override
   List<String> get comments;
   @override
   int get likes;
   @override
-  String get id;
-  @override
   @JsonKey(ignore: true)
-  _$$_PostDomainCopyWith<_$_PostDomain> get copyWith =>
+  _$$_PostFormDtoCopyWith<_$_PostFormDto> get copyWith =>
       throw _privateConstructorUsedError;
 }

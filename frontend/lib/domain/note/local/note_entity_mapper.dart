@@ -1,5 +1,6 @@
 import 'package:frontend/domain/note/note_domain.dart';
 import 'package:frontend/domain/note/local/note_entity.dart';
+import 'package:frontend/infrastructure/note/note_dto.dart';
 
 extension NoteEntityExtensions on NoteEntity {
   NoteDomain toNoteDomain() {

@@ -1,5 +1,6 @@
 import 'package:frontend/domain/post/post_domain.dart';
 import 'package:frontend/domain/post/local/post_entity.dart';
+import 'package:frontend/infrastructure/post/post_dto.dart';
 
 extension PostEntityExtensions on PostEntity {
   PostDomain toPostDomain() {

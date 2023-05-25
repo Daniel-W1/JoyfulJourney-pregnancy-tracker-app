@@ -35,7 +35,6 @@ extension on AppointmentEntity {
       date:date,
       time:time,
       user_id:user_id,
-      status: status, 
     );
   }
 

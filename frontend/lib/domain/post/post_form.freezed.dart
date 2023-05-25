@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PostForm {
-  String get description => throw _privateConstructorUsedError;
+  String get body => throw _privateConstructorUsedError;
   List<String> get comments => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
 
@@ -30,7 +30,7 @@ abstract class $PostFormCopyWith<$Res> {
   factory $PostFormCopyWith(PostForm value, $Res Function(PostForm) then) =
       _$PostFormCopyWithImpl<$Res, PostForm>;
   @useResult
-  $Res call({String description, List<String> comments, int likes});
+  $Res call({String body, List<String> comments, int likes});
 }
 
 /// @nodoc
@@ -46,14 +46,14 @@ class _$PostFormCopyWithImpl<$Res, $Val extends PostForm>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = null,
+    Object? body = null,
     Object? comments = null,
     Object? likes = null,
   }) {
     return _then(_value.copyWith(
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      body: null == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String,
       comments: null == comments
           ? _value.comments
@@ -74,7 +74,7 @@ abstract class _$$_PostFormCopyWith<$Res> implements $PostFormCopyWith<$Res> {
       __$$_PostFormCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String description, List<String> comments, int likes});
+  $Res call({String body, List<String> comments, int likes});
 }
 
 /// @nodoc
@@ -88,14 +88,14 @@ class __$$_PostFormCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = null,
+    Object? body = null,
     Object? comments = null,
     Object? likes = null,
   }) {
     return _then(_$_PostForm(
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      body: null == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String,
       comments: null == comments
           ? _value._comments
@@ -113,13 +113,13 @@ class __$$_PostFormCopyWithImpl<$Res>
 
 class _$_PostForm implements _PostForm {
   _$_PostForm(
-      {required this.description,
+      {required this.body,
       required final List<String> comments,
       required this.likes})
       : _comments = comments;
 
   @override
-  final String description;
+  final String body;
   final List<String> _comments;
   @override
   List<String> get comments {
@@ -133,7 +133,7 @@ class _$_PostForm implements _PostForm {
 
   @override
   String toString() {
-    return 'PostForm(description: $description, comments: $comments, likes: $likes)';
+    return 'PostForm(body: $body, comments: $comments, likes: $likes)';
   }
 
   @override
@@ -141,15 +141,14 @@ class _$_PostForm implements _PostForm {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PostForm &&
-            (identical(other.description, description) ||
-                other.description == description) &&
+            (identical(other.body, body) || other.body == body) &&
             const DeepCollectionEquality().equals(other._comments, _comments) &&
             (identical(other.likes, likes) || other.likes == likes));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, description,
-      const DeepCollectionEquality().hash(_comments), likes);
+  int get hashCode => Object.hash(
+      runtimeType, body, const DeepCollectionEquality().hash(_comments), likes);
 
   @JsonKey(ignore: true)
   @override
@@ -160,12 +159,12 @@ class _$_PostForm implements _PostForm {
 
 abstract class _PostForm implements PostForm {
   factory _PostForm(
-      {required final String description,
+      {required final String body,
       required final List<String> comments,
       required final int likes}) = _$_PostForm;
 
   @override
-  String get description;
+  String get body;
   @override
   List<String> get comments;
   @override

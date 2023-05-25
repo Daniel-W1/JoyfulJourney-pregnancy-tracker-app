@@ -1,5 +1,6 @@
 import 'package:frontend/domain/comment/comment_domain.dart';
 import 'package:frontend/domain/comment/local/comment_entity.dart';
+import 'package:frontend/infrastructure/comment/comment_dto.dart';
 
 extension CommentEntityExtensions on CommentEntity {
   CommentDomain toCommentDomain() {
