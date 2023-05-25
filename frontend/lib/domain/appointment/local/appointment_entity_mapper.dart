@@ -2,6 +2,7 @@
 
 import 'package:frontend/domain/appointment/appointment_domain.dart';
 import 'package:frontend/domain/appointment/local/appointment_entity.dart';
+import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
 
 extension on AppointmentEntity {
   AppointmentDomain toAppointmentdomain() {
@@ -12,19 +13,17 @@ extension on AppointmentEntity {
       date:date,
       time:time,
       user_id:user_id,
-      status: status, 
     );
   }
 
   AppointmentEntity fromAppointment(AppointmentDomain appointment) {
     return AppointmentEntity(
-      id: AppointmentDomain.id,
-      title: AppointmentDomain.title,
-      description: AppointmentDomain.description,
-      date:AppointmentDomain.date,
-      time:AppointmentDomain.time,
-      user_id:AppointmentDomain.user_id,
-      status: AppointmentDomain.status, 
+      id: appointment.id,
+      title: appointment.title,
+      description: appointment.description,
+      date:appointment.date,
+      time:appointment.time,
+      user_id:appointment.user_id,
     );
   }
 
@@ -45,7 +44,6 @@ extension on AppointmentEntity {
       id: appointmentdto.id,
       title: appointmentdto.title,
       description: appointmentdto.description,
-      status: appointmentdto.status,
       time: appointmentdto.time,
       user_id: appointmentdto.user_id,
       date: appointmentdto.date,

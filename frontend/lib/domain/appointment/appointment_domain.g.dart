@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'appointment_entity.dart';
+part of 'appointment_domain.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AppointmentEntity _$$_AppointmentEntityFromJson(Map<String, dynamic> json) =>
-    _$_AppointmentEntity(
+_$_AppointmentDomain _$$_AppointmentDomainFromJson(Map<String, dynamic> json) =>
+    _$_AppointmentDomain(
       id: json['id'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
@@ -16,8 +16,8 @@ _$_AppointmentEntity _$$_AppointmentEntityFromJson(Map<String, dynamic> json) =>
       user_id: json['user_id'] as String,
     );
 
-Map<String, dynamic> _$$_AppointmentEntityToJson(
-        _$_AppointmentEntity instance) =>
+Map<String, dynamic> _$$_AppointmentDomainToJson(
+        _$_AppointmentDomain instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,

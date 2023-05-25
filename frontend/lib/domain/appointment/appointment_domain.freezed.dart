@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'appointment_entity.dart';
+part of 'appointment_domain.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-AppointmentEntity _$AppointmentEntityFromJson(Map<String, dynamic> json) {
-  return _AppointmentEntity.fromJson(json);
+AppointmentDomain _$AppointmentDomainFromJson(Map<String, dynamic> json) {
+  return _AppointmentDomain.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AppointmentEntity {
+mixin _$AppointmentDomain {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -29,15 +29,15 @@ mixin _$AppointmentEntity {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppointmentEntityCopyWith<AppointmentEntity> get copyWith =>
+  $AppointmentDomainCopyWith<AppointmentDomain> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AppointmentEntityCopyWith<$Res> {
-  factory $AppointmentEntityCopyWith(
-          AppointmentEntity value, $Res Function(AppointmentEntity) then) =
-      _$AppointmentEntityCopyWithImpl<$Res, AppointmentEntity>;
+abstract class $AppointmentDomainCopyWith<$Res> {
+  factory $AppointmentDomainCopyWith(
+          AppointmentDomain value, $Res Function(AppointmentDomain) then) =
+      _$AppointmentDomainCopyWithImpl<$Res, AppointmentDomain>;
   @useResult
   $Res call(
       {String id,
@@ -49,9 +49,9 @@ abstract class $AppointmentEntityCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AppointmentEntityCopyWithImpl<$Res, $Val extends AppointmentEntity>
-    implements $AppointmentEntityCopyWith<$Res> {
-  _$AppointmentEntityCopyWithImpl(this._value, this._then);
+class _$AppointmentDomainCopyWithImpl<$Res, $Val extends AppointmentDomain>
+    implements $AppointmentDomainCopyWith<$Res> {
+  _$AppointmentDomainCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -98,11 +98,11 @@ class _$AppointmentEntityCopyWithImpl<$Res, $Val extends AppointmentEntity>
 }
 
 /// @nodoc
-abstract class _$$_AppointmentEntityCopyWith<$Res>
-    implements $AppointmentEntityCopyWith<$Res> {
-  factory _$$_AppointmentEntityCopyWith(_$_AppointmentEntity value,
-          $Res Function(_$_AppointmentEntity) then) =
-      __$$_AppointmentEntityCopyWithImpl<$Res>;
+abstract class _$$_AppointmentDomainCopyWith<$Res>
+    implements $AppointmentDomainCopyWith<$Res> {
+  factory _$$_AppointmentDomainCopyWith(_$_AppointmentDomain value,
+          $Res Function(_$_AppointmentDomain) then) =
+      __$$_AppointmentDomainCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -115,11 +115,11 @@ abstract class _$$_AppointmentEntityCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AppointmentEntityCopyWithImpl<$Res>
-    extends _$AppointmentEntityCopyWithImpl<$Res, _$_AppointmentEntity>
-    implements _$$_AppointmentEntityCopyWith<$Res> {
-  __$$_AppointmentEntityCopyWithImpl(
-      _$_AppointmentEntity _value, $Res Function(_$_AppointmentEntity) _then)
+class __$$_AppointmentDomainCopyWithImpl<$Res>
+    extends _$AppointmentDomainCopyWithImpl<$Res, _$_AppointmentDomain>
+    implements _$$_AppointmentDomainCopyWith<$Res> {
+  __$$_AppointmentDomainCopyWithImpl(
+      _$_AppointmentDomain _value, $Res Function(_$_AppointmentDomain) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,7 +132,7 @@ class __$$_AppointmentEntityCopyWithImpl<$Res>
     Object? time = null,
     Object? user_id = null,
   }) {
-    return _then(_$_AppointmentEntity(
+    return _then(_$_AppointmentDomain(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -163,8 +163,8 @@ class __$$_AppointmentEntityCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppointmentEntity implements _AppointmentEntity {
-  const _$_AppointmentEntity(
+class _$_AppointmentDomain implements _AppointmentDomain {
+  const _$_AppointmentDomain(
       {required this.id,
       required this.title,
       required this.description,
@@ -172,8 +172,8 @@ class _$_AppointmentEntity implements _AppointmentEntity {
       required this.time,
       required this.user_id});
 
-  factory _$_AppointmentEntity.fromJson(Map<String, dynamic> json) =>
-      _$$_AppointmentEntityFromJson(json);
+  factory _$_AppointmentDomain.fromJson(Map<String, dynamic> json) =>
+      _$$_AppointmentDomainFromJson(json);
 
   @override
   final String id;
@@ -190,14 +190,14 @@ class _$_AppointmentEntity implements _AppointmentEntity {
 
   @override
   String toString() {
-    return 'AppointmentEntity(id: $id, title: $title, description: $description, date: $date, time: $time, user_id: $user_id)';
+    return 'AppointmentDomain(id: $id, title: $title, description: $description, date: $date, time: $time, user_id: $user_id)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AppointmentEntity &&
+            other is _$_AppointmentDomain &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
@@ -215,29 +215,29 @@ class _$_AppointmentEntity implements _AppointmentEntity {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AppointmentEntityCopyWith<_$_AppointmentEntity> get copyWith =>
-      __$$_AppointmentEntityCopyWithImpl<_$_AppointmentEntity>(
+  _$$_AppointmentDomainCopyWith<_$_AppointmentDomain> get copyWith =>
+      __$$_AppointmentDomainCopyWithImpl<_$_AppointmentDomain>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppointmentEntityToJson(
+    return _$$_AppointmentDomainToJson(
       this,
     );
   }
 }
 
-abstract class _AppointmentEntity implements AppointmentEntity {
-  const factory _AppointmentEntity(
+abstract class _AppointmentDomain implements AppointmentDomain {
+  const factory _AppointmentDomain(
       {required final String id,
       required final String title,
       required final String description,
       required final String date,
       required final String time,
-      required final String user_id}) = _$_AppointmentEntity;
+      required final String user_id}) = _$_AppointmentDomain;
 
-  factory _AppointmentEntity.fromJson(Map<String, dynamic> json) =
-      _$_AppointmentEntity.fromJson;
+  factory _AppointmentDomain.fromJson(Map<String, dynamic> json) =
+      _$_AppointmentDomain.fromJson;
 
   @override
   String get id;
@@ -253,6 +253,6 @@ abstract class _AppointmentEntity implements AppointmentEntity {
   String get user_id;
   @override
   @JsonKey(ignore: true)
-  _$$_AppointmentEntityCopyWith<_$_AppointmentEntity> get copyWith =>
+  _$$_AppointmentDomainCopyWith<_$_AppointmentDomain> get copyWith =>
       throw _privateConstructorUsedError;
 }

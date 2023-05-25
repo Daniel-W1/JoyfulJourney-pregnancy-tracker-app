@@ -6,8 +6,7 @@ class AppointmentForm with _$AppointmentForm {
   factory AppointmentForm({
     required String title,
     required String description, //TODO: Change to image
-    required bool date,
+    required String date,
     required String time,
-    required String gmt,
   }) = _AppointmentForm;
 }

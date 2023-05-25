@@ -1,21 +1,20 @@
 
-class PostDomain {
-  String body;
-  String author;
-  List<String> comment;
-  int likes;
-  String id;
 
-  PostDomain({
-    required this.body,
-    required this.author,
-    required this.comment,
-    required this.likes,
-    required this.id
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'post_domain.freezed.dart';
+part 'post_domain.g.dart';
 
-  @override
-  String toString() {
-    return 'PostDomain(body: $body, author: $author, comment: $comment, likes: $likes)';
-  }
+
+@freezed
+class PostDomain with _$PostDomain{
+  const factory PostDomain({
+    required String body,
+    required String author,
+    required String comment,
+    required String likes,
+    required String id
+  }) = _PostDomain;
+
+  factory PostDomain.fromJson(Map<String, dynamic> json) =>
+      _$PostDomainFromJson(json);
 }
