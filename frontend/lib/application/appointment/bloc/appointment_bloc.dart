@@ -43,7 +43,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
           result.fold(
             (l) => emit(AppointmentStateFailure(l)),
-            (r) => emit(AppointmentStateDeleted(r))
+            (r) => emit(AppointmentStateDeleted())
           );
     });
 
