@@ -7,7 +7,7 @@ class AppointmentState {
   const factory AppointmentState.loading() = AppointmentStateLoading;
   const factory AppointmentState.successMultiple(List<AppointmentDomain> appointments) =
       AppointmentStateSuccessMultiple;
-  const factory AppointmentState.failure(Appointmentfailure failure) = AppointmentStateFailure;
+  const factory AppointmentState.Failure(AppointmentFailure Failure) = AppointmentStateFailure;
   const factory AppointmentState.success(AppointmentDomain appointment) = AppointmentStateSuccess;
   const factory AppointmentState.deleted() = AppointmentStateDeleted;
 }
@@ -37,19 +37,19 @@ class AppointmentStateSuccessMultiple extends AppointmentState {
 }
 
 class AppointmentStateFailure extends AppointmentState {
-  final Appointmentfailure failure;
+  final AppointmentFailure Failure;
 
-  const AppointmentStateFailure(this.failure) : super._();
+  const AppointmentStateFailure(this.Failure) : super._();
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is AppointmentStateFailure &&
           runtimeType == other.runtimeType &&
-          failure == other.failure;
+          Failure == other.Failure;
 
   @override
-  int get hashCode => runtimeType.hashCode ^ failure.hashCode;
+  int get hashCode => runtimeType.hashCode ^ Failure.hashCode;
 }
 
 class AppointmentStateSuccess extends AppointmentState {

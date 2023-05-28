@@ -14,8 +14,8 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     on<NoteEventAdd>((event, emit) async {
       emit(const NoteStateLoading());
 
-      Either<Notefailure, NoteDomain> result =
-          await noteRepositoryInterface.addNote(event.noteForm.copyWith());
+      Either<NoteFailure, NoteDomain> result =
+          await noteRepositoryInterface.addNote(event.noteForm);
 
           result.fold(
             (l) => emit(NoteStateFailure(l)),
@@ -26,8 +26,8 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     on<NoteEventUpdate>((event, emit) async {
       emit(const NoteStateLoading());
 
-      Either<Notefailure, NoteDomain> result =
-          await noteRepositoryInterface.updateNote(event.noteForm.copyWith(), event.noteId);
+      Either<NoteFailure, NoteDomain> result =
+          await noteRepositoryInterface.updateNote(noteForm:event.noteForm, noteId:event.noteId);
 
           result.fold(
             (l) => emit(NoteStateFailure(l)),
@@ -38,7 +38,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     on<NoteEventDelete>((event, emit) async {
       emit(const NoteStateLoading());
 
-      Either<Notefailure, Unit> result =
+      Either<NoteFailure, Unit> result =
           await noteRepositoryInterface.deleteNote(event.noteId);
 
           result.fold(
@@ -50,7 +50,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     on<NoteEventGetByUser>((event, emit) async {
       emit(const NoteStateLoading());
 
-      Either<Notefailure, List<NoteDomain>> result =
+      Either<NoteFailure, List<NoteDomain>> result =
           await noteRepositoryInterface.getNotesForUser(event.userId);
 
           result.fold(

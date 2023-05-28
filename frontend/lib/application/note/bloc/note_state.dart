@@ -7,7 +7,7 @@ class NoteState {
   const factory NoteState.initial() = NoteStateInitial;
   const factory NoteState.loading() = NoteStateLoading;
   const factory NoteState.successMultiple(List<NoteDomain> notes) = NoteStateSuccessMultiple;
-  const factory NoteState.failure(Notefailure failure) = NoteStateFailure;
+  const factory NoteState.failure(NoteFailure failure) = NoteStateFailure;
   const factory NoteState.success(NoteDomain note) = NoteStateSuccess;
   const factory NoteState.deleted() = NoteStateDeleted;
 }
@@ -27,7 +27,7 @@ class NoteStateSuccessMultiple extends NoteState {
 }
 
 class NoteStateFailure extends NoteState {
-  final Notefailure failure;
+  final NoteFailure failure;
 
   const NoteStateFailure(this.failure) : super._();
 }

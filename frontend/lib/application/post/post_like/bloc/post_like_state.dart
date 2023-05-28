@@ -1,5 +1,5 @@
 import 'package:frontend/domain/post/post.dart';
-import 'package:frontend/domain/post/post_failure.dart';
+
 
 class PostLikeState {
   const PostLikeState._();
@@ -7,7 +7,7 @@ class PostLikeState {
   const factory PostLikeState.initial() = PostLikeStateInitial;
   const factory PostLikeState.loading() = PostLikeStateLoading;
   const factory PostLikeState.success({required PostDomain post}) = PostLikeStateSuccess;
-  const factory PostLikeState.failure({required Postfailure postFailure}) = PostLikeStateFailure;
+  const factory PostLikeState.Failure({required PostFailure postFailure}) = PostLikeStateFailure;
 }
 
 class PostLikeStateInitial extends PostLikeState {
@@ -33,7 +33,7 @@ class PostLikeStateSuccess extends PostLikeState {
 }
 
 class PostLikeStateFailure extends PostLikeState {
-  final Postfailure postFailure;
+  final PostFailure postFailure;
 
   const PostLikeStateFailure({required this.postFailure}) : super._();
 

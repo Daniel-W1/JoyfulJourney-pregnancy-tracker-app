@@ -8,7 +8,7 @@ class CommentState {
   const factory CommentState.success(CommentDomain comment) = CommentStateSuccess;
   const factory CommentState.successMultiple(List<CommentDomain> comments) =
       CommentStateSuccessMultiple;
-  const factory CommentState.failure(Commentfailure failure) = CommentStateFailure;
+  const factory CommentState.failure(CommentFailure failure) = CommentStateFailure;
   const factory CommentState.deleted() = CommentStateDeleted;
 }
 
@@ -33,7 +33,7 @@ class CommentStateSuccessMultiple extends CommentState {
 }
 
 class CommentStateFailure extends CommentState {
-  final Commentfailure failure;
+  final CommentFailure failure;
 
   const CommentStateFailure(this.failure) : super._();
 }
