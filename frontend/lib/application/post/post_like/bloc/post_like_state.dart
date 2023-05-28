@@ -1,13 +1,7 @@
 import 'package:frontend/domain/post/post.dart';
 
-
-class PostLikeState {
+abstract class PostLikeState {
   const PostLikeState._();
-
-  const factory PostLikeState.initial() = PostLikeStateInitial;
-  const factory PostLikeState.loading() = PostLikeStateLoading;
-  const factory PostLikeState.success({required PostDomain post}) = PostLikeStateSuccess;
-  const factory PostLikeState.Failure({required PostFailure postFailure}) = PostLikeStateFailure;
 }
 
 class PostLikeStateInitial extends PostLikeState {
@@ -26,10 +20,16 @@ class PostLikeStateSuccess extends PostLikeState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PostLikeStateSuccess && runtimeType == other.runtimeType && post == other.post;
+      other is PostLikeStateSuccess &&
+          runtimeType == other.runtimeType &&
+          post == other.post;
 
   @override
   int get hashCode => runtimeType.hashCode ^ post.hashCode;
+
+  PostLikeStateSuccess copyWith({PostDomain? post}) {
+    return PostLikeStateSuccess(post: post ?? this.post);
+  }
 }
 
 class PostLikeStateFailure extends PostLikeState {
@@ -46,4 +46,8 @@ class PostLikeStateFailure extends PostLikeState {
 
   @override
   int get hashCode => runtimeType.hashCode ^ postFailure.hashCode;
+
+  PostLikeStateFailure copyWith({PostFailure? postFailure}) {
+    return PostLikeStateFailure(postFailure: postFailure ?? this.postFailure);
+  }
 }

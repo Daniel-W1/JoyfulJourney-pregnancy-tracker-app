@@ -1,10 +1,32 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/domain/profile/profile.dart';
 
-part 'profile_event.freezed.dart';
+class ProfileEvent {
+  const ProfileEvent._();
 
-@freezed
-abstract class ProfileEvent with _$ProfileEvent {
-  const factory ProfileEvent.update({required ProfileForm profileForm, required String profileId}) = ProfileEventUpdate;
-  const factory ProfileEvent.getProfile({required String profileId}) = ProfileEventGetProfile;
+  const factory ProfileEvent.update({
+    required ProfileForm profileForm,
+    required String profileId,
+  }) = ProfileEventUpdate;
+
+  const factory ProfileEvent.getProfile({
+    required String profileId,
+  }) = ProfileEventGetProfile;
+}
+
+class ProfileEventUpdate extends ProfileEvent {
+  final ProfileForm profileForm;
+  final String profileId;
+
+  const ProfileEventUpdate({
+    required this.profileForm,
+    required this.profileId,
+  }) : super._();
+}
+
+class ProfileEventGetProfile extends ProfileEvent {
+  final String profileId;
+
+  const ProfileEventGetProfile({
+    required this.profileId,
+  }) : super._();
 }
