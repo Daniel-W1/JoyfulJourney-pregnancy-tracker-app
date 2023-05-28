@@ -1,23 +1,39 @@
-// create the appointment domain
+class AppointmentDomain {
+  final String id;
+  final String title;
+  final String description;
+  final String date;
+  final String time;
+  final String userId;
 
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'appointment_domain.freezed.dart';
-part 'appointment_domain.g.dart';
+  AppointmentDomain({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.date,
+    required this.time,
+    required this.userId,
+  });
 
+  factory AppointmentDomain.fromJson(Map<String, dynamic> json) {
+    return AppointmentDomain(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      description: json['description'] as String,
+      date: json['date'] as String,
+      time: json['time'] as String,
+      userId: json['user_id'] as String,
+    );
+  }
 
-@freezed
-class AppointmentDomain  with _$AppointmentDomain{
-
-  const factory AppointmentDomain({
-    required String id,
-    required String title,
-    required String description,
-    required String date,
-    required String time,
-    required String user_id,
-  }) = _AppointmentDomain;
-
-  factory AppointmentDomain.fromJson(Map<String, dynamic> json) =>
-      _$AppointmentDomainFromJson(json);
-
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'date': date,
+      'time': time,
+      'user_id': userId,
+    };
+  }
 }

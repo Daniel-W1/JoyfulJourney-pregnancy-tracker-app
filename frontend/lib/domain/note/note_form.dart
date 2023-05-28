@@ -1,10 +1,9 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'note_form.freezed.dart';
+class NoteForm {
+  final String title;
+  final String description;
 
-@freezed
-class NoteForm with _$NoteForm {
-  factory NoteForm({
-    required String title,
-    required String description, //TODO: Change to image
-  }) = _NoteForm;
+  NoteForm({
+    required this.title,
+    required this.description,
+  });
 }

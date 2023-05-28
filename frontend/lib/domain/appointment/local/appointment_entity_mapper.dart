@@ -12,7 +12,7 @@ extension on AppointmentEntity {
       description: description,
       date:date,
       time:time,
-      user_id:user_id,
+      userId:userId,
     );
   }
 
@@ -23,7 +23,7 @@ extension on AppointmentEntity {
       description: appointment.description,
       date:appointment.date,
       time:appointment.time,
-      user_id:appointment.user_id,
+      userId:appointment.userId,
     );
   }
 
@@ -34,7 +34,7 @@ extension on AppointmentEntity {
       description: description,
       date:date,
       time:time,
-      user_id:user_id,
+      userId:userId,
     );
   }
 
@@ -44,7 +44,7 @@ extension on AppointmentEntity {
       title: appointmentdto.title,
       description: appointmentdto.description,
       time: appointmentdto.time,
-      user_id: appointmentdto.user_id,
+      userId: appointmentdto.userId,
       date: appointmentdto.date,
     );
   }

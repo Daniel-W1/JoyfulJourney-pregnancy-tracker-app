@@ -1,12 +1,13 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'appointment_form.freezed.dart';
+class AppointmentForm {
+  final String title;
+  final String description; // TODO: Change to image
+  final String date;
+  final String time;
 
-@freezed
-class AppointmentForm with _$AppointmentForm {
-  factory AppointmentForm({
-    required String title,
-    required String description, //TODO: Change to image
-    required String date,
-    required String time,
-  }) = _AppointmentForm;
+  AppointmentForm({
+    required this.title,
+    required this.description,
+    required this.date,
+    required this.time,
+  });
 }

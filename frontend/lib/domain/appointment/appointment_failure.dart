@@ -1,16 +1,54 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'appointment_failure.freezed.dart';
+class AppointmentFailure {
+  const AppointmentFailure._();
 
-@freezed
-class Appointmentfailure with _$Appointmentfailure {
-  const factory Appointmentfailure.serverError() = ServerError;
-  const factory Appointmentfailure.networkError() = NetworkError;
-  const factory Appointmentfailure.unauthorized() = Unauthorized;
-  const factory Appointmentfailure.notFound() = NotFound;
-  const factory Appointmentfailure.permissionDenied() = PermissionDenied;
-  const factory Appointmentfailure.forbidden() = Forbidden;
-  const factory Appointmentfailure.emptyTitleError() = EmptyTitleError;
-  const factory Appointmentfailure.emptyDescriptionError() = EmptyDescriptionError;
-  const factory Appointmentfailure.emptyDateError() = EmptyDateError;
-  const factory Appointmentfailure.emptyTimeError() = EmptyTimeError;
+  factory AppointmentFailure.serverError() = ServerError;
+  factory AppointmentFailure.networkError() = NetworkError;
+  factory AppointmentFailure.unauthorized() = Unauthorized;
+  factory AppointmentFailure.notFound() = NotFound;
+  factory AppointmentFailure.permissionDenied() = PermissionDenied;
+  factory AppointmentFailure.forbidden() = Forbidden;
+  factory AppointmentFailure.emptyTitleError() = EmptyTitleError;
+  factory AppointmentFailure.emptyDescriptionError() = EmptyDescriptionError;
+  factory AppointmentFailure.emptyDateError() = EmptyDateError;
+  factory AppointmentFailure.emptyTimeError() = EmptyTimeError;
+}
+
+class ServerError extends AppointmentFailure {
+  const ServerError() : super._();
+}
+
+class NetworkError extends AppointmentFailure {
+  const NetworkError() : super._();
+}
+
+class Unauthorized extends AppointmentFailure {
+  const Unauthorized() : super._();
+}
+
+class NotFound extends AppointmentFailure {
+  const NotFound() : super._();
+}
+
+class PermissionDenied extends AppointmentFailure {
+  const PermissionDenied() : super._();
+}
+
+class Forbidden extends AppointmentFailure {
+  const Forbidden() : super._();
+}
+
+class EmptyTitleError extends AppointmentFailure {
+  const EmptyTitleError() : super._();
+}
+
+class EmptyDescriptionError extends AppointmentFailure {
+  const EmptyDescriptionError() : super._();
+}
+
+class EmptyDateError extends AppointmentFailure {
+  const EmptyDateError() : super._();
+}
+
+class EmptyTimeError extends AppointmentFailure {
+  const EmptyTimeError() : super._();
 }

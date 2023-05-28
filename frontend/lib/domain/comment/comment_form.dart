@@ -1,9 +1,5 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'comment_form.freezed.dart';
+class CommentForm {
+  final String body;
 
-@freezed
-class CommentForm with _$CommentForm {
-  factory CommentForm({
-    required String body,
-  }) = _CommentForm;
+  CommentForm({required this.body});
 }

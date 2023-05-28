@@ -1,29 +1,45 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/domain/profile/profile_domain.dart';
-part 'profile_entity.freezed.dart';
-part 'profile_entity.g.dart';
 
-@freezed
-class ProfileEntity with _$ProfileEntity {
-  const factory ProfileEntity({
-    required String userName,
-    required String firstName,
-    required String lastName,
-    required String bio  ,
-    required String image,
-    required List<String> followers,
-    required List<String> following,
-    required List<String> comments,
-    required List<String> posts,
-    required List<String> socialmedia,
+class ProfileEntity {
+  final String userName;
+  final String firstName;
+  final String lastName;
+  final String bio;
+  final String image;
+  final List<String> followers;
+  final List<String> following;
+  final List<String> comments;
+  final List<String> posts;
+  final List<String> socialmedia;
 
-  }) = _ProfileEntity;
+  ProfileEntity({
+    required this.userName,
+    required this.firstName,
+    required this.lastName,
+    required this.bio,
+    required this.image,
+    required this.followers,
+    required this.following,
+    required this.comments,
+    required this.posts,
+    required this.socialmedia,
+  });
 
-  factory ProfileEntity.fromJson(Map<String, dynamic> json) =>
-      _$ProfileEntityFromJson(json);
-}
+  factory ProfileEntity.fromJson(Map<String, dynamic> json) {
+    return ProfileEntity(
+      userName: json['userName'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      bio: json['bio'],
+      image: json['image'],
+      followers: List<String>.from(json['followers']),
+      following: List<String>.from(json['following']),
+      comments: List<String>.from(json['comments']),
+      posts: List<String>.from(json['posts']),
+      socialmedia: List<String>.from(json['socialmedia']),
+    );
+  }
 
-extension ProfileEntityX on ProfileEntity {
   ProfileDomain toProfile() {
     return ProfileDomain(
       userName: userName,

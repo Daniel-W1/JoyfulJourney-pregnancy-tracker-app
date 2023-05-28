@@ -1,14 +1,39 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'signup_failure.freezed.dart';
+class Signupfailure {
+  const Signupfailure._();
 
-@freezed
-class Signupfailure with _$Signupfailure {
-  const factory Signupfailure.serverError() = ServerError;
-  const factory Signupfailure.networkError() = NetworkError;
-  const factory Signupfailure.invalidEmailAndPasswordCombination() =
-      InvalidEmailAndPasswordCombination;
-  const factory Signupfailure.emailAlreadyInUse() = EmailAlreadyInUse;
-  const factory Signupfailure.invalidEmail() = InvalidEmail;
-  const factory Signupfailure.invalidPassword() = InvalidPassword;
-  const factory Signupfailure.unexpected() = Unexpected;
+  factory Signupfailure.serverError() = ServerError;
+  factory Signupfailure.networkError() = NetworkError;
+  factory Signupfailure.invalidEmailAndPasswordCombination() = InvalidEmailAndPasswordCombination;
+  factory Signupfailure.emailAlreadyInUse() = EmailAlreadyInUse;
+  factory Signupfailure.invalidEmail() = InvalidEmail;
+  factory Signupfailure.invalidPassword() = InvalidPassword;
+  factory Signupfailure.unexpected() = Unexpected;
+}
+
+class ServerError extends Signupfailure {
+  const ServerError() : super._();
+}
+
+class NetworkError extends Signupfailure {
+  const NetworkError() : super._();
+}
+
+class InvalidEmailAndPasswordCombination extends Signupfailure {
+  const InvalidEmailAndPasswordCombination() : super._();
+}
+
+class EmailAlreadyInUse extends Signupfailure {
+  const EmailAlreadyInUse() : super._();
+}
+
+class InvalidEmail extends Signupfailure {
+  const InvalidEmail() : super._();
+}
+
+class InvalidPassword extends Signupfailure {
+  const InvalidPassword() : super._();
+}
+
+class Unexpected extends Signupfailure {
+  const Unexpected() : super._();
 }

@@ -1,11 +1,11 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class TipForm {
+  final String title;
+  final String body;
+  final String type;
 
-part 'tip_form.freezed.dart';
-
-@freezed
-class TipForm with _$TipForm {
-  const factory TipForm(
-      {required String title,
-      required String body,
-      required String type}) = _TipForm;
+  TipForm({
+    required this.title,
+    required this.body,
+    required this.type,
+  });
 }

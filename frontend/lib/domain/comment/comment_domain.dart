@@ -1,20 +1,22 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'comment_domain.freezed.dart';
-part 'comment_domain.g.dart';
+class CommentDomain {
+  final String id;
+  final String body;
+  final String post_id;
+  final String author;
 
-
-@freezed
-class CommentDomain with _$CommentDomain {
-
-  const factory CommentDomain({
-    required String id,
-    required String body,
-    required String post_id,
-    required String author,
-  }) = _CommentDomain;
-
-
-  factory CommentDomain.fromJson(Map<String, dynamic> json) =>
-      _$CommentDomainFromJson(json);
-
+  CommentDomain({
+    required this.id,
+    required this.body,
+    required this.post_id,
+    required this.author,
+  });
+  
+  factory CommentDomain.fromJson(Map<String, dynamic> json) {
+    return CommentDomain(
+      id: json['id'] as String,
+      body: json['body'] as String,
+      post_id: json['post_id'] as String,
+      author: json['author'] as String,
+    );
+  }
 }

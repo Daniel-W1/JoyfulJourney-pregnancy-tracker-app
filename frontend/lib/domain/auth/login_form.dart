@@ -1,14 +1,12 @@
-
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/domain/auth/user_name_domain.dart';
 import 'package:frontend/domain/auth/password_domain.dart';
 
-part 'login_form.freezed.dart';
+class LoginForm {
+  final Username username;
+  final Password password;
 
-@freezed
-class LoginForm with _$LoginForm {
-  const factory LoginForm({
-    required Username username,
-    required Password password,
-  }) = _LoginForm;
-} 
+  LoginForm({
+    required this.username,
+    required this.password,
+  });
+}

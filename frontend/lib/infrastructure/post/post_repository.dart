@@ -11,7 +11,6 @@ class PostRepository implements PostRepositoryInterface {
   final PostAPI postApi;
 
   PostRepository(this.postApi);
-
   @override
   Future<Either<Postfailure, List<PostDomain>>> getPosts() async {
     try {

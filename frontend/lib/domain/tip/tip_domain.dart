@@ -1,23 +1,43 @@
+class TipDomain {
+  final String id;
+  final String body;
+  final String title;
+  final String type;
 
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'tip_domain.freezed.dart';
-part 'tip_domain.g.dart';
+  TipDomain({
+    required this.id,
+    required this.body,
+    required this.title,
+    required this.type,
+  });
 
+  @override
+  String toString() {
+    return 'TipDomain(id: $id, body: $body, title: $title, type: $type)';
+  }
 
-@freezed
-class TipDomain with _$TipDomain{
-  // it has title, body, user_id
-  // it has a constructor that takes title, body, user_id
-  // it has a toString method
-  // it has a props method
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TipDomain &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          body == other.body &&
+          title == other.title &&
+          type == other.type;
 
-  const factory TipDomain({
-    required String id,
-    required String body,
-    required String title,
-    required String type,
-  }) = _TipDomain;
-
-  factory TipDomain.fromJson(Map<String, dynamic> json) =>
-      _$TipDomainFromJson(json);
+  @override
+  int get hashCode =>
+      id.hashCode ^ body.hashCode ^ title.hashCode ^ type.hashCode;
+  
+  List<Object?> get props => [id, body, title, type];
+  
+  factory TipDomain.fromJson(Map<String, dynamic> json) {
+    return TipDomain(
+      id: json['id'] as String,
+      body: json['body'] as String,
+      title: json['title'] as String,
+      type: json['type'] as String,
+    );
+  }
 }

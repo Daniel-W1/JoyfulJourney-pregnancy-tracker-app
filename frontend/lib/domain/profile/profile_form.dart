@@ -1,15 +1,19 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class ProfileForm {
+  final String firstName;
+  final String lastName;
+  final String bio;
+  final List<String> followers;
+  final List<String> following;
+  final List<String> socialMedia;
+  final String image;
 
-part 'profile_form.freezed.dart';
-
-@freezed
-class ProfileForm with _$ProfileForm {
-  const factory ProfileForm(
-      {required String firstName,
-      required String lastName,
-      required String bio,
-      required List<String> followers,
-      required List<String> following,
-      required List<String> socialmedia,
-      required String image}) = _ProfileForm;
+  ProfileForm({
+    required this.firstName,
+    required this.lastName,
+    required this.bio,
+    required this.followers,
+    required this.following,
+    required this.socialMedia,
+    required this.image,
+  });
 }

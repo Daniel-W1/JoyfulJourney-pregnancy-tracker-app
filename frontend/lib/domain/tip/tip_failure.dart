@@ -1,17 +1,59 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'tip_failure.freezed.dart';
+class TipFailure {
+  const TipFailure._();
 
-@freezed
-class Tipfailure with _$Tipfailure {
-  const factory Tipfailure.serverError() = ServerError;
-  const factory Tipfailure.networkError() = NetworkError;
-  const factory Tipfailure.unauthorized() = Unauthorized;
-  const factory Tipfailure.notFound() = NotFound;
-  const factory Tipfailure.permissionDenied() = PermissionDenied;
-  const factory Tipfailure.forbidden() = Forbidden;
-  const factory Tipfailure.emptyTitleError() = EmptyTitleError;
-  const factory Tipfailure.emptyDescriptionError() = EmptyDescriptionError;
-  const factory Tipfailure.emptyauthorError() = EmptyauthorError;
-  const factory Tipfailure.InvalidcommentError() = InvalidcommentError;
-  const factory Tipfailure.InvalidlikeError() = InvalidlikeError;
+  factory TipFailure.serverError() = ServerError;
+  factory TipFailure.networkError() = NetworkError;
+  factory TipFailure.unauthorized() = Unauthorized;
+  factory TipFailure.notFound() = NotFound;
+  factory TipFailure.permissionDenied() = PermissionDenied;
+  factory TipFailure.forbidden() = Forbidden;
+  factory TipFailure.emptyTitleError() = EmptyTitleError;
+  factory TipFailure.emptyDescriptionError() = EmptyDescriptionError;
+  factory TipFailure.emptyAuthorError() = EmptyAuthorError;
+  factory TipFailure.invalidCommentError() = InvalidCommentError;
+  factory TipFailure.invalidLikeError() = InvalidLikeError;
+}
+
+class ServerError extends TipFailure {
+  const ServerError() : super._();
+}
+
+class NetworkError extends TipFailure {
+  const NetworkError() : super._();
+}
+
+class Unauthorized extends TipFailure {
+  const Unauthorized() : super._();
+}
+
+class NotFound extends TipFailure {
+  const NotFound() : super._();
+}
+
+class PermissionDenied extends TipFailure {
+  const PermissionDenied() : super._();
+}
+
+class Forbidden extends TipFailure {
+  const Forbidden() : super._();
+}
+
+class EmptyTitleError extends TipFailure {
+  const EmptyTitleError() : super._();
+}
+
+class EmptyDescriptionError extends TipFailure {
+  const EmptyDescriptionError() : super._();
+}
+
+class EmptyAuthorError extends TipFailure {
+  const EmptyAuthorError() : super._();
+}
+
+class InvalidCommentError extends TipFailure {
+  const InvalidCommentError() : super._();
+}
+
+class InvalidLikeError extends TipFailure {
+  const InvalidLikeError() : super._();
 }

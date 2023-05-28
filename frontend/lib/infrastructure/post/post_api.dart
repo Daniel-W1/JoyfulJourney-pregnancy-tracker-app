@@ -57,6 +57,7 @@ class PostAPI {
     }
   }
 
+
   Future<PostDto> getOnePost(String id) async {
     var post = await jjHttpClient.get("post$id");
 
