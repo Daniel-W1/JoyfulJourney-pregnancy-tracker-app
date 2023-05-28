@@ -16,8 +16,8 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       Either<Commentfailure, List<CommentDomain>> result =
           await commentRepositoryInterface.getComments();
 
-      result.fold((l) => emit(CommentStateFailure(failure: l)),
-          (r) => emit(CommentStateSuccessMultiple(comments: r)));
+      result.fold((l) => emit(CommentStateFailure(l)),
+          (r) => emit(CommentStateSuccessMultiple(r)));
     });
 
     on<CommentEventGetCommentsForPost>((event, emit) async {
@@ -26,8 +26,8 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       Either<Commentfailure, List<CommentDomain>> result =
           await commentRepositoryInterface.getCommentsForPost(event.postId);
 
-      result.fold((l) => emit(CommentStateFailure(failure: l)),
-          (r) => emit(CommentStateSuccessMultiple(comments: r)));
+      result.fold((l) => emit(CommentStateFailure(l)),
+          (r) => emit(CommentStateSuccessMultiple(r)));
     });
 
     on<CommentEventGetUserComments>((event, emit) async {
@@ -36,8 +36,8 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       Either<Commentfailure, List<CommentDomain>> result =
           await commentRepositoryInterface.getUserComments(event.userid);
 
-      result.fold((l) => emit(CommentStateFailure(failure: l)),
-          (r) => emit(CommentStateSuccessMultiple(comments: r)));
+      result.fold((l) => emit(CommentStateFailure(l)),
+          (r) => emit(CommentStateSuccessMultiple(r)));
     });
 
     on<CommentEventAddComment>(
@@ -47,8 +47,8 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
         Either<Commentfailure, CommentDomain> result =
             await commentRepositoryInterface.addComment(event.commentForm.copyWith());
 
-        result.fold((l) => emit(CommentStateFailure(failure: l)),
-            (r) => emit(CommentStateSuccess(comment: r)));
+        result.fold((l) => emit(CommentStateFailure(l)),
+            (r) => emit(CommentStateSuccess(r)));
       },
     );
 
@@ -59,8 +59,8 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
         Either<Commentfailure, CommentDomain> result =
             await commentRepositoryInterface.updateComment(event.commentForm.copyWith(), event.commentId);
 
-        result.fold((l) => emit(CommentStateFailure(failure: l)),
-            (r) => emit(CommentStateSuccess(comment: r)));
+        result.fold((l) => emit(CommentStateFailure(l)),
+            (r) => emit(CommentStateSuccess(r)));
       },
     );
 
@@ -72,7 +72,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
           await commentRepositoryInterface.deleteComment(event.commentId);
 
       result.fold(
-        (l) => emit(CommentStateFailure(failure: l)),
+        (l) => emit(CommentStateFailure(l)),
         (r) => emit(const CommentStateDeleted())
       );
     }));

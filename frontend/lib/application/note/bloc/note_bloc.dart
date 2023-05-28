@@ -43,7 +43,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
 
           result.fold(
             (l) => emit(NoteStateFailure(l)),
-            (r) => emit(NoteStateDeleted(r))
+            (r) => emit(NoteStateDeleted())
           );
     });
 

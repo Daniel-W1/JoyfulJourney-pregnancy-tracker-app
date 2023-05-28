@@ -10,10 +10,10 @@ class PostLikeBloc extends Bloc<PostLikeEvent, PostLikeState> {
 
   PostLikeBloc({required this.postRepository}) : super(const PostLikeStateInitial()) {
 
-    on<PostLikeEventLike>((event, emit) async {
+    on<PostLikeEventChangeLike>((event, emit) async {
       emit(const PostLikeStateLoading());
 
-      Either<Postfailure, PostDomain> result = await postRepository.likePost(event.postId);
+      Either<Postfailure, PostDomain> result = await postRepository.changeLike(event.liker, event.postId);
 
       result.fold(
         (l) => emit(PostLikeStateFailure(postFailure: l)),
@@ -21,15 +21,5 @@ class PostLikeBloc extends Bloc<PostLikeEvent, PostLikeState> {
       );
     });
 
-    on<PostLikeEventUnlike>((event, emit) async {
-      emit(const PostLikeStateLoading());
-
-      Either<Postfailure, PostDomain> result = await postRepository.unlikePost(event.postId);
-
-      result.fold(
-        (l) => emit(PostLikeStateFailure(postFailure: l)),
-        (r) => emit(PostLikeStateSuccess(post: r))
-      );
-    });
-  }
+}
 }

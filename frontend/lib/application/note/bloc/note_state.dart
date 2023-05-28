@@ -1,15 +1,43 @@
-import 'package:dartz/dartz.dart';
+
 import 'package:frontend/domain/note/note.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'note_state.freezed.dart';
+class NoteState {
+  const NoteState._();
 
-@freezed
-abstract class NoteState with _$NoteState {
   const factory NoteState.initial() = NoteStateInitial;
   const factory NoteState.loading() = NoteStateLoading;
   const factory NoteState.successMultiple(List<NoteDomain> notes) = NoteStateSuccessMultiple;
   const factory NoteState.failure(Notefailure failure) = NoteStateFailure;
   const factory NoteState.success(NoteDomain note) = NoteStateSuccess;
-  const factory NoteState.deleted(Unit unit) = NoteStateDeleted;
+  const factory NoteState.deleted() = NoteStateDeleted;
+}
+
+class NoteStateInitial extends NoteState {
+  const NoteStateInitial() : super._();
+}
+
+class NoteStateLoading extends NoteState {
+  const NoteStateLoading() : super._();
+}
+
+class NoteStateSuccessMultiple extends NoteState {
+  final List<NoteDomain> notes;
+
+  const NoteStateSuccessMultiple(this.notes) : super._();
+}
+
+class NoteStateFailure extends NoteState {
+  final Notefailure failure;
+
+  const NoteStateFailure(this.failure) : super._();
+}
+
+class NoteStateSuccess extends NoteState {
+  final NoteDomain note;
+
+  const NoteStateSuccess(this.note) : super._();
+}
+
+class NoteStateDeleted extends NoteState {
+  const NoteStateDeleted() : super._();
 }
