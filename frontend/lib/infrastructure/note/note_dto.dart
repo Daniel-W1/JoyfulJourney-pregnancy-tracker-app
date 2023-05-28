@@ -1,20 +1,31 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+class NoteDto {
+  final String id;
+  final String body;
+  final String title;
+  final String author;
 
-part 'note_dto.freezed.dart';
-part 'note_dto.g.dart';
+  NoteDto({
+    required this.id,
+    required this.body,
+    required this.title,
+    required this.author,
+  });
 
-@freezed
-class NoteDto with _$NoteDto {
-  const NoteDto._();
+  factory NoteDto.fromJson(Map<String, dynamic> json) {
+    return NoteDto(
+      id: json['id'],
+      body: json['body'],
+      title: json['title'],
+      author: json['author'],
+    );
+  }
 
-  const factory NoteDto({
-    required String id,
-    required String body,
-    required String title,
-    required String user_id,
-  }) = _NoteDto;
-
-  factory NoteDto.fromJson(Map<String, dynamic> json) =>
-      _$NoteDtoFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'body': body,
+      'title': title,
+      'author': author,
+    };
+  }
 }

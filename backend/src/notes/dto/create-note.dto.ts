@@ -10,6 +10,6 @@ export class CreateNoteDto {
     body:string;
 
     @IsNotEmpty()
-    user_id: string;
+    author: string;
 }
 

@@ -5,7 +5,7 @@ class ProfileForm {
   final List<String> followers;
   final List<String> following;
   final List<String> socialMedia;
-  final String image;
+  final String profilePicture;
 
   ProfileForm({
     required this.firstName,
@@ -14,6 +14,6 @@ class ProfileForm {
     required this.followers,
     required this.following,
     required this.socialMedia,
-    required this.image,
+    required this.profilePicture,
   });
 }

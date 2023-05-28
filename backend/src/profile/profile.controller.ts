@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
 import { ProfileService } from './profile.service';
-import { ProfileDto } from './profile.dto';
+import { ProfileDto } from './dto/profile.dto';
 
 @Controller('profile')
 export class ProfileController {

@@ -4,8 +4,8 @@ import { Role } from 'src/auth/roles.enum';
 
 @Schema()
 export class User {
-    @Prop()
-    profileId: Types.ObjectId;
+    @Prop({required: true})
+    profileId: string;
 
     @Prop({ required: true })
     username: string;

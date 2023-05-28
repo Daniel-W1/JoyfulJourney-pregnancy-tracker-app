@@ -3,8 +3,8 @@ import mongoose, { Types, HydratedDocument } from 'mongoose';
 
 @Schema()
 export class Post {
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Profile' })
-  author: mongoose.Schema.Types.ObjectId;
+  @Prop({ required: true, type: String, ref: 'Profile' })
+  author: string;
 
   @Prop({ required: true, type: String })
   body: string;

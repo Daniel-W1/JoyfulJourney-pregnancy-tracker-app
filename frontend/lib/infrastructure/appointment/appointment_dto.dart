@@ -1,20 +1,39 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+class AppointmentDto {
+  String id;
+  String title;
+  String body;
+  String date;
+  String time;
+  String author;
 
-part 'appointment_dto.freezed.dart';
-part 'appointment_dto.g.dart';
+  AppointmentDto({
+    required this.id,
+    required this.title,
+    required this.body,
+    required this.date,
+    required this.time,
+    required this.author,
+  });
 
-@freezed
-class AppointmentDto with _$AppointmentDto {
-  const factory AppointmentDto({
-    required String id,
-    required String title,
-    required String description,
-    required String date,
-    required String time,
-    required String user_id,
-  }) = _AppointmentDto;
+  factory AppointmentDto.fromJson(Map<String, dynamic> json) {
+    return AppointmentDto(
+      id: json['id'],
+      title: json['title'],
+      body: json['body'],
+      date: json['date'],
+      time: json['time'],
+      author: json['author'],
+    );
+  }
 
-  factory AppointmentDto.fromJson(Map<String, dynamic> json) =>
-      _$AppointmentDtoFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'body': body,
+      'date': date,
+      'time': time,
+      'author': author,
+    };
+  }
 }

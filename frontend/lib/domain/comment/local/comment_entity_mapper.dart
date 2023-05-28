@@ -7,7 +7,7 @@ extension CommentEntityExtensions on CommentEntity {
     return CommentDomain(
       id: id,
       body: body,
-      post_id: post_id,
+      postId: postId,
       author: author,
     );
   }
@@ -16,7 +16,7 @@ extension CommentEntityExtensions on CommentEntity {
     return CommentEntity(
       id: comment.id,
       body: comment.body,
-      post_id: comment.post_id,
+      postId: comment.postId,
       author: comment.author,
     );
   }
@@ -25,7 +25,7 @@ extension CommentEntityExtensions on CommentEntity {
     return CommentDto(
       id: id,
       body: body,
-      post_id: post_id,
+      postId: postId,
       author: author,
     );
   }
@@ -34,7 +34,7 @@ extension CommentEntityExtensions on CommentEntity {
     return CommentEntity(
       id: commentDto.id,
       body: commentDto.body,
-      post_id: commentDto.post_id,
+      postId: commentDto.postId,
       author: commentDto.author,
     );
   }

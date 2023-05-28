@@ -8,6 +8,6 @@ abstract class TipRepositoryInterface {
   Future<Either<TipFailure, List<TipDomain>>> getTipsByType(String type);
   Future<Either<TipFailure, TipDomain>> getTipById(String id);
   Future<Either<TipFailure, TipDomain>> addTip(TipForm tip);
-  Future<Either<TipFailure, TipDomain>> updateTip(TipForm tip, String tipId);
+  Future<Either<TipFailure, TipDomain>> updateTip({required TipForm tipForm, required String tipId});
   Future<Either<TipFailure, Unit>> deleteTip(String tipId);
 }

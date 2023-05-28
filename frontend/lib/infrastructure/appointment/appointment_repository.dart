@@ -13,7 +13,7 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   AppointmentRepository(this.appointmentAPI);
 
   @override
-  Future<Either<Appointmentfailure, List<AppointmentDomain>>>
+  Future<Either<AppointmentFailure, List<AppointmentDomain>>>
       getAppointmentsForUser(String userId) async {
     try {
       var appointment = await appointmentAPI.getAppointmentsByUser(userId);
@@ -22,45 +22,43 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
               AppointmentDomain.fromJson(appointmentDto.toJson()))
           .toList());
     }
-    // TODO: handle more errors
-    // TODO: Make sure user is authenticated
     catch (e) {
-      return left(const Appointmentfailure.serverError());
+      return left(AppointmentFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Appointmentfailure, AppointmentDomain>> addAppointment(
+  Future<Either<AppointmentFailure, AppointmentDomain>> addAppointment(
       AppointmentForm appointmentForm) async {
     try {
       var appointment =
           await appointmentAPI.createAppointment(appointmentForm.toDto());
       return right(AppointmentDomain.fromJson(appointment.toJson()));
     } catch (e) {
-      return left(const Appointmentfailure.serverError());
+      return left(AppointmentFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Appointmentfailure, AppointmentDomain>> updateAppointment(
-      AppointmentForm appointmentForm, String appointmentId) async {
+  Future<Either<AppointmentFailure, AppointmentDomain>> updateAppointment(
+      {required AppointmentForm appointmentForm, required String appointmentId}) async {
     try {
       var AppointmentDomainDto = await appointmentAPI.updateAppointment(
           appointmentForm.toDto(), appointmentId);
       return right(AppointmentDomain.fromJson(AppointmentDomainDto.toJson()));
     } catch (e) {
-      return left(const Appointmentfailure.serverError());
+      return left(AppointmentFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Appointmentfailure, Unit>> deleteAppointment(
+  Future<Either<AppointmentFailure, Unit>> deleteAppointment(
       String appointmentId) async {
     try {
       await appointmentAPI.deleteAppointment(appointmentId);
       return right(unit);
     } catch (e) {
-      return left(Appointmentfailure.serverError());
+      return left(AppointmentFailure.serverError());
     }
   }
 }

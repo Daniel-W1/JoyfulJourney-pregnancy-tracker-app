@@ -6,11 +6,10 @@ extension PFMapper on ProfileForm {
     return ProfileFormDto(
         firstName: firstName,
         lastName: lastName,
-        image: image, 
+        profilePicture: profilePicture,
         bio: bio,
         followers: followers,
         following: following,
-        socialmedias: socialmedia
-    );
+        socialMedia: socialMedia);
   }
 }

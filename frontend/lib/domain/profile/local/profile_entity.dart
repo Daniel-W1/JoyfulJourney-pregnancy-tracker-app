@@ -5,24 +5,24 @@ class ProfileEntity {
   final String firstName;
   final String lastName;
   final String bio;
-  final String image;
+  final String profilePicture;
   final List<String> followers;
   final List<String> following;
   final List<String> comments;
   final List<String> posts;
-  final List<String> socialmedia;
+  final List<String> socialMedia;
 
   ProfileEntity({
     required this.userName,
     required this.firstName,
     required this.lastName,
     required this.bio,
-    required this.image,
+    required this.profilePicture,
     required this.followers,
     required this.following,
     required this.comments,
     required this.posts,
-    required this.socialmedia,
+    required this.socialMedia,
   });
 
   factory ProfileEntity.fromJson(Map<String, dynamic> json) {
@@ -31,12 +31,12 @@ class ProfileEntity {
       firstName: json['firstName'],
       lastName: json['lastName'],
       bio: json['bio'],
-      image: json['image'],
+      profilePicture: json['profilePicture'],
       followers: List<String>.from(json['followers']),
       following: List<String>.from(json['following']),
       comments: List<String>.from(json['comments']),
       posts: List<String>.from(json['posts']),
-      socialmedia: List<String>.from(json['socialmedia']),
+      socialMedia: List<String>.from(json['socialMedia']),
     );
   }
 
@@ -46,12 +46,12 @@ class ProfileEntity {
       firstName: firstName,
       lastName: lastName,
       bio: bio,
-      image: image,
+      profilePicture: profilePicture,
       followers: followers,
       following: following,
       comments: comments,
       posts: posts,
-      socialmedia: socialmedia,
+      socialMedia: socialMedia,
     );
   }
 }

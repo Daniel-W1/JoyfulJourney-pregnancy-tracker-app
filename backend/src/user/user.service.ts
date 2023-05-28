@@ -121,6 +121,9 @@ export class UserService {
 
   async remove(id: string) {
     try {
+      const user = await this.userModel.findById(id).exec();
+      const profileId = user.profileId;
+      let deletedProfile = await this.profileService.removeProfile(profileId);
       return this.userModel.deleteOne({ _id: id }).exec();
     } catch (error) {
         throw error;

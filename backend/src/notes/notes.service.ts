@@ -34,9 +34,9 @@ export class NotesService {
 
   }
 
-  async findByUser(user_id: string) {
+  async findByUser(author: string) {
     try{
-      const finder = {user_id: user_id};
+      const finder = {author: author};
       return await this.NoteModel.find(finder).exec();
     } catch (error) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);

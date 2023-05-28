@@ -8,7 +8,7 @@ extension on NoteDto {
       id: note.id,
       title: note.title,
       body: note.body,
-      user_id: note.user_id,
+      author: note.author,
     );
   }
 
@@ -17,7 +17,7 @@ extension on NoteDto {
       id: id,
       title: title,
       body: body,
-      user_id: user_id,
+      author: author,
     );
   }
 
@@ -26,7 +26,7 @@ extension on NoteDto {
       id: id,
       title: title,
       body: body,
-      user_id: user_id,
+      author: author,
 
     );
   }

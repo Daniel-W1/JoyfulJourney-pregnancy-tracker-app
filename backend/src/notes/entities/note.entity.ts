@@ -12,7 +12,7 @@ export class Note {
     body: string;
 
     @Prop({ required: true })
-    user_id: Types.ObjectId;
+    author: string;
 }
 
 export const NoteSchema = SchemaFactory.createForClass(Note);

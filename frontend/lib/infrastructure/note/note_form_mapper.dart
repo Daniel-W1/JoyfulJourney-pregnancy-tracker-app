@@ -5,7 +5,7 @@ extension NFMapper on NoteForm {
   NoteFormDto toDto() {
     return NoteFormDto(
       title: title,
-      description: description,
+      body: body,
     );
   }
 }

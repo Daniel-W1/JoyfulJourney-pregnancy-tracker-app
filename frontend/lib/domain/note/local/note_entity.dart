@@ -2,13 +2,13 @@ class NoteEntity {
   final String id;
   final String body;
   final String title;
-  final String userId;
+  final String author;
 
   NoteEntity({
     required this.id,
     required this.body,
     required this.title,
-    required this.userId,
+    required this.author,
   });
 
   factory NoteEntity.fromJson(Map<String, dynamic> json) {
@@ -16,7 +16,7 @@ class NoteEntity {
       id: json['id'] as String,
       body: json['body'] as String,
       title: json['title'] as String,
-      userId: json['user_id'] as String,
+      author: json['author'] as String,
     );
   }
 
@@ -25,7 +25,7 @@ class NoteEntity {
       'id': id,
       'body': body,
       'title': title,
-      'user_id': userId,
+      'author': author,
     };
   }
 }

@@ -4,12 +4,5 @@ import { Types } from 'mongoose';
 import { Role } from 'src/auth/roles.enum';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
-    username: string;
-
-    password: string;
-
-    email: string;
     roles: Role[];
-
-    profileId: Types.ObjectId;
 }

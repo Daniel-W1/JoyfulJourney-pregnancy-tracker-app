@@ -1,4 +1,3 @@
-
 import 'package:frontend/domain/appointment/appointment_domain.dart';
 import 'package:frontend/domain/appointment/local/appointment_entity.dart';
 import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
@@ -8,10 +7,10 @@ extension on AppointmentDto {
     return AppointmentDto(
       id: appointment.id,
       title: appointment.title,
-      description: appointment.description,
+      body: appointment.body,
       date: appointment.date,
       time: appointment.time,
-      user_id: appointment.user_id,
+      author: appointment.author,
     );
   }
 
@@ -19,10 +18,10 @@ extension on AppointmentDto {
     return AppointmentEntity(
       id: id,
       title: title,
-      description: description,
+      body: body,
       date: date,
       time: time,
-      user_id: user_id,
+      author: author,
     );
   }
 
@@ -30,10 +29,10 @@ extension on AppointmentDto {
     return AppointmentDomain(
       id: appointment.id,
       title: appointment.title,
-      description: appointment.description,
+      body: appointment.body,
       date: appointment.date,
       time: appointment.time,
-      user_id: appointment.user_id,
+      author: appointment.author,
     );
   }
 }

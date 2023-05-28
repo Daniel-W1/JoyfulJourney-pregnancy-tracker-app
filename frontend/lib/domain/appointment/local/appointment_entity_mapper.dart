@@ -9,10 +9,10 @@ extension on AppointmentEntity {
     return AppointmentDomain(
       id: id,
       title: title,
-      description: description,
-      date:date,
-      time:time,
-      userId:userId,
+      body: body,
+      date: date,
+      time: time,
+      author: author,
     );
   }
 
@@ -20,10 +20,10 @@ extension on AppointmentEntity {
     return AppointmentEntity(
       id: appointment.id,
       title: appointment.title,
-      description: appointment.description,
-      date:appointment.date,
-      time:appointment.time,
-      userId:appointment.userId,
+      body: appointment.body,
+      date: appointment.date,
+      time: appointment.time,
+      author: appointment.author,
     );
   }
 
@@ -31,10 +31,10 @@ extension on AppointmentEntity {
     return AppointmentDto(
       id: id,
       title: title,
-      description: description,
-      date:date,
-      time:time,
-      userId:userId,
+      body: body,
+      date: date,
+      time: time,
+      author: author,
     );
   }
 
@@ -42,9 +42,9 @@ extension on AppointmentEntity {
     return AppointmentEntity(
       id: appointmentdto.id,
       title: appointmentdto.title,
-      description: appointmentdto.description,
+      body: appointmentdto.body,
       time: appointmentdto.time,
-      userId: appointmentdto.userId,
+      author: appointmentdto.author,
       date: appointmentdto.date,
     );
   }

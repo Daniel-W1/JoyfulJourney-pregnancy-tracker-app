@@ -13,49 +13,49 @@ class TipRepository implements TipRepositoryInterface {
   TipRepository(this.tipApi);
 
   @override
-  Future<Either<Tipfailure, TipDomain>> addTip(
+  Future<Either<TipFailure, TipDomain>> addTip(
       TipForm tipForm) async {
     try {
       var tip = await tipApi.createTip(tipForm.toDto());
       return right(TipDomain.fromJson(tip.toJson()));
     } catch (e) {
-      return left(const Tipfailure.serverError());
+      return left(TipFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Tipfailure, TipDomain>> updateTip(
-      TipForm tipForm, String tipId) async {
+  Future<Either<TipFailure, TipDomain>> updateTip(
+      {required TipForm tipForm, required String tipId}) async {
     try {
       var updatedTipDto =
           await tipApi.updateTip(tipForm.toDto(), tipId);
       return right(TipDomain.fromJson(updatedTipDto.toJson()));
     } catch (e) {
-      return left(const Tipfailure.serverError());
+      return left(TipFailure.serverError());
     }
   }
   @override
-  Future<Either<Tipfailure, TipDomain>> getTipById(String tipId) async {
+  Future<Either<TipFailure, TipDomain>> getTipById(String tipId) async {
     try {
       var tip = await tipApi.getOneTip(tipId);
       return right(TipDomain.fromJson(tip.toJson()));
     } catch (e) {
-      return left(const Tipfailure.serverError());
+      return left(TipFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Tipfailure, Unit>> deleteTip(String tipId) async {
+  Future<Either<TipFailure, Unit>> deleteTip(String tipId) async {
     try {
       await tipApi.deleteTip(tipId);
       return right(unit);
     } catch (e) {
-      return left(const Tipfailure.serverError());
+      return left(TipFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Tipfailure, List<TipDomain>>> getTipsByType(
+  Future<Either<TipFailure, List<TipDomain>>> getTipsByType(
       String tipId) async {
     try {
       var tips = await tipApi.getTipsByType(tipId);
@@ -63,18 +63,18 @@ class TipRepository implements TipRepositoryInterface {
           .map((TipDto tipDto) => TipDomain.fromJson(tipDto.toJson()))
           .toList());
     } catch (e) {
-      return left(const Tipfailure.serverError());
+      return left(TipFailure.serverError());
     }
   }
   @override
-  Future<Either<Tipfailure, List<TipDomain>>> getTips() async {
+  Future<Either<TipFailure, List<TipDomain>>> getTips() async {
     try {
       var tips = await tipApi.getTips();
       return right(tips
           .map((TipDto tipDto) => TipDomain.fromJson(tipDto.toJson()))
           .toList());
     } catch (e) {
-      return left(const Tipfailure.serverError());
+      return left(TipFailure.serverError());
     }
   }
 

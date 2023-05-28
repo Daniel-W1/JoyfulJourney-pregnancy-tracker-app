@@ -1,17 +1,27 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class UserFormDto {
+  final String username;
+  final String password;
+  final String email;
 
-part 'user_form_dto.freezed.dart';
-part 'user_form_dto.g.dart';
+  UserFormDto({
+    required this.username,
+    required this.password,
+    required this.email,
+  });
 
-@freezed
-class UserFormDto with _$UserFormDto {
+  factory UserFormDto.fromJson(Map<String, dynamic> json) {
+    return UserFormDto(
+      username: json['username'],
+      password: json['password'],
+      email: json['email'],
+    );
+  }
 
-  const factory UserFormDto({
-    required String username,
-    required String password,
-    required String email,
-  }) = _UserFormDto;
-
-  factory UserFormDto.fromJson(Map<String, dynamic> json) =>
-      _$UserFormDtoFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'username': username,
+      'password': password,
+      'email': email,
+    };
+  }
 }

@@ -8,7 +8,7 @@ extension NoteEntityExtensions on NoteEntity {
       id: id,
       body: body,
       title: title,
-      userId: userId,
+      author: author,
     );
   }
 
@@ -17,7 +17,7 @@ extension NoteEntityExtensions on NoteEntity {
       id: note.id,
       body: note.body,
       title: note.title,
-      userId: note.userId,
+      author: note.author,
     );
   }
 
@@ -26,7 +26,7 @@ extension NoteEntityExtensions on NoteEntity {
       id: id,
       body: body,
       title: title,
-      userId: userId,
+      author: author,
     );
   }
 
@@ -35,7 +35,7 @@ extension NoteEntityExtensions on NoteEntity {
       id: noteDto.id,
       body: noteDto.body,
       title: noteDto.title,
-      userId: noteDto.userId,
+      author: noteDto.author,
     );
   }
 }

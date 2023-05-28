@@ -6,6 +6,6 @@ import 'package:frontend/domain/note/note_failure.dart';
 abstract class NoteRepositoryInterface {
   Future<Either<NoteFailure, List<NoteDomain>>> getNotesForUser(String userId);
   Future<Either<NoteFailure, NoteDomain>> addNote(NoteForm note);
-  Future<Either<NoteFailure, NoteDomain>> updateNote(NoteForm note, String noteId);
+  Future<Either<NoteFailure, NoteDomain>> updateNote({required NoteForm noteForm, required String noteId});
   Future<Either<NoteFailure, Unit>> deleteNote(String noteId);
 }

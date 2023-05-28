@@ -1,19 +1,19 @@
 import { Types } from "mongoose";   
-import { SocialMedia } from "src/schemas/profile.schema";
+import { SocialMedia } from "src/profile/schemas/profile.schema";
 import { IsNotEmpty } from "class-validator";
 
 
 export class ProfileDto{
 
     @IsNotEmpty()
-    firstname: String[];
+    firstName: String;
 
-    lastname: String[]
+    lastName: String;
 
     @IsNotEmpty()
-    username: String[]
+    userName: String;
 
-    image: String;
+    profilePicture: String;
     bio: String;
     followers: String[];
     following: String[];

@@ -1,9 +1,9 @@
 class NoteForm {
   final String title;
-  final String description;
+  final String body;
 
   NoteForm({
     required this.title,
-    required this.description,
+    required this.body,
   });
 }

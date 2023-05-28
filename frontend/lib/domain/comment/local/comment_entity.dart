@@ -1,13 +1,13 @@
 class CommentEntity {
   final String id;
   final String body;
-  final String post_id;
+  final String postId;
   final String author;
 
   CommentEntity({
     required this.id,
     required this.body,
-    required this.post_id,
+    required this.postId,
     required this.author,
   });
 
@@ -15,7 +15,7 @@ class CommentEntity {
     return CommentEntity(
       id: json['id'] as String,
       body: json['body'] as String,
-      post_id: json['post_id'] as String,
+      postId: json['postId'] as String,
       author: json['author'] as String,
     );
   }
@@ -24,7 +24,7 @@ class CommentEntity {
     return {
       'id': id,
       'body': body,
-      'post_id': post_id,
+      'postId': postId,
       'author': author,
     };
   }

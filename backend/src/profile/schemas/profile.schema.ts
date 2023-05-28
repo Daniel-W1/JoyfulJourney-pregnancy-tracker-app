@@ -11,31 +11,31 @@ export interface SocialMedia {
 export class Profile {
 
     @Prop()
-    firstname: string;
+    firstName: string;
 
     @Prop()
-    lastname: string
+    lastName: string
 
     @Prop({ required: true })
-    username: string
+    userName: string
 
     @Prop()
-    image: string
+    profilePicture: string
 
     @Prop()
     bio: string;
 
-    @Prop({ type: [Types.ObjectId], ref: 'User' })
-    followers: Types.ObjectId[]
+    @Prop({ type: [String], ref: 'User' })
+    followers: string[]
 
-    @Prop({ type: [Types.ObjectId], ref: 'User' })
-    following: Types.ObjectId[]
+    @Prop({ type: [String], ref: 'User' })
+    following: string[]
 
-    @Prop({ type: [Types.ObjectId], ref: 'Comment' })
-    comments: Types.ObjectId[];
+    @Prop({ type: [String], ref: 'Comment' })
+    comments: string[];
 
-    @Prop({ type: [Types.ObjectId], ref: 'Post' })
-    posts: Types.ObjectId[];
+    @Prop({ type: [String], ref: 'Post' })
+    posts: string[];
 
     @Prop({ type: [{ name: String, link: String }] })
     socialMedia: SocialMedia[];

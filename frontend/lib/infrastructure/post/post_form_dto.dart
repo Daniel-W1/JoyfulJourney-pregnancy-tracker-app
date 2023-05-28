@@ -1,18 +1,28 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+class PostFormDto {
+  final String body;
+  final List<String> comments;
+  final List<String> likes;
 
-part 'post_form_dto.freezed.dart';
-part 'post_form_dto.g.dart';
+  PostFormDto({
+    required this.body,
+    required this.comments,
+    required this.likes,
+  });
 
-@freezed
-class PostFormDto with _$PostFormDto {
+  factory PostFormDto.fromJson(Map<String, dynamic> json) {
+    return PostFormDto(
+      body: json['body'],
+      comments: (json['comments'] as List<dynamic>).cast<String>(),
+      likes: (json['likes'] as List<dynamic>).cast<String>(),
+    );
+  }
 
-  const factory PostFormDto({
-    required String body,
-    required List<String> comments,
-    required List<String> likes,
-  }) = _PostFormDto;
-
-  factory PostFormDto.fromJson(Map<String, dynamic> json) =>
-      _$PostFormDtoFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'body': body,
+      'comments': comments,
+      'likes': likes,
+    };
+  }
 }
+

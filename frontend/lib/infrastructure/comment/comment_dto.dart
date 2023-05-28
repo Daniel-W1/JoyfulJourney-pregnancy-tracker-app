@@ -1,20 +1,31 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+class CommentDto {
+  final String id;
+  final String body;
+  final String postId;
+  final String author;
 
-part 'comment_dto.freezed.dart';
-part 'comment_dto.g.dart';
+  CommentDto({
+    required this.id,
+    required this.body,
+    required this.postId,
+    required this.author,
+  });
 
-@freezed
-class CommentDto with _$CommentDto {
-  const CommentDto._();
+  factory CommentDto.fromJson(Map<String, dynamic> json) {
+    return CommentDto(
+      id: json['id'],
+      body: json['body'],
+      postId: json['postId'],
+      author: json['author'],
+    );
+  }
 
-  const factory CommentDto({
-    required String id,
-    required String body,
-    required String post_id,
-    required String author,
-  }) = _CommentDto;
-
-  factory CommentDto.fromJson(Map<String, dynamic> json) =>
-      _$CommentDtoFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'body': body,
+      'postId': postId,
+      'author': author,
+    };
+  }
 }

@@ -2,13 +2,13 @@ class NoteDomain {
   final String id;
   final String body;
   final String title;
-  final String userId;
+  final String author;
 
   NoteDomain({
     required this.id,
     required this.body,
     required this.title,
-    required this.userId,
+    required this.author,
   });
 
   factory NoteDomain.fromJson(Map<String, dynamic> json) {
@@ -16,13 +16,13 @@ class NoteDomain {
       id: json['id'] as String,
       body: json['body'] as String,
       title: json['title'] as String,
-      userId: json['userId'] as String,
+      author: json['author'] as String,
     );
   }
 
   @override
   String toString() {
-    return 'NoteDomain(id: $id, body: $body, title: $title, userId: $userId)';
+    return 'NoteDomain(id: $id, body: $body, title: $title, userId: $author)';
   }
 
   @override
@@ -33,11 +33,11 @@ class NoteDomain {
         other.id == id &&
         other.body == body &&
         other.title == title &&
-        other.userId == userId;
+        other.author == author;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ body.hashCode ^ title.hashCode ^ userId.hashCode;
+    return id.hashCode ^ body.hashCode ^ title.hashCode ^ author.hashCode;
   }
 }

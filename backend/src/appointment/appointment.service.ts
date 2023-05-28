@@ -41,9 +41,9 @@ export class AppointmentService {
     
   }
 
-  async findByUser(user_id: string): Promise<Appointment[]> {
+  async findByUser(author: string): Promise<Appointment[]> {
     try {
-      const finder = {user_id: user_id};
+      const finder = {author: author};
       return this.appointmentModel.find(finder).exec();
     } catch(error) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
