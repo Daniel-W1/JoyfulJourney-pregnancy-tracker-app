@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:frontend/domain/note/note_domain.dart';
 import 'package:frontend/domain/note/note_failure.dart';
@@ -14,8 +13,7 @@ class NoteRepository implements NoteRepositoryInterface {
   NoteRepository(this.noteApi);
 
   @override
-  Future<Either<NoteFailure, NoteDomain>> addNote(
-      NoteForm noteForm) async {
+  Future<Either<NoteFailure, NoteDomain>> addNote(NoteForm noteForm) async {
     try {
       var note = await noteApi.createNote(noteForm.toDto());
       return right(NoteDomain.fromJson(note.toJson()));
@@ -28,8 +26,7 @@ class NoteRepository implements NoteRepositoryInterface {
   Future<Either<NoteFailure, NoteDomain>> updateNote(
       {required NoteForm noteForm, required String noteId}) async {
     try {
-      var updatedNoteDto =
-          await noteApi.updateNote(noteForm.toDto(), noteId);
+      var updatedNoteDto = await noteApi.updateNote(noteForm.toDto(), noteId);
       return right(NoteDomain.fromJson(updatedNoteDto.toJson()));
     } catch (e) {
       return left(NoteFailure.serverError());
@@ -58,5 +55,4 @@ class NoteRepository implements NoteRepositoryInterface {
       return left(NoteFailure.serverError());
     }
   }
-
 }

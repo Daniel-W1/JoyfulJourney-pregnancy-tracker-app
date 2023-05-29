@@ -25,20 +25,20 @@ export class Profile {
     @Prop()
     bio: string;
 
-    @Prop({ type: [String], ref: 'User' })
+    @Prop()
     followers: string[]
 
-    @Prop({ type: [String], ref: 'User' })
+    @Prop()
     following: string[]
 
-    @Prop({ type: [String], ref: 'Comment' })
+    @Prop()
     comments: string[];
 
-    @Prop({ type: [String], ref: 'Post' })
+    @Prop()
     posts: string[];
 
-    @Prop({ type: [{ name: String, link: String }] })
-    socialMedia: SocialMedia[];
+    @Prop()
+    socialMedia: string[];
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);

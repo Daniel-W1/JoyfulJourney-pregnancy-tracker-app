@@ -1,4 +1,5 @@
 import 'package:frontend/domain/post/post.dart';
+import 'package:frontend/domain/post/post_failure.dart';
 
 class PostListState {
   const PostListState._();
@@ -7,6 +8,7 @@ class PostListState {
   const factory PostListState.loading() = PostListStateLoading;
   const factory PostListState.success({required List<PostDomain> post}) = PostListStateSuccess;
   const factory PostListState.failure({required PostFailure postFailure}) = PostListStateFailure;
+  const factory PostListState.addSuccess() = PostListStateAddSuccess;
 
   PostListState copyWith({
     List<PostDomain>? post,
@@ -73,10 +75,13 @@ class PostListStateFailure extends PostListState {
   PostListStateFailure copyWith({
     List<PostDomain>? post,
     PostFailure? postFailure,
-    
   }) {
     return PostListStateFailure(
       postFailure: postFailure ?? this.postFailure,
     );
   }
+}
+
+class PostListStateAddSuccess extends PostListState {
+  const PostListStateAddSuccess() : super._();
 }

@@ -49,6 +49,8 @@ export class PostService {
     async findPostByAuthor(author: string): Promise<Post[]> {
         try {
           const posts = await this.postModel.find({ author: author }).exec();
+          console.log(posts, 'posts service');
+          
           return posts;
         } catch (error) {
           throw new Error(`Failed to find post: ${error.message}`);

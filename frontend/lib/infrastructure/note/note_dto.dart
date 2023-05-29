@@ -13,7 +13,7 @@ class NoteDto {
 
   factory NoteDto.fromJson(Map<String, dynamic> json) {
     return NoteDto(
-      id: json['id'],
+      id: json['_id'],
       body: json['body'],
       title: json['title'],
       author: json['author'],

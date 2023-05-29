@@ -10,29 +10,24 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
 
   NoteBloc({required this.noteRepositoryInterface})
       : super(const NoteStateInitial()) {
-
     on<NoteEventAdd>((event, emit) async {
       emit(const NoteStateLoading());
 
       Either<NoteFailure, NoteDomain> result =
           await noteRepositoryInterface.addNote(event.noteForm);
 
-          result.fold(
-            (l) => emit(NoteStateFailure(l)),
-            (r) => emit(NoteStateSuccess(r))
-          );
+      result.fold(
+          (l) => emit(NoteStateFailure(l)), (r) => emit(NoteStateSuccess(r)));
     });
 
     on<NoteEventUpdate>((event, emit) async {
       emit(const NoteStateLoading());
 
-      Either<NoteFailure, NoteDomain> result =
-          await noteRepositoryInterface.updateNote(noteForm:event.noteForm, noteId:event.noteId);
+      Either<NoteFailure, NoteDomain> result = await noteRepositoryInterface
+          .updateNote(noteForm: event.noteForm, noteId: event.noteId);
 
-          result.fold(
-            (l) => emit(NoteStateFailure(l)),
-            (r) => emit(NoteStateSuccess(r))
-          );
+      result.fold(
+          (l) => emit(NoteStateFailure(l)), (r) => emit(NoteStateSuccess(r)));
     });
 
     on<NoteEventDelete>((event, emit) async {
@@ -41,10 +36,8 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       Either<NoteFailure, Unit> result =
           await noteRepositoryInterface.deleteNote(event.noteId);
 
-          result.fold(
-            (l) => emit(NoteStateFailure(l)),
-            (r) => emit(NoteStateDeleted())
-          );
+      result.fold(
+          (l) => emit(NoteStateFailure(l)), (r) => emit(NoteStateDeleted()));
     });
 
     on<NoteEventGetByUser>((event, emit) async {
@@ -52,12 +45,9 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
 
       Either<NoteFailure, List<NoteDomain>> result =
           await noteRepositoryInterface.getNotesForUser(event.userId);
-
-          result.fold(
-            (l) => emit(NoteStateFailure(l)),
-            (r) => emit(NoteStateSuccessMultiple(r))
-          );
+      print(result);
+      result.fold((l) => emit(NoteStateFailure(l)),
+          (r) => emit(NoteStateSuccessMultiple(r)));
     });
-
   }
 }

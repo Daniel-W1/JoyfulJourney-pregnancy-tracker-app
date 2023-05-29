@@ -5,7 +5,6 @@ import 'package:frontend/util/jj_http_exception.dart';
 import 'note_dto.dart';
 import 'note_form_dto.dart';
 
-
 class NoteAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
 
@@ -45,10 +44,9 @@ class NoteAPI {
     }
   }
 
-  Future<List<NoteDto>> getNotesForUser(String user_id) async {
-    var notes = await _customHttpClient.get("notes/user/$user_id");
-
-    if (notes.statusCode == 201) {
+  Future<List<NoteDto>> getNotesForUser(String userId) async {
+    var notes = await _customHttpClient.get("notes/user/$userId");
+    if (notes.statusCode == 200) {
       return (jsonDecode(notes.body) as List)
           .map((e) => NoteDto.fromJson(e))
           .toList();

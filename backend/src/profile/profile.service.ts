@@ -28,10 +28,10 @@ export class ProfileService {
 
     async createFirst(username: String) {
         try {
-            const createdProfile = new this.ProfileModel({ username: username });
+            const createdProfile = new this.ProfileModel({ userName: username });
             return await createdProfile.save()
         } catch (error) {
-            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+            throw new Error(error.message);
         }
     }
 

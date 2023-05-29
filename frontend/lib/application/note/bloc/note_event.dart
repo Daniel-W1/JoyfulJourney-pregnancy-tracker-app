@@ -44,6 +44,5 @@ class NoteEventDelete extends NoteEvent {
 
 class NoteEventGetByUser extends NoteEvent {
   final String userId;
-
   const NoteEventGetByUser(this.userId) : super._();
 }

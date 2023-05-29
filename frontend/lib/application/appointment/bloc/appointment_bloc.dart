@@ -27,7 +27,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
       emit(const AppointmentStateLoading());
 
       Either<AppointmentFailure, AppointmentDomain> result =
-          await appointmentRepositoryInterface.updateAppointment(appointmentForm: event.appointmentForm, appointmentId:event.appointmentId);
+          await appointmentRepositoryInterface.updateAppointment(event.appointmentForm, event.appointmentId);
 
           result.fold(
             (l) => emit(AppointmentStateFailure(l)),
