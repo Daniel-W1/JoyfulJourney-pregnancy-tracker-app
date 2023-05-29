@@ -1,25 +1,12 @@
 import 'dart:convert';
 
-import 'package:frontend/infrastructure/user/user_dto.dart';
-import 'package:frontend/infrastructure/user/user_form_dto.dart';
+import 'package:frontend/domain/auth/user_domain.dart';
+import 'package:frontend/infrastructure/auth/user_dto.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
 
 class UserAPI {
   JJHttpClient jjHttpClient = JJHttpClient();
-
-  Future<UserDto> signup(UserFormDto userFormDto) async {
-    var user = await jjHttpClient.post("auth/signup",
-        body: json.encode(userFormDto.toJson()));
-
-    if (user.statusCode == 201) {
-      return UserDto.fromJson(jsonDecode(user.body));
-    } else {
-      throw JJHttpException(
-          json.decode(user.body)['message'] ?? "Unknown error",
-          user.statusCode);
-    }
-  }
 
   Future<void> deleteUser(String id) async {
     var response = await jjHttpClient.delete("user/$id");
@@ -42,6 +29,18 @@ class UserAPI {
       throw JJHttpException(
           json.decode(users.body)['message'] ?? "Unknown error",
           users.statusCode);
+    }
+  }
+
+  Future<UserDto> setUserRole(UserDomain user) async {
+    var response = await jjHttpClient.put("user/role/${user.id}", body: user.toJson());
+
+    if (response.statusCode == 201) {
+      return UserDto.fromJson(jsonDecode(response.body));
+    } else {
+      throw JJHttpException(
+          json.decode(response.body)['message'] ?? "Unknown error",
+          response.statusCode);
     }
   }  
 }

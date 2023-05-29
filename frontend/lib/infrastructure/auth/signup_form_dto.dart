@@ -1,16 +1,16 @@
-class UserFormDto {
+class SignupFormDto {
   final String username;
   final String password;
   final String email;
 
-  UserFormDto({
+  SignupFormDto({
     required this.username,
     required this.password,
     required this.email,
   });
 
-  factory UserFormDto.fromJson(Map<String, dynamic> json) {
-    return UserFormDto(
+  factory SignupFormDto.fromJson(Map<String, dynamic> json) {
+    return SignupFormDto(
       username: json['username'],
       password: json['password'],
       email: json['email'],
