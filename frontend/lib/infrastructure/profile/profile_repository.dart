@@ -13,12 +13,12 @@ class ProfileRepository implements ProfileRepositoryInterface {
   ProfileRepository(this.profileApi);
 
   @override
-  Future<Either<ProfileFailure, ProfileDomain>> updateProfile(ProfileForm profileForm, String profileId) async {
+  Future<Either<ProfileFailure, ProfileDomain>> updateProfile({required ProfileForm profileForm, required String profileId}) async {
     try {
       var profile = await profileApi.updateProfile(profileForm.toDto(), profileId);
       return right(profile.toProfile());
     } catch (e) {
-      return left(const ProfileFailure.serverError());
+      return left(ProfileFailure.serverError());
     }
   }
 
@@ -28,17 +28,7 @@ class ProfileRepository implements ProfileRepositoryInterface {
       var profile = await profileApi.getProfile(userId);
       return right(profile.toProfile());
     } catch (e) {
-      return left(const ProfileFailure.serverError());
-    }
-  }
-
-  @override
-  Future<Either<ProfileFailure, Unit>> deleteAccount(String userId) async {
-    try {
-      await profileApi.deleteAccount(userId);
-      return right(unit);
-    } catch (e) {
-      return left(const ProfileFailure.serverError());
+      return left(ProfileFailure.serverError());
     }
   }
 }

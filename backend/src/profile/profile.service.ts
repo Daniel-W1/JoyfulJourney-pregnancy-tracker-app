@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose';
-import { Profile } from 'src/schemas/profile.schema';
-import { ProfileDto } from './profile.dto';
+import { Profile } from 'src/profile/schemas/profile.schema';
+import { ProfileDto } from './dto/profile.dto';
 import { IProfile } from './profile.interface';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Injectable()
 export class ProfileService {
@@ -27,10 +28,10 @@ export class ProfileService {
 
     async createFirst(username: String) {
         try {
-            const createdProfile = new this.ProfileModel({ username: username });
+            const createdProfile = new this.ProfileModel({ userName: username });
             return await createdProfile.save()
         } catch (error) {
-            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+            throw new Error(error.message);
         }
     }
 
@@ -53,7 +54,7 @@ export class ProfileService {
 
     }
 
-    async updateProfile(id: string, updateProfileDto: ProfileDto): Promise<Profile> {
+    async updateProfile(id: string, updateProfileDto: UpdateProfileDto): Promise<Profile> {
         try {
             
             return this.ProfileModel.findByIdAndUpdate(id, updateProfileDto, { new: true }).exec();

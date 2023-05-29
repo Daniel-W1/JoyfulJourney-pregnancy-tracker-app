@@ -1,17 +1,19 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class UserForm {
+  final String username;
+  final String password;
+  final String email;
 
-part 'user_form.freezed.dart';
-part 'user_form.g.dart';
+  UserForm({
+    required this.username,
+    required this.password,
+    required this.email,
+  });
 
-@freezed
-class UserForm with _$UserForm {
-
-  const factory UserForm({
-    required String username,
-    required String password,
-    required String email,
-  }) = _UserForm;
-
-  factory UserForm.fromJson(Map<String, dynamic> json) =>
-      _$UserFormFromJson(json);
+  factory UserForm.fromJson(Map<String, dynamic> json) {
+    return UserForm(
+      username: json['username'] as String,
+      password: json['password'] as String,
+      email: json['email'] as String,
+    );
+  }
 }

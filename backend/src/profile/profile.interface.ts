@@ -1,24 +1,21 @@
 import { Document } from 'mongoose';
-import { Types } from 'mongoose';
-import { SocialMedia } from 'src/schemas/profile.schema';
 
 export interface IProfile extends Document {
-    firstname: string;
+    firstName: string;
 
-    lastname: string
-    username: string
+    lastName: string;
+    userName: string;
 
-    image: string;
+    profilePicture: string;
 
     bio: string;
 
-    followers: Types.ObjectId[]
+    followers: string[];
+    following: string[];
 
-    following: Types.ObjectId[]
+    comments: string[];
 
-    comments: Types.ObjectId[];
+    posts: string[];
 
-    posts: Types.ObjectId[];
-
-    socialMedia: SocialMedia[];
+    socialMedia: string[]   ;
 }

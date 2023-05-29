@@ -16,7 +16,7 @@ class CommentRepository implements CommentRepositoryInterface {
   CommentRepository(this.commentApi);
 
   @override
-  Future<Either<Commentfailure, List<CommentDomain>>> getCommentsForPost(
+  Future<Either<CommentFailure, List<CommentDomain>>> getCommentsForPost(
       String postId) async {
     try {
       var comment = await commentApi.getCommentsByPost(postId);
@@ -25,45 +25,45 @@ class CommentRepository implements CommentRepositoryInterface {
               CommentDomain.fromJson(commentDto.toJson()))
           .toList());
     } catch (e) {
-      return left(const Commentfailure.serverError());
+      return left(CommentFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Commentfailure, CommentDomain>> addComment(
+  Future<Either<CommentFailure, CommentDomain>> addComment(
       CommentForm commentForm) async {
     try {
       var comment = await commentApi.createComment(commentForm.toDto());
       return right(CommentDomain.fromJson(comment.toJson()));
     } catch (e) {
-      return left(const Commentfailure.serverError());
+      return left(CommentFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Commentfailure, CommentDomain>> updateComment(
-      CommentForm commentForm, String commentId) async {
+  Future<Either<CommentFailure, CommentDomain>> updateComment(
+      {required CommentForm commentForm, required String commentId}) async {
     try {
       var commentDomainDto =
           await commentApi.updateComment(commentForm.toDto(), commentId);
       return right(CommentDomain.fromJson(commentDomainDto.toJson()));
     } catch (e) {
-      return left(const Commentfailure.serverError());
+      return left(CommentFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Commentfailure, Unit>> deleteComment(String commentId) async {
+  Future<Either<CommentFailure, Unit>> deleteComment(String commentId) async {
     try {
       await commentApi.deleteComment(commentId);
       return right(unit);
     } catch (e) {
-      return left(Commentfailure.serverError());
+      return left(CommentFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Commentfailure, List<CommentDomain>>> getUserComments(
+  Future<Either<CommentFailure, List<CommentDomain>>> getUserComments(
       String userId) async {
     try {
       var comment = await commentApi.getCommentsByUser(userId);
@@ -72,12 +72,12 @@ class CommentRepository implements CommentRepositoryInterface {
               CommentDomain.fromJson(commentDto.toJson()))
           .toList());
     } catch (e) {
-      return left(const Commentfailure.serverError());
+      return left(CommentFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Commentfailure, List<CommentDomain>>> getComments() async {
+  Future<Either<CommentFailure, List<CommentDomain>>> getComments() async {
     try {
       var comment = await commentApi.getComments();
       return right(comment
@@ -85,7 +85,7 @@ class CommentRepository implements CommentRepositoryInterface {
               CommentDomain.fromJson(commentDto.toJson()))
           .toList());
     } catch (e) {
-      return left(const Commentfailure.serverError());
+      return left(CommentFailure.serverError());
     }
   }
 }

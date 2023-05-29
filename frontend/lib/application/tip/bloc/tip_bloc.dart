@@ -14,7 +14,7 @@ class TipBloc extends Bloc<TipEvent, TipState> {
     on<TipEventGetAll>((event, emit) async {
       emit(const TipStateLoading());
 
-      Either<Tipfailure, List<TipDomain>> result =
+      Either<TipFailure, List<TipDomain>> result =
           await tipRepositoryInterface.getTips();
 
       result.fold((l) => emit(TipStateFailure(l)),
@@ -24,7 +24,7 @@ class TipBloc extends Bloc<TipEvent, TipState> {
     on<TipEventGetByType>((event, emit) async {
       emit(const TipStateLoading());
 
-      Either<Tipfailure, List<TipDomain>> result =
+      Either<TipFailure, List<TipDomain>> result =
           await tipRepositoryInterface.getTipsByType(event.type);
 
       result.fold((l) => emit(TipStateFailure(l)),
@@ -33,8 +33,8 @@ class TipBloc extends Bloc<TipEvent, TipState> {
     on<TipEventAdd>((event, emit) async {
       emit(const TipStateLoading());
 
-      Either<Tipfailure, TipDomain> result =
-          await tipRepositoryInterface.addTip(event.tipForm.copyWith());
+      Either<TipFailure, TipDomain> result =
+          await tipRepositoryInterface.addTip(event.tipForm);
 
       result.fold((l) => emit(TipStateFailure(l)),
           (r) => emit(TipStateSuccess(r)));
@@ -43,8 +43,8 @@ class TipBloc extends Bloc<TipEvent, TipState> {
     on<TipEventUpdate>((event, emit) async {
       emit(const TipStateLoading());
 
-      Either<Tipfailure, TipDomain> result =
-          await tipRepositoryInterface.updateTip(event.tipForm.copyWith(), event.tipId);
+      Either<TipFailure, TipDomain> result =
+          await tipRepositoryInterface.updateTip(tipForm:event.tipForm, tipId:event.tipId);
 
       result.fold((l) => emit(TipStateFailure(l)),
           (r) => emit(TipStateSuccess(r)));
@@ -53,7 +53,7 @@ class TipBloc extends Bloc<TipEvent, TipState> {
       on<TipEventDelete>((event, emit) async {
       emit(const TipStateLoading());
 
-      Either<Tipfailure, Unit> result =
+      Either<TipFailure, Unit> result =
           await tipRepositoryInterface.deleteTip(event.tipId);
 
       result.fold((l) => emit(TipStateFailure(l)),

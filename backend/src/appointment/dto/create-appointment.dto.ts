@@ -1,9 +1,7 @@
 export class CreateAppointmentDto {
     title: string;
-    description: string;
-    status: string;
+    body: string;
     date: string;
     time: string;
-    user_id: string;
-    gmt: string;
+    author: string;
 }

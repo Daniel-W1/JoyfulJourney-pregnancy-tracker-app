@@ -8,7 +8,10 @@ export class NotesController {
 
   @Post()
   create(@Body() createNoteDto: CreateNoteDto) {
+
+    console.log("createNoteDto: ", createNoteDto);
     return this.notesService.create(createNoteDto);
+    
   }
 
   @Get()
@@ -17,8 +20,12 @@ export class NotesController {
   }
 
   @Get('user/:user_id')
-  findByUser(@Param('user_id') user_id: string) {
-    return this.notesService.findByUser(user_id);
+  async findByUser(@Param('user_id') user_id: string) {
+    console.log(user_id, 'user_id');
+    
+    var res =  await this.notesService.findByUser(user_id);
+    console.log(res, 'res');
+    return res;
   }
 
   @Get(':id')

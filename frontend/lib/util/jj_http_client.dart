@@ -4,7 +4,7 @@ import './string_extension.dart';
 
 // Custom HTTP client to streamline the HTTP requests.
 class JJHttpClient {
-  static String baseUrl = "http://localhost:3000";
+  static String baseUrl = "http://10.0.2.2:3000/";
 
   final http.Client _httpClient = http.Client();
   String? _authToken;

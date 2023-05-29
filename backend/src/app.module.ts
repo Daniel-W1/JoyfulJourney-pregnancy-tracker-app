@@ -15,7 +15,7 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ProfileModule, 
-    MongooseModule.forRoot('mongodb+srv://root:root@cluster0.0tudfdc.mongodb.net/pregenecy?retryWrites=true&w=majority'), 
+    MongooseModule.forRoot('mongodb+srv://Leinad:Leinad@cluster0.ul4bqb4.mongodb.net/?retryWrites=true&w=majority'), 
     ConfigModule.forRoot({
       isGlobal: true,
     }),

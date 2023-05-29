@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:frontend/domain/note/note_domain.dart';
 import 'package:frontend/domain/note/note_failure.dart';
@@ -14,40 +13,38 @@ class NoteRepository implements NoteRepositoryInterface {
   NoteRepository(this.noteApi);
 
   @override
-  Future<Either<Notefailure, NoteDomain>> addNote(
-      NoteForm noteForm) async {
+  Future<Either<NoteFailure, NoteDomain>> addNote(NoteForm noteForm) async {
     try {
       var note = await noteApi.createNote(noteForm.toDto());
       return right(NoteDomain.fromJson(note.toJson()));
     } catch (e) {
-      return left(const Notefailure.serverError());
+      return left(NoteFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Notefailure, NoteDomain>> updateNote(
-      NoteForm noteForm, String noteId) async {
+  Future<Either<NoteFailure, NoteDomain>> updateNote(
+      {required NoteForm noteForm, required String noteId}) async {
     try {
-      var updatedNoteDto =
-          await noteApi.updateNote(noteForm.toDto(), noteId);
+      var updatedNoteDto = await noteApi.updateNote(noteForm.toDto(), noteId);
       return right(NoteDomain.fromJson(updatedNoteDto.toJson()));
     } catch (e) {
-      return left(const Notefailure.serverError());
+      return left(NoteFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Notefailure, Unit>> deleteNote(String noteId) async {
+  Future<Either<NoteFailure, Unit>> deleteNote(String noteId) async {
     try {
       await noteApi.deleteNote(noteId);
       return right(unit);
     } catch (e) {
-      return left(const Notefailure.serverError());
+      return left(NoteFailure.serverError());
     }
   }
 
   @override
-  Future<Either<Notefailure, List<NoteDomain>>> getNotesForUser(
+  Future<Either<NoteFailure, List<NoteDomain>>> getNotesForUser(
       String userId) async {
     try {
       var notes = await noteApi.getNotesForUser(userId);
@@ -55,8 +52,7 @@ class NoteRepository implements NoteRepositoryInterface {
           .map((NoteDto noteDto) => NoteDomain.fromJson(noteDto.toJson()))
           .toList());
     } catch (e) {
-      return left(const Notefailure.serverError());
+      return left(NoteFailure.serverError());
     }
   }
-
 }

@@ -60,12 +60,12 @@ export class UserService {
 
           savedUser = await this.hashAndSave(newUser);
         } catch (err) {
-          throw new BadRequestException('Bad Request');
+          throw new Error(err.message);
         }
       }
       
       if (!savedUser) {
-        throw new BadRequestException('Bad Request');
+        throw new Error('User not created.');
       }
       return savedUser;
   }
@@ -121,6 +121,9 @@ export class UserService {
 
   async remove(id: string) {
     try {
+      const user = await this.userModel.findById(id).exec();
+      const profileId = user.profileId;
+      let deletedProfile = await this.profileService.removeProfile(profileId);
       return this.userModel.deleteOne({ _id: id }).exec();
     } catch (error) {
         throw error;

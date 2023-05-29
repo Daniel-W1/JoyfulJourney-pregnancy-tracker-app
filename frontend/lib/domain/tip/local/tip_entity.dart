@@ -1,17 +1,31 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class TipEntity {
+  final String body;
+  final String title;
+  final String id;
+  final String type;
 
-part 'tip_entity.freezed.dart';
-part 'tip_entity.g.dart';
+  TipEntity({
+    required this.body,
+    required this.title,
+    required this.id,
+    required this.type,
+  });
 
-@freezed
-class TipEntity with _$TipEntity {
-  const factory TipEntity({
-    required String body,
-    required String title,
-    required String id,
-    required String type,
-  }) = _TipEntity;
+  factory TipEntity.fromJson(Map<String, dynamic> json) {
+    return TipEntity(
+      body: json['body'] as String,
+      title: json['title'] as String,
+      id: json['id'] as String,
+      type: json['type'] as String,
+    );
+  }
 
-  factory TipEntity.fromJson(Map<String, dynamic> json) =>
-      _$TipEntityFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'body': body,
+      'title': title,
+      'id': id,
+      'type': type,
+    };
+  }
 }

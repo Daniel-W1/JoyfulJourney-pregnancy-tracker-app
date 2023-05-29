@@ -1,17 +1,17 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/domain/signup/email.dart';
 import 'package:frontend/domain/signup/fullname.dart';
 import 'package:frontend/domain/signup/password_domain.dart';
 
+class SignUpForm {
+  final FullName name;
+  final EmailAddress emailAddress;
+  final Password password;
+  final Password confirmPassword;
 
-part 'signup_form.freezed.dart';
-
-@freezed
-class SignUpForm with _$SignUpForm {
-  const factory SignUpForm({
-    required FullName name,
-    required EmailAddress emailAddress,
-    required Password password,    
-    required Password confirmPassword,    
-  }) = _SignUpForm;
+  SignUpForm({
+    required this.name,
+    required this.emailAddress,
+    required this.password,
+    required this.confirmPassword,
+  });
 }

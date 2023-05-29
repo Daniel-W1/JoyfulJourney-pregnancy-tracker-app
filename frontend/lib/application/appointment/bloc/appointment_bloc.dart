@@ -14,8 +14,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     on<AppointmentEventAdd>((event, emit) async {
       emit(const AppointmentStateLoading());
 
-      Either<Appointmentfailure, AppointmentDomain> result =
-          await appointmentRepositoryInterface.addAppointment(event.appointmentForm.copyWith());
+      Either<AppointmentFailure, AppointmentDomain> result =
+          await appointmentRepositoryInterface.addAppointment(event.appointmentForm);
 
           result.fold(
             (l) => emit(AppointmentStateFailure(l)),
@@ -26,8 +26,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     on<AppointmentEventUpdate>((event, emit) async {
       emit(const AppointmentStateLoading());
 
-      Either<Appointmentfailure, AppointmentDomain> result =
-          await appointmentRepositoryInterface.updateAppointment(event.appointmentForm.copyWith(), event.appointmentId);
+      Either<AppointmentFailure, AppointmentDomain> result =
+          await appointmentRepositoryInterface.updateAppointment(event.appointmentForm, event.appointmentId);
 
           result.fold(
             (l) => emit(AppointmentStateFailure(l)),
@@ -38,19 +38,19 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     on<AppointmentEventDelete>((event, emit) async {
       emit(const AppointmentStateLoading());
 
-      Either<Appointmentfailure, Unit> result =
+      Either<AppointmentFailure, Unit> result =
           await appointmentRepositoryInterface.deleteAppointment(event.appointmentId);
 
           result.fold(
             (l) => emit(AppointmentStateFailure(l)),
-            (r) => emit(AppointmentStateDeleted(r))
+            (r) => emit(AppointmentStateDeleted())
           );
     });
 
     on<AppointmentEventGetByUser>((event, emit) async {
       emit(const AppointmentStateLoading());
 
-      Either<Appointmentfailure, List<AppointmentDomain>> result =
+      Either<AppointmentFailure, List<AppointmentDomain>> result =
           await appointmentRepositoryInterface.getAppointmentsForUser(event.userId);
 
           result.fold(

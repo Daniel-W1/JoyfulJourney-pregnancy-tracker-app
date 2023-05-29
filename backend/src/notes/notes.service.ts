@@ -18,6 +18,15 @@ export class NotesService {
   async create(newNote: CreateNoteDto): Promise<Note> {
     try {
       const createdNote = new this.NoteModel(newNote);
+
+      const validation = createdNote.validateSync();
+      if (validation) {
+        console.log(validation, 'validation');
+        throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+      }
+      
+      console.log(createdNote, 'createdNote');
+      
       return await createdNote.save()
     } catch (error) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
@@ -34,9 +43,11 @@ export class NotesService {
 
   }
 
-  async findByUser(user_id: string) {
+  async findByUser(author: string) {
     try{
-      const finder = {user_id: user_id};
+      const finder = {author: author};
+      console.log(author, 'author');
+      
       return await this.NoteModel.find(finder).exec();
     } catch (error) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);

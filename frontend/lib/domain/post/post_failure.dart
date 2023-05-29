@@ -1,18 +1,59 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class PostFailure {
+  const PostFailure._();
 
-part 'post_failure.freezed.dart';
+  factory PostFailure.serverError() = ServerError;
+  factory PostFailure.networkError() = NetworkError;
+  factory PostFailure.unauthorized() = Unauthorized;
+  factory PostFailure.notFound() = NotFound;
+  factory PostFailure.permissionDenied() = PermissionDenied;
+  factory PostFailure.forbidden() = Forbidden;
+  factory PostFailure.emptyTitleError() = EmptyTitleError;
+  factory PostFailure.emptyDescriptionError() = EmptyDescriptionError;
+  factory PostFailure.emptyauthorError() = EmptyauthorError;
+  factory PostFailure.InvalidcommentError() = InvalidcommentError;
+  factory PostFailure.InvalidlikeError() = InvalidlikeError;
+}
 
-@freezed
-class Postfailure with _$Postfailure {
-  const factory Postfailure.serverError() = ServerError;
-  const factory Postfailure.networkError() = NetworkError;
-  const factory Postfailure.unauthorized() = Unauthorized;
-  const factory Postfailure.notFound() = NotFound;
-  const factory Postfailure.permissionDenied() = PermissionDenied;
-  const factory Postfailure.forbidden() = Forbidden;
-  const factory Postfailure.emptyTitleError() = EmptyTitleError;
-  const factory Postfailure.emptyDescriptionError() = EmptyDescriptionError;
-  const factory Postfailure.emptyauthorError() = EmptyauthorError;
-  const factory Postfailure.InvalidcommentError() = InvalidcommentError;
-  const factory Postfailure.InvalidlikeError() = InvalidlikeError;
+class ServerError extends PostFailure {
+  const ServerError() : super._();
+}
+
+class NetworkError extends PostFailure {
+  const NetworkError() : super._();
+}
+
+class Unauthorized extends PostFailure {
+  const Unauthorized() : super._();
+}
+
+class NotFound extends PostFailure {
+  const NotFound() : super._();
+}
+
+class PermissionDenied extends PostFailure {
+  const PermissionDenied() : super._();
+}
+
+class Forbidden extends PostFailure {
+  const Forbidden() : super._();
+}
+
+class EmptyTitleError extends PostFailure {
+  const EmptyTitleError() : super._();
+}
+
+class EmptyDescriptionError extends PostFailure {
+  const EmptyDescriptionError() : super._();
+}
+
+class EmptyauthorError extends PostFailure {
+  const EmptyauthorError() : super._();
+}
+
+class InvalidcommentError extends PostFailure {
+  const InvalidcommentError() : super._();
+}
+
+class InvalidlikeError extends PostFailure {
+  const InvalidlikeError() : super._();
 }

@@ -1,12 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:frontend/domain/note/note_domain.dart';
 import 'package:frontend/domain/note/note_form.dart';
-import 'note_failure.dart';
+import 'package:frontend/domain/note/note_failure.dart';
 
 abstract class NoteRepositoryInterface {
-  Future<Either<Notefailure, List<NoteDomain>>> getNotesForUser(
-      String userId);
-  Future<Either<Notefailure, NoteDomain>> addNote(NoteForm note);
-  Future<Either<Notefailure, NoteDomain>> updateNote(NoteForm note, String noteId);
-  Future<Either<Notefailure, Unit>> deleteNote(String noteId);
+  Future<Either<NoteFailure, List<NoteDomain>>> getNotesForUser(String userId);
+  Future<Either<NoteFailure, NoteDomain>> addNote(NoteForm note);
+  Future<Either<NoteFailure, NoteDomain>> updateNote({required NoteForm noteForm, required String noteId});
+  Future<Either<NoteFailure, Unit>> deleteNote(String noteId);
 }

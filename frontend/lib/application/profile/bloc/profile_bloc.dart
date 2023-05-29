@@ -25,7 +25,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(const ProfileStateLoading());
 
       Either<ProfileFailure, ProfileDomain> result = 
-      await profileRepositoryInterface.updateProfile(event.profileForm.copyWith(), event.profileId);
+      await profileRepositoryInterface.updateProfile(profileForm:event.profileForm, profileId:event.profileId);
 
       result.fold(
         (l) => emit(ProfileStateFailure(failure: l)),

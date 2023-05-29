@@ -1,17 +1,31 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class CommentEntity {
+  final String id;
+  final String body;
+  final String postId;
+  final String author;
 
-part 'comment_entity.freezed.dart';
-part 'comment_entity.g.dart';
+  CommentEntity({
+    required this.id,
+    required this.body,
+    required this.postId,
+    required this.author,
+  });
 
-@freezed
-class CommentEntity with _$CommentEntity {
-const factory CommentEntity({
-    required String id,
-    required String body,
-    required String post_id,
-    required String author,
-}) = _CommentEntity;
+  factory CommentEntity.fromJson(Map<String, dynamic> json) {
+    return CommentEntity(
+      id: json['id'] as String,
+      body: json['body'] as String,
+      postId: json['postId'] as String,
+      author: json['author'] as String,
+    );
+  }
 
-factory CommentEntity.fromJson(Map<String, dynamic> json) =>
-_$CommentEntityFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'body': body,
+      'postId': postId,
+      'author': author,
+    };
+  }
 }

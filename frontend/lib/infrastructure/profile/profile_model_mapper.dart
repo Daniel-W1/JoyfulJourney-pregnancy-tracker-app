@@ -12,8 +12,8 @@ extension ProfileMapper on ProfileDto {
       following: following,
       comments: comments,
       posts: posts,
-      socialmedia: socialmedias,
-      image: image,
+      socialMedia: socialMedia,
+      profilePicture: profilePicture,
     );
   }
 }

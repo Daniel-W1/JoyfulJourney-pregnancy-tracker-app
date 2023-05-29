@@ -1,11 +1,9 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class ChangePasswordForm {
+  final String currentPassword;
+  final String newPassword;
 
-part 'change_password_form.freezed.dart';
-
-@freezed
-class ChangePasswordForm with _$ChangePasswordForm {
-  factory ChangePasswordForm({
-    required String currentPassword,
-    required String newPassword,
-  }) = _ChangePasswordForm;
+  ChangePasswordForm({
+    required this.currentPassword,
+    required this.newPassword,
+  });
 }

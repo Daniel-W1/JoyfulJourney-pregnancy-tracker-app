@@ -1,19 +1,35 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class UserDto {
+  final String id;
+  final String username;
+  final String password;
+  final String email;
+  final List<String> roles;
 
-part 'user_dto.freezed.dart';
-part 'user_dto.g.dart';
+  UserDto({
+    required this.id,
+    required this.username,
+    required this.password,
+    required this.email,
+    required this.roles,
+  });
 
-@freezed
-class UserDto with _$UserDto {
+  factory UserDto.fromJson(Map<String, dynamic> json) {
+    return UserDto(
+      id: json['id'],
+      username: json['username'],
+      password: json['password'],
+      email: json['email'],
+      roles: (json['roles'] as List<dynamic>).cast<String>(),
+    );
+  }
 
-  const factory UserDto({
-    required String id,
-    required String username,
-    required String password,
-    required String email,
-    required List<String> roles,
-  }) = _UserDto;
-
-  factory UserDto.fromJson(Map<String, dynamic> json) =>
-      _$UserDtoFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'password': password,
+      'email': email,
+      'roles': roles,
+    };
+  }
 }

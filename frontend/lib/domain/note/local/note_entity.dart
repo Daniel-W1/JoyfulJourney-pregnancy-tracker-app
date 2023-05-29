@@ -1,17 +1,31 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class NoteEntity {
+  final String id;
+  final String body;
+  final String title;
+  final String author;
 
-part 'note_entity.freezed.dart';
-part 'note_entity.g.dart';
+  NoteEntity({
+    required this.id,
+    required this.body,
+    required this.title,
+    required this.author,
+  });
 
-@freezed
-class NoteEntity with _$NoteEntity {
-  const factory NoteEntity({
-    required String id,
-    required String body,
-    required String title,
-    required String user_id,
-  }) = _NoteEntity;
+  factory NoteEntity.fromJson(Map<String, dynamic> json) {
+    return NoteEntity(
+      id: json['id'] as String,
+      body: json['body'] as String,
+      title: json['title'] as String,
+      author: json['author'] as String,
+    );
+  }
 
-  factory NoteEntity.fromJson(Map<String, dynamic> json) =>
-      _$NoteEntityFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'body': body,
+      'title': title,
+      'author': author,
+    };
+  }
 }

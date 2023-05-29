@@ -1,18 +1,35 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class PostEntity {
+  final String body;
+  final String author;
+  final List<String> comments;
+  final List<String> likes;
+  final String id;
 
-part 'post_entity.freezed.dart';
-part 'post_entity.g.dart';
+  PostEntity({
+    required this.body,
+    required this.author,
+    required this.comments,
+    required this.likes,
+    required this.id,
+  });
 
-@freezed
-class PostEntity with _$PostEntity {
-  const factory PostEntity({
-     required String body,
-    required String author,
-    required List<String> comments,
-    required List<String> likes,
-    required String id,
-  }) = _PostEntity;
+  factory PostEntity.fromJson(Map<String, dynamic> json) {
+    return PostEntity(
+      body: json['body'],
+      author: json['author'],
+      comments: List<String>.from(json['comments']),
+      likes: List<String>.from(json['likes']),
+      id: json['id'],
+    );
+  }
 
-  factory PostEntity.fromJson(Map<String, dynamic> json) =>
-      _$PostEntityFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'body': body,
+      'author': author,
+      'comments': comments,
+      'likes': likes,
+      'id': id,
+    };
+  }
 }

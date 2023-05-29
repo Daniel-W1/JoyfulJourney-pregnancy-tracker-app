@@ -2,7 +2,6 @@ import { IsNotEmpty } from "class-validator";
 import { Types } from "mongoose"
 
 export class CreateNoteDto {
-
     @IsNotEmpty()
     title:string;
 
@@ -10,6 +9,6 @@ export class CreateNoteDto {
     body:string;
 
     @IsNotEmpty()
-    user_id: string;
+    author: string;
 }
 

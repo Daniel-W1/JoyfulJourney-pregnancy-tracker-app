@@ -1,11 +1,11 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'post_form.freezed.dart';
+class PostForm {
+  final String body;
+  final List<String> comments;
+  final List<String> likes;
 
-@freezed
-class PostForm with _$PostForm {
-  factory PostForm({
-    required String body,
-    required List<String> comments,
-    required List<String> likes,
-  }) = _PostForm;
+  PostForm({
+    required this.body,
+    required this.comments,
+    required this.likes,
+  });
 }

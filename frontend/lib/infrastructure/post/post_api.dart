@@ -4,7 +4,6 @@ import 'package:frontend/infrastructure/post/post_form_dto.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
 
-
 class PostAPI {
   JJHttpClient jjHttpClient = JJHttpClient();
 
@@ -12,10 +11,14 @@ class PostAPI {
     var post = await jjHttpClient.post("post",
         body: json.encode(postFormDto.toJson()));
 
+    print("API here, for create");
+    print(post.statusCode);
+
     if (post.statusCode == 201) {
       return PostDto.fromJson(jsonDecode(post.body));
     } else {
-      throw JJHttpException(json.decode(post.body)['message'] ?? "Unknown error",
+      throw JJHttpException(
+          json.decode(post.body)['message'] ?? "Unknown error",
           post.statusCode);
     }
   }
@@ -65,15 +68,20 @@ class PostAPI {
     } else if (post.body == null) {
       throw JJHttpException("Post not found", post.statusCode);
     } else {
-      throw JJHttpException(json.decode(post.body)['message'] ?? "Unknown error",
+      throw JJHttpException(
+          json.decode(post.body)['message'] ?? "Unknown error",
           post.statusCode);
     }
   }
 
   Future<List<PostDto>> getPostByUser(String author) async {
-    var posts = await jjHttpClient.get("post/user/$author");
+    var posts = await jjHttpClient.get("post/author/$author");
 
-    if (posts.statusCode == 201) {
+    // print("API here");
+    // print(posts.statusCode);
+    // print(posts.body);
+
+    if (posts.statusCode == 200) {
       return (jsonDecode(posts.body) as List)
           .map((e) => PostDto.fromJson(e))
           .toList();
@@ -85,12 +93,14 @@ class PostAPI {
   }
 
   Future<PostDto> changeLike(String liker, String postId) async {
-    var post = await jjHttpClient.patch("post/like/$postId", body: json.encode({"liker": liker}));
+    var post = await jjHttpClient.patch("post/like/$postId",
+        body: json.encode({"liker": liker}));
 
     if (post.statusCode == 201) {
       return PostDto.fromJson(jsonDecode(post.body));
     } else {
-      throw JJHttpException(json.decode(post.body)['message'] ?? "Unknown error",
+      throw JJHttpException(
+          json.decode(post.body)['message'] ?? "Unknown error",
           post.statusCode);
     }
   }

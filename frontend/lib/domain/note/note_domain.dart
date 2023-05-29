@@ -1,22 +1,43 @@
+class NoteDomain {
+  final String id;
+  final String body;
+  final String title;
+  final String author;
 
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'note_domain.freezed.dart';
-part 'note_domain.g.dart';
+  NoteDomain({
+    required this.id,
+    required this.body,
+    required this.title,
+    required this.author,
+  });
 
-@freezed
-class NoteDomain with _$NoteDomain {
-  // it has title, body, user_id
-  // it has a constructor that takes title, body, user_id
-  // it has a toString method
-  // it has a props method
+  factory NoteDomain.fromJson(Map<String, dynamic> json) {
+    return NoteDomain(
+      id: json['id'] as String,
+      body: json['body'] as String,
+      title: json['title'] as String,
+      author: json['author'] as String,
+    );
+  }
 
-  const factory NoteDomain({
-    required String id,
-    required String body,
-    required String title,
-    required String user_id,
-  }) = _NoteDomain;
+  @override
+  String toString() {
+    return 'NoteDomain(id: $id, body: $body, title: $title, userId: $author)';
+  }
 
-  factory NoteDomain.fromJson(Map<String, dynamic> json) =>
-      _$NoteDomainFromJson(json);
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is NoteDomain &&
+        other.id == id &&
+        other.body == body &&
+        other.title == title &&
+        other.author == author;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ body.hashCode ^ title.hashCode ^ author.hashCode;
+  }
 }

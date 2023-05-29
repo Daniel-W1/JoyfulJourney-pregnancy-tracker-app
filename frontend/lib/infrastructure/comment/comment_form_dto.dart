@@ -1,17 +1,19 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+class CommentFormDto {
+  final String body;
 
-part 'comment_form_dto.freezed.dart';
-part 'comment_form_dto.g.dart';
+  CommentFormDto({
+    required this.body,
+  });
 
-@freezed
-class CommentFormDto with _$CommentFormDto {
-  const CommentFormDto._();
+  factory CommentFormDto.fromJson(Map<String, dynamic> json) {
+    return CommentFormDto(
+      body: json['body'],
+    );
+  }
 
-  const factory CommentFormDto({
-    required String body,
-  }) = _CommentFormDto;
-
-  factory CommentFormDto.fromJson(Map<String, dynamic> json) =>
-      _$CommentFormDtoFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'body': body,
+    };
+  }
 }

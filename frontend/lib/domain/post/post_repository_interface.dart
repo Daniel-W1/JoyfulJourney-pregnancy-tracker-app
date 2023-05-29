@@ -4,13 +4,12 @@ import 'package:frontend/domain/post/post_failure.dart';
 import 'package:frontend/domain/post/post_form.dart';
 
 abstract class PostRepositoryInterface {
-  Future<Either<Postfailure, List<PostDomain>>> getPosts();
-  Future<Either<Postfailure, List<PostDomain>>> getPostsForAuthor(
+  Future<Either<PostFailure, List<PostDomain>>> getPosts();
+  Future<Either<PostFailure, List<PostDomain>>> getPostsForAuthor(
       String author);
-  Future<Either<Postfailure, PostDomain>> addPost(PostForm post);
-  Future<Either<Postfailure, PostDomain>> updatePost(PostForm post, String postId);
-  Future<Either<Postfailure, Unit>> deletePost(String postId);
-
-  Future<Either<Postfailure, PostDomain>> changeLike(String liker, String postId);
+  Future<Either<PostFailure, PostDomain>> addPost(PostForm post);
+  Future<Either<PostFailure, PostDomain>> updatePost({required PostForm postForm, required String postId});
+  Future<Either<PostFailure, Unit>> deletePost(String postId);
+  Future<Either<PostFailure, PostDomain>> changeLike(String liker, String postId);
 }
 

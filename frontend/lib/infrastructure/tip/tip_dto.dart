@@ -1,20 +1,31 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+class TipDto {
+  final String id;
+  final String body;
+  final String title;
+  final String type;
 
-part 'tip_dto.freezed.dart';
-part 'tip_dto.g.dart';
+  TipDto({
+    required this.id,
+    required this.body,
+    required this.title,
+    required this.type,
+  });
 
-@freezed
-class TipDto with _$TipDto {
-  const TipDto._();
+  factory TipDto.fromJson(Map<String, dynamic> json) {
+    return TipDto(
+      id: json['id'],
+      body: json['body'],
+      title: json['title'],
+      type: json['type'],
+    );
+  }
 
-  const factory TipDto({
-    required String id,
-    required String body,
-    required String title,
-    required String type,
-  }) = _TipDto;
-
-  factory TipDto.fromJson(Map<String, dynamic> json) =>
-      _$TipDtoFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'body': body,
+      'title': title,
+      'type': type,
+    };
+  }
 }

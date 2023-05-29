@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:developer' as developer;
-
 import 'package:dartz/dartz.dart';
 import 'package:frontend/domain/user/user_domain.dart';
 import 'package:frontend/domain/user/user_failure.dart';
@@ -23,7 +20,7 @@ class UserRepository implements UserRepositoryInterface {
           .map((UserDto userDto) => UserDomain.fromJson(userDto.toJson()))
           .toList());
     } catch (e) {
-      return left(const Userfailure.serverError());
+      return left( Userfailure.serverError());
     }
   }
 
@@ -33,7 +30,7 @@ class UserRepository implements UserRepositoryInterface {
       var userDto = await userApi.signup(userForm.toDto());
       return right(UserDomain.fromJson(userDto.toJson()));
     } catch (e) {
-      return left(const Userfailure.serverError());
+      return left(Userfailure.serverError());
     }
   }
 
@@ -43,7 +40,7 @@ class UserRepository implements UserRepositoryInterface {
       await userApi.deleteUser(userId);
       return right(unit);
     } catch (e) {
-      return left(const Userfailure.serverError());
+      return left(Userfailure.serverError());
     }
   }
 }

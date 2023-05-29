@@ -5,9 +5,9 @@ import 'package:frontend/domain/appointment/appointment_form.dart';
 import 'appointment_failure.dart';
 
 abstract class AppointmentRepositoryInterface {
-  Future<Either<Appointmentfailure, AppointmentDomain>> addAppointment(AppointmentForm appointment);
-  Future<Either<Appointmentfailure, AppointmentDomain>> updateAppointment(AppointmentForm appointment, String appointmentId);
-  Future<Either<Appointmentfailure, Unit>> deleteAppointment(String appointmentId);
-  Future<Either<Appointmentfailure, List<AppointmentDomain>>>
+  Future<Either<AppointmentFailure, AppointmentDomain>> addAppointment(AppointmentForm appointment);
+  Future<Either<AppointmentFailure, AppointmentDomain>> updateAppointment(AppointmentForm appointmentForm,  String appointmentId);
+  Future<Either<AppointmentFailure, Unit>> deleteAppointment(String appointmentId);
+  Future<Either<AppointmentFailure, List<AppointmentDomain>>>
       getAppointmentsForUser(String userId);
 }
