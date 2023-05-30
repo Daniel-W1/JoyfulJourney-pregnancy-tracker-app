@@ -26,6 +26,7 @@ class PostRepository implements PostRepositoryInterface {
   @override
   Future<Either<PostFailure, List<PostDomain>>> getPostsForAuthor(
       String author) async {
+    print("infrastructure");
     try {
       var posts = await postApi.getPostByUser(author);
       return right(posts

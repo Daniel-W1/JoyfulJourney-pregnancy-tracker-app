@@ -1,16 +1,33 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:timeline_list/timeline.dart';
-import 'package:timeline_list/timeline_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/application/note/bloc/note_bloc.dart';
+import 'package:frontend/application/post/post_list/bloc/post_list_bloc.dart';
+import 'package:frontend/infrastructure/note/note_api.dart';
+import 'package:frontend/infrastructure/note/note_repository.dart';
+import 'package:frontend/infrastructure/post/post_api.dart';
+import 'package:frontend/infrastructure/post/post_repository.dart';
+import 'package:frontend/presentation/post_page/postcard.dart';
+import 'package:frontend/presentation/post_page/posts.dart';
 
 void main() {
-  runApp(const MyApp());
+  NoteAPI noteApi = NoteAPI();
+  NoteRepository noteRepository = NoteRepository(noteApi);
+  NoteBloc noteBloc = NoteBloc(noteRepositoryInterface: noteRepository);
+
+  PostAPI postApi = PostAPI();
+  PostRepository postRepository = PostRepository(postApi);
+  PostListBloc postBloc = PostListBloc(postRepository: postRepository);
+
+  runApp(MyApp(noteBloc: noteBloc, postBloc: postBloc));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget {
+  final NoteBloc noteBloc;
+  final PostListBloc postBloc;
+
+  const MyApp({Key? key, required this.noteBloc, required this.postBloc}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +36,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<NoteBloc>.value(value: noteBloc),
+          BlocProvider<PostListBloc>.value(value: postBloc),
+        ],
+        child: PostsPage(postBloc: postBloc),
+      ),
     );
   }
 }
+

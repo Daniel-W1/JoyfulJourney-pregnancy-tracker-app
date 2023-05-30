@@ -16,6 +16,9 @@ export class AuthController {
 
   @Post('signup')
   async signup(@Body() body) {
+    console.log(body, 'body');
+    console.log('signup');
+    
     return await this.authService.signup(body);
   }
 

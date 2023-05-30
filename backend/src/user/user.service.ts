@@ -60,12 +60,12 @@ export class UserService {
 
           savedUser = await this.hashAndSave(newUser);
         } catch (err) {
-          throw new BadRequestException('Bad Request');
+          throw new Error(err.message);
         }
       }
       
       if (!savedUser) {
-        throw new BadRequestException('Bad Request');
+        throw new Error('User not created.');
       }
       return savedUser;
   }

@@ -4,12 +4,33 @@ class AppointmentState {
   const AppointmentState._();
 
   const factory AppointmentState.initial() = AppointmentStateInitial;
+
   const factory AppointmentState.loading() = AppointmentStateLoading;
+
   const factory AppointmentState.successMultiple(List<AppointmentDomain> appointments) =
       AppointmentStateSuccessMultiple;
-  const factory AppointmentState.Failure(AppointmentFailure Failure) = AppointmentStateFailure;
+
+  const factory AppointmentState.failure(AppointmentFailure failure) = AppointmentStateFailure;
+
   const factory AppointmentState.success(AppointmentDomain appointment) = AppointmentStateSuccess;
+
   const factory AppointmentState.deleted() = AppointmentStateDeleted;
+
+  AppointmentState copyWith({
+    List<AppointmentDomain>? appointments,
+    AppointmentFailure? failure,
+    AppointmentDomain? appointment,
+  }) {
+    if (appointments != null) {
+      return AppointmentState.successMultiple(appointments);
+    } else if (failure != null) {
+      return AppointmentState.failure(failure);
+    } else if (appointment != null) {
+      return AppointmentState.success(appointment);
+    } else {
+      return this;
+    }
+  }
 }
 
 class AppointmentStateInitial extends AppointmentState {
@@ -37,19 +58,19 @@ class AppointmentStateSuccessMultiple extends AppointmentState {
 }
 
 class AppointmentStateFailure extends AppointmentState {
-  final AppointmentFailure Failure;
+  final AppointmentFailure failure;
 
-  const AppointmentStateFailure(this.Failure) : super._();
+  const AppointmentStateFailure(this.failure) : super._();
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is AppointmentStateFailure &&
           runtimeType == other.runtimeType &&
-          Failure == other.Failure;
+          failure == other.failure;
 
   @override
-  int get hashCode => runtimeType.hashCode ^ Failure.hashCode;
+  int get hashCode => runtimeType.hashCode ^ failure.hashCode;
 }
 
 class AppointmentStateSuccess extends AppointmentState {

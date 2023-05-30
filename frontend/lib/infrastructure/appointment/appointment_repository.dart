@@ -41,7 +41,7 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
 
   @override
   Future<Either<AppointmentFailure, AppointmentDomain>> updateAppointment(
-      {required AppointmentForm appointmentForm, required String appointmentId}) async {
+      AppointmentForm appointmentForm, String appointmentId) async {
     try {
       var AppointmentDomainDto = await appointmentAPI.updateAppointment(
           appointmentForm.toDto(), appointmentId);

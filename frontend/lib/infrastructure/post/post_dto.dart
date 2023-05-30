@@ -15,7 +15,7 @@ class PostDto {
 
   factory PostDto.fromJson(Map<String, dynamic> json) {
     return PostDto(
-      id: json['id'],
+      id: json['_id'],
       body: json['body'],
       author: json['author'],
       comments: (json['comments'] as List<dynamic>).cast<String>(),
