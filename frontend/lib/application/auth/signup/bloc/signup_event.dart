@@ -1,17 +1,16 @@
 
-import 'package:frontend/domain/signup/signup.dart';
 import 'package:frontend/domain/auth/auth.dart';
 
 abstract class SignupEvent {
   const SignupEvent._();
 
-  const factory SignupEvent.signup(SignUpForm signupForm) = SignupEventSignup;
+  const factory SignupEvent.signup(SignupForm signupForm) = SignupEventSignup;
 
   const factory SignupEvent.changePassword(ChangePasswordForm changePasswordForm) = SignupEventChangePassword;
 }
 
 class SignupEventSignup extends SignupEvent {
-  final SignUpForm signupForm;
+  final SignupForm signupForm;
 
   const SignupEventSignup(this.signupForm) : super._();
 

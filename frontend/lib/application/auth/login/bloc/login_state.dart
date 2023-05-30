@@ -7,17 +7,16 @@ abstract class LoginState {
 
   const factory LoginState.loading() = LoginStateLoading;
 
-  const factory LoginState.success(String token) = LoginStateSuccess;
+  const factory LoginState.success(UserDomain user) = LoginStateSuccess;
 
   const factory LoginState.failure(AuthFailure failure) = LoginStateFailure;
 
   LoginState copyWith({
-    String? token,
     UserDomain? user,
     AuthFailure? failure,
   }) {
-    if (this is LoginStateSuccess && token != null && user != null) {
-      return LoginState.success(token);
+    if (this is LoginStateSuccess && user != null) {
+      return LoginState.success(user);
     } else if (this is LoginStateFailure && failure != null) {
       return LoginState.failure(failure);
     } else {
@@ -35,21 +34,21 @@ class LoginStateLoading extends LoginState {
 }
 
 class LoginStateSuccess extends LoginState {
-  final String token;
+  final UserDomain user;
   // final UserDomain user;
 
-  const LoginStateSuccess(this.token) : super._();
+  const LoginStateSuccess(this.user) : super._();
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is LoginStateSuccess &&
           runtimeType == other.runtimeType &&
-          token == other.token;
+          user == other.user;
           // user == other.user;
 
   @override
-  int get hashCode => runtimeType.hashCode ^ token.hashCode;
+  int get hashCode => runtimeType.hashCode ^ user.hashCode;
 
 }
 
