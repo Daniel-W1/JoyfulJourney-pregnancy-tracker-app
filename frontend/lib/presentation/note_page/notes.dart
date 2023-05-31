@@ -27,25 +27,28 @@ import 'package:frontend/presentation/note_page/symptomcard.dart';
 // that has title, description, date
 
 class Notespage extends StatefulWidget {
-  final NoteBloc noteBloc;
+  
 
-  const Notespage({Key? key, required this.noteBloc}) : super(key: key);
-
+  const Notespage({Key? key}) : super(key: key);
+// , required this.noteBloc
   @override
   State<Notespage> createState() => _NotespageState();
 }
 
 class _NotespageState extends State<Notespage> {
   var notes = [];
+  late  NoteBloc noteBloc;
 
-  Future<void> fetchNotes(String userId) async {
-  widget.noteBloc.add(NoteEventGetByUser(userId));
-  }
 
   @override
   void initState() {
     super.initState();
+    noteBloc = BlocProvider.of<NoteBloc>(context);
     fetchNotes('6474824cebecd37a7abd4cb3');
+  }
+
+  Future<void> fetchNotes(String userId) async {
+  noteBloc.add(NoteEventGetByUser(userId));
   }
 
   @override
