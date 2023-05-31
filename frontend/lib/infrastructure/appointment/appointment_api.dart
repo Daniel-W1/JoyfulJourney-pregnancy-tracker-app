@@ -12,9 +12,15 @@ class AppointmentAPI {
     var appointment = await _customHttpClient.post("appointment",
         body: json.encode(appointmentFormDto.toJson()));
 
+    print(appointmentFormDto.toJson());
+    print(appointment.body + "API here");
+    print(appointment.statusCode);
+    print(json.encode(appointmentFormDto.toJson()));
+
     if (appointment.statusCode == 201) {
       return AppointmentDto.fromJson(jsonDecode(appointment.body));
     } else {
+      print("here api exception");
       throw JJHttpException(
           json.decode(appointment.body)['message'] ?? "Unknown error",
           appointment.statusCode);

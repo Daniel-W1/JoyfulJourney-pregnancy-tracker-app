@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/utils/hex_color.dart';
 
 class DateMonthYearPicker extends StatefulWidget {
+  final Function(String) onDateSelected; // New callback function
+
   const DateMonthYearPicker({
-    super.key,
-  });
+    Key? key,
+    required this.onDateSelected,
+  }) : super(key: key);
 
   @override
   State<DateMonthYearPicker> createState() => _DateMonthYearPickerState();
@@ -16,14 +19,19 @@ class _DateMonthYearPickerState extends State<DateMonthYearPicker> {
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101),
+    );
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
       });
+
+      // Call the onDateSelected callback with the formatted date
+      final formattedDate = '${picked.day}/${picked.month}/${picked.year}';
+      widget.onDateSelected(formattedDate);
     }
   }
 
@@ -49,7 +57,9 @@ class _DateMonthYearPickerState extends State<DateMonthYearPicker> {
                   Text(
                     selectedDate.day.toString(),
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                   const VerticalDivider()
                 ],
@@ -64,7 +74,9 @@ class _DateMonthYearPickerState extends State<DateMonthYearPicker> {
                   Text(
                     selectedDate.month.toString(),
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                   const VerticalDivider()
                 ],
@@ -79,7 +91,9 @@ class _DateMonthYearPickerState extends State<DateMonthYearPicker> {
                   Text(
                     selectedDate.year.toString(),
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                   const Text(""),
                 ],

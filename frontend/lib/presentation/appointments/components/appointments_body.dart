@@ -8,9 +8,7 @@ import '../../../../../../core/constants/assets.dart';
 import 'appointment_item.dart';
 
 class AppointmentsBody extends StatefulWidget {
-  final AppointmentBloc appointmentBloc;
-
-  const AppointmentsBody({Key? key, required this.appointmentBloc});
+  const AppointmentsBody({Key? key});
 
   @override
   _AppointmentsBodyState createState() => _AppointmentsBodyState();
@@ -35,10 +33,7 @@ class _AppointmentsBodyState extends State<AppointmentsBody> {
             ),
           ),
           // plus button
-          BlocProvider<AppointmentBloc>.value(
-            value: widget.appointmentBloc,
-            child: Body(appointmentBloc: widget.appointmentBloc),
-          ),
+          Body(),
           const PlusButton(),
           // background
         ],
@@ -48,61 +43,66 @@ class _AppointmentsBodyState extends State<AppointmentsBody> {
 }
 
 class Body extends StatefulWidget {
-  final AppointmentBloc appointmentBloc;
-
-  const Body({Key? key, required this.appointmentBloc});
+  const Body({Key? key}) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
+  late AppointmentBloc appointmentBloc;
   var appointments = [];
-
-  Future<void> fetchApps(String userId) async {
-    print("fetching apps");
-    widget.appointmentBloc.add(AppointmentEventGetByUser(userId));
-  }
 
   @override
   void initState() {
     super.initState();
+    appointmentBloc = BlocProvider.of<AppointmentBloc>(context);
     fetchApps('6474824cebecd37a7abd4cb3');
+  }
+
+  Future<void> fetchApps(String userId) async {
+    print("fetching apps");
+    appointmentBloc.add(AppointmentEventGetByUser(userId));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppointmentBloc, AppointmentState>(
-        builder: (context, state) {
-      if (state is AppointmentStateInitial) {
-        return CircularProgressIndicator();
-      } else if (state is AppointmentStateSuccessMultiple) {
-        appointments = state.appointments;
+      bloc: appointmentBloc,
+      builder: (context, state) {
+        if (state is AppointmentStateInitial) {
+          return CircularProgressIndicator();
+        } else if (state is AppointmentStateSuccessMultiple) {
+          appointments = state.appointments;
 
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 3.0),
-            itemCount: appointments.length,
-            itemBuilder: (context, index) {
-              final note = appointments[index];
-              return AppointmentItem(
-                title: note.title,
-                body: note.body,
-                date: note.date,
-              );
-            },
-          ),
-        );
-      } else if (state is AppointmentStateFailure) {
-        return Center(
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 3.0),
+              itemCount: appointments.length,
+              itemBuilder: (context, index) {
+                final note = appointments[index];
+                return AppointmentItem(
+                  title: note.title,
+                  body: note.body,
+                  date: note.date,
+                );
+              },
+            ),
+          );
+        } else if (state is AppointmentStateFailure) {
+          return Center(
             child: Text(
-                'Failed to load Appointments: ${state.failure.toString()}'));
-      }
-      return Scaffold(
-        body: Text("Failed to load notes."),
-      );
-    });
+              'Failed to load Appointments: ${state.failure.toString()}',
+            ),
+          );
+        }
+
+        return Scaffold(
+          body: Text("Failed to load notes."),
+        );
+      },
+    );
   }
 }
 

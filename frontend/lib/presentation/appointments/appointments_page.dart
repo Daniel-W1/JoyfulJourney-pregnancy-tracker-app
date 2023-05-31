@@ -14,33 +14,13 @@ class AppointmentsPage extends StatefulWidget {
 }
 
 class _AppointmentsPageState extends State<AppointmentsPage> {
-  late AppointmentAPI appointmentApi;
-  late AppointmentRepository appointmentRepository;
-  late AppointmentBloc appointmentBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    appointmentApi = AppointmentAPI();
-    appointmentRepository = AppointmentRepository(appointmentApi);
-    appointmentBloc =
-        AppointmentBloc(appointmentRepositoryInterface: appointmentRepository);
-
-    print("init state bloc created");
-  }
-
   @override
   Widget build(BuildContext context) {
     print("build called");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: appointmentsAppBar(size, context),
-      body: BlocProvider<AppointmentBloc>.value(
-        value: appointmentBloc, // Provide the appointmentBloc instance
-        child: AppointmentsBody(
-          appointmentBloc: appointmentBloc,
-        ),
-      ),
+      body: AppointmentsBody(),
     );
   }
 

@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/constants/assets.dart';
-import '../../../application/appointment/bloc/appointment_bloc.dart';
-import '../../../infrastructure/appointment/appointment_api.dart';
-import '../../../infrastructure/appointment/appointment_repository.dart';
 import 'add_appointment_app_bar.dart';
 import 'book_textfield_button.dart';
 import 'date_month_year_picker.dart';
 import 'time_label.dart';
 import 'time_picker.dart';
 
+DateTime currentDate = DateTime.now();
+TimeOfDay currentTime = TimeOfDay.now();
+String _formatTime(TimeOfDay time) {
+  final hour = time.hour.toString().padLeft(2, '0');
+  final minute = time.minute.toString().padLeft(2, '0');
+  return '$hour:$minute';
+}
+
 class AddAppointmentBody extends StatelessWidget {
-  const AddAppointmentBody({super.key});
+  const AddAppointmentBody({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    AppointmentAPI appointmentApi = AppointmentAPI();
-    AppointmentRepository appointmentRepository =
-        AppointmentRepository(appointmentApi);
-    AppointmentBloc appointmentBloc =
-        AppointmentBloc(appointmentRepositoryInterface: appointmentRepository);
-
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height,
@@ -28,26 +27,35 @@ class AddAppointmentBody extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-              top: 0,
-              right: 0,
-              child: Image.asset(
-                Assets.assetsImagesEllipse51,
-                scale: 2,
-              )),
-          const Body(),
+            top: 0,
+            right: 0,
+            child: Image.asset(
+              Assets.assetsImagesEllipse51,
+              scale: 2,
+            ),
+          ),
+          Body(),
         ],
       ),
     );
   }
 }
 
-class Body extends StatelessWidget {
-  final AppointmentBloc appointmentBloc;
-
+class Body extends StatefulWidget {
   const Body({
     Key? key,
-    required this.appointmentBloc,
   }) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  // give selectedDate default current date and selectedTime default current time
+
+  String selectedDate =
+      '${currentDate.day}/${currentDate.month}/${currentDate.year}';
+  String selectedTime = _formatTime(currentTime);
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +66,24 @@ class Body extends StatelessWidget {
         children: [
           AddAppointmentAppBar(),
           TimeLabel(),
-          DateMonthYearPicker(),
-          TimePicker(),
-          BookTextFieldButton(appointmentBloc: appointmentBloc),
+          DateMonthYearPicker(
+            onDateSelected: (date) {
+              setState(() {
+                selectedDate = date;
+              });
+            },
+          ),
+          TimePicker(
+            onTimeSelected: (time) {
+              setState(() {
+                selectedTime = time;
+              });
+            },
+          ),
+          BookTextFieldButton(
+            selectedDate: selectedDate,
+            selectedTime: selectedTime,
+          ),
         ],
       ),
     );

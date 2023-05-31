@@ -21,8 +21,7 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
           .map((AppointmentDto appointmentDto) =>
               AppointmentDomain.fromJson(appointmentDto.toJson()))
           .toList());
-    }
-    catch (e) {
+    } catch (e) {
       return left(AppointmentFailure.serverError());
     }
   }
@@ -31,6 +30,7 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, AppointmentDomain>> addAppointment(
       AppointmentForm appointmentForm) async {
     try {
+      print("AppointmentRepository here");
       var appointment =
           await appointmentAPI.createAppointment(appointmentForm.toDto());
       return right(AppointmentDomain.fromJson(appointment.toJson()));
