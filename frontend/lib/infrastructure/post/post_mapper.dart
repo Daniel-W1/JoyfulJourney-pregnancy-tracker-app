@@ -16,7 +16,7 @@ extension on PostDto {
 
   PostEntity toPostEntity() {
     return PostEntity(
-      id: id,
+      id: id!,
       body: body,
       author: author,
       comments: comments,
@@ -26,7 +26,7 @@ extension on PostDto {
 
   PostDomain fromDto(PostDto post) {
     return PostDomain(
-      id: post.id,
+      id: post.id!,
       body: post.body,
       author: post.author,
       comments: post.comments,

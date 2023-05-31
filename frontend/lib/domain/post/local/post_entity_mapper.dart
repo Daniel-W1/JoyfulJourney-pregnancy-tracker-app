@@ -35,7 +35,7 @@ extension PostEntityExtensions on PostEntity {
 
   PostEntity fromPostDto(PostDto postDto) {
     return PostEntity(
-      id: postDto.id,
+      id: postDto.id!,
       body: postDto.body,
       author: postDto.author,
       comments: postDto.comments,

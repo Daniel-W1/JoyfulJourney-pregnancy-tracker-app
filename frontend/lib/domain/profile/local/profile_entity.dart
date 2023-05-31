@@ -40,6 +40,42 @@ class ProfileEntity {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'userName': userName,
+      'firstName': firstName,
+      'lastName': lastName,
+      'bio': bio,
+      'profilePicture': profilePicture,
+      'followers': followers,
+      'following': following,
+      'comments': comments,
+      'posts': posts,
+      'socialMedia': socialMedia,
+    };
+  }
+  
+  Map<String, dynamic> toSqlJson() {
+    var serialized_followers = followers.join(',');
+    var serialized_following = following.join(',');
+    var serialized_comments = comments.join(',');
+    var serialized_posts = posts.join(',');
+    var serialized_socialMedia = socialMedia.join(',');
+  
+    return {
+      'userName': userName,
+      'firstName': firstName,
+      'lastName': lastName,
+      'bio': bio,
+      'profilePicture': profilePicture,
+      'followers': serialized_followers,
+      'following': serialized_following,
+      'comments': serialized_comments,
+      'posts': serialized_posts,
+      'socialMedia': serialized_socialMedia,
+    };
+  }  
+
   ProfileDomain toProfile() {
     return ProfileDomain(
       userName: userName,

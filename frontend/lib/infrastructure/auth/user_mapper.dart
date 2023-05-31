@@ -8,6 +8,20 @@ extension UMapper on UserDto {
       username: username,
       password: password,
       email: email,
+      profileId: profileId,
+      roles: roles,
+    );
+  }
+}
+
+extension UDomain on UserDomain {
+  UserDto toDto() {
+    return UserDto(
+      id: id,
+      username: username,
+      password: password,
+      email: email,
+      profileId: profileId,
       roles: roles,
     );
   }

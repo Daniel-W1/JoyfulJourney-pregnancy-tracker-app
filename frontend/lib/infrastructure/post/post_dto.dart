@@ -1,12 +1,12 @@
 class PostDto {
-  final String id;
+  String? id;
   final String body;
   final String author;
   final List<String> comments;
   final List<String> likes;
 
   PostDto({
-    required this.id,
+    this.id,
     required this.body,
     required this.author,
     required this.comments,

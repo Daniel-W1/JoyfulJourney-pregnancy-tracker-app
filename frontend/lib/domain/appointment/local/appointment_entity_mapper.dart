@@ -40,7 +40,7 @@ extension on AppointmentEntity {
 
   AppointmentEntity fromAppointmentDto(AppointmentDto appointmentdto) {
     return AppointmentEntity(
-      id: appointmentdto.id,
+      id: appointmentdto.id!,
       title: appointmentdto.title,
       body: appointmentdto.body,
       time: appointmentdto.time,
