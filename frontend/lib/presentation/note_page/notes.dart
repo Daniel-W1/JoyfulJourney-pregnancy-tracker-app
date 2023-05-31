@@ -26,16 +26,16 @@ import 'package:frontend/presentation/note_page/symptomcard.dart';
 // create a list notes card widget
 // that has title, description, date
 
-class Notespage extends StatefulWidget {
+class NotesPage extends StatefulWidget {
   
 
-  const Notespage({Key? key}) : super(key: key);
+  const NotesPage({Key? key}) : super(key: key);
 // , required this.noteBloc
   @override
-  State<Notespage> createState() => _NotespageState();
+  State<NotesPage> createState() => _NotesPageState();
 }
 
-class _NotespageState extends State<Notespage> {
+class _NotesPageState extends State<NotesPage> {
   var notes = [];
   late  NoteBloc noteBloc;
 

@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<PostListBloc>.value(value: postBloc),
           BlocProvider<AppointmentBloc>.value(value: appointmentBloc),
         ],
-        child: const Notespage(),
+        child: NotesPage(),
       ),
     );
   }
