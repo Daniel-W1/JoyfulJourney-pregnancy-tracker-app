@@ -20,7 +20,6 @@ class AppointmentAPI {
     if (appointment.statusCode == 201) {
       return AppointmentDto.fromJson(jsonDecode(appointment.body));
     } else {
-      print("here api exception");
       throw JJHttpException(
           json.decode(appointment.body)['message'] ?? "Unknown error",
           appointment.statusCode);

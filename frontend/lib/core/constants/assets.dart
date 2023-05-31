@@ -41,6 +41,10 @@ class Assets {
   /// assets/images/Ellipse8.png
   static const String assetsImagesEllipse8 = "assets/images/Ellipse8.png";
 
+  /// Assets for assetsImagesFancyBack
+  /// assets/images/fancyBack.png
+  static const String assetsImagesFancyBack = "assets/images/fancyBack.png";
+
   /// Assets for assetsImagesFavorite
   /// assets/images/Favorite.png
   static const String assetsImagesFavorite = "assets/images/Favorite.png";

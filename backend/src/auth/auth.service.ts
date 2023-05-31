@@ -33,7 +33,14 @@ export class AuthService {
     const user = await this.userService.findOneByUsername(username);
     // console.log(user);
 
+    console.log('am here and this');
+    console.log("lalabay");
+    console.log(user);
+    
+
     if (!user) {
+      console.log("denieng access");
+      
       throw new ForbiddenException('Access Denied');
     }
 
@@ -48,7 +55,10 @@ export class AuthService {
     console.log(user.role, 'user.role');
     const token = await this.getToken(username, user._id, user.roles);
 
-    return { id: user._id, username: user.username, ...token };
+    const rs = { user, ...token };
+    console.log(rs);
+    
+    return { user, ...token };
   }
 
   async getToken(username: string, id: string, roles: Role[]) {

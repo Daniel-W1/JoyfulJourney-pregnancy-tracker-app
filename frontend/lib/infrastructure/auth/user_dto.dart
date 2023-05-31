@@ -15,7 +15,7 @@ class UserDto {
 
   factory UserDto.fromJson(Map<String, dynamic> json) {
     return UserDto(
-      id: json['id'],
+      id: json['_id'],
       username: json['username'],
       password: json['password'],
       email: json['email'],

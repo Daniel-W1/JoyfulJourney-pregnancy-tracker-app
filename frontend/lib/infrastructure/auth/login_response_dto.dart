@@ -10,6 +10,8 @@ class LoginResponseDto {
   });
 
   factory LoginResponseDto.fromJson(Map<String, dynamic> json) {
+    print(json['access_token']);
+    print(json['user']);
     return LoginResponseDto(
       access_token: json['access_token'],
       user: UserDto.fromJson(json['user']),

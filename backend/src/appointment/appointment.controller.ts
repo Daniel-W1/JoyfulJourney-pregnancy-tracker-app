@@ -9,6 +9,10 @@ export class AppointmentController {
 
   @Post()
   create(@Body() createAppointmentDto: CreateAppointmentDto) {
+    console.log("hellow");
+    
+    console.log(createAppointmentDto, 'createAppointmentDto');
+    
     return this.appointmentService.create(createAppointmentDto);
   }
 

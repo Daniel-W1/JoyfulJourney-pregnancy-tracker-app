@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:frontend/database/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/domain/auth/auth_failure.dart';
@@ -21,27 +20,34 @@ class AuthRepository implements AuthRepositoryInterface {
   AuthRepository(this.authApi, this.sharedPreferences);
 
   @override
-  Future<Either<AuthFailure, UserDomain>> signup({required SignupForm signupForm}) async {
-    try{  
+  Future<Either<AuthFailure, UserDomain>> signup(
+      {required SignupForm signupForm}) async {
+    try {
       UserDto user = await authApi.signup(signupFormDto: signupForm.toDto());
       return Right(user.toUserDomain());
-      } catch (e) {
-        return Left(AuthFailure.serverError());
-      }
+    } catch (e) {
+      return Left(AuthFailure.serverError());
+    }
   }
 
   @override
-  Future<Either<AuthFailure, UserDomain>> login({required LoginForm loginForm}) async {
+  Future<Either<AuthFailure, UserDomain>> login(
+      {required LoginForm loginForm}) async {
     try {
       LoginResponseDto response = await authApi.login(
-        username: loginForm.username.username,
-        password: loginForm.password.password,
+        username: loginForm.username,
+        password: loginForm.password,
       );
       await sharedPreferences.setAccessToken(response.access_token);
+
+      print(response.user.toUserDomain());
+      print(response.access_token);
+      print('print we rolling');
+
       return Right(response.user.toUserDomain());
-      } catch (e) {
-        return Left(AuthFailure.serverError());
-      }
+    } catch (e) {
+      return Left(AuthFailure.serverError());
+    }
     // await sharedPreferences.setAuthenticatedUser(response.user.toModel());
 
     // _authenticatedUser = response.user.toModel();
@@ -67,7 +73,6 @@ class AuthRepository implements AuthRepositoryInterface {
   // Future<String?> getAuthToken() {
   //   return sharedPreferences.getToken();
   // }
-
 
   // @override
   // Future<User?> getAuthenticatedUser() async {

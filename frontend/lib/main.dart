@@ -8,6 +8,7 @@ import 'package:frontend/infrastructure/note/note_repository.dart';
 import 'package:frontend/infrastructure/post/post_api.dart';
 import 'package:frontend/infrastructure/post/post_repository.dart';
 import 'package:frontend/presentation/appointments/appointments_page.dart';
+import 'package:frontend/presentation/signup/signup_page.dart';
 
 import 'infrastructure/appointment/appointment_api.dart';
 import 'infrastructure/appointment/appointment_repository.dart';
@@ -69,7 +70,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<PostListBloc>.value(value: postBloc),
           BlocProvider<AppointmentBloc>.value(value: appointmentBloc),
         ],
-        child: AppointmentsPage(),
+        child: SignUpPage(),
       ),
     );
   }

@@ -10,9 +10,7 @@ class AuthApi {
   static const String _loginUrl = "auth/login";
   static const String _signupUrl = "auth/signup";
 
-  final JJHttpClient _httpClient;
-
-  AuthApi(this._httpClient);
+  JJHttpClient _httpClient = JJHttpClient();
 
   Future<LoginResponseDto> login(
       {required String username, required String password}) async {
@@ -21,12 +19,19 @@ class AuthApi {
       'password': password,
     });
 
+    print(body);
+    print('here');
+
     var response = await _httpClient.post(_loginUrl, body: body);
 
     final Map<String, dynamic> data = json.decode(response.body);
-
-    if (response.statusCode == 200) {
-      return LoginResponseDto.fromJson(data);
+    print(data);
+    print(response.statusCode);
+    if (response.statusCode == 201) {
+      print("am here");
+      var res = LoginResponseDto.fromJson(data);
+      print('res: $res');
+      return res;
     } else {
       throw JJHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
@@ -39,6 +44,10 @@ class AuthApi {
         body: json.encode(signupFormDto.toJson()));
 
     final Map<String, dynamic> data = json.decode(response.body);
+
+    print("API here");
+    print(data);
+    print(response.statusCode);
 
     if (response.statusCode == 201) {
       return UserDto.fromJson(data);

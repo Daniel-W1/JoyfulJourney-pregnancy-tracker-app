@@ -3,9 +3,9 @@ import 'package:frontend/domain/auth/password_domain.dart';
 import 'package:frontend/domain/auth/user_name_domain.dart';
 
 class SignupForm {
-  final Username username;
-  final Password password;
-  final EmailAddress email;
+  final String username;
+  final String password;
+  final String email;
 
   SignupForm({
     required this.username,
