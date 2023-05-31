@@ -233,7 +233,20 @@ Future<List<NoteDomain>> getNotesByUser(String author) async {
     return noteDomainList;
 }
 
+Future<List<PostDomain>> getPostsByUser(String author) async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> postList = await db
+        .query("post", where: "author = ?", whereArgs: [author]);
+    List<PostEntity> postEntityList = postList.isEmpty
+        ? []
+        : postList.map((post) => PostEntity.fromJson(post)).toList();
 
+    List<PostDomain> postDomainList = postEntityList.isEmpty
+        ? []
+        : postEntityList.map((post) => post.toPostDomain()).toList();
+    
+    return postDomainList;
+}
 
 
 
