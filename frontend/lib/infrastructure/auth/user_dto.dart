@@ -1,24 +1,27 @@
 class UserDto {
-  final String id;
+  final String? id;
   final String username;
   final String password;
   final String email;
+  final String profileId;
   final List<String> roles;
 
   UserDto({
-    required this.id,
+    this.id,
     required this.username,
     required this.password,
     required this.email,
+    required this.profileId,
     required this.roles,
   });
 
   factory UserDto.fromJson(Map<String, dynamic> json) {
     return UserDto(
-      id: json['id'],
+      id: json['_id'],
       username: json['username'],
       password: json['password'],
       email: json['email'],
+      profileId: json['profileId'],
       roles: (json['roles'] as List<dynamic>).cast<String>(),
     );
   }
@@ -29,6 +32,7 @@ class UserDto {
       'username': username,
       'password': password,
       'email': email,
+      'profileId': profileId,
       'roles': roles,
     };
   }

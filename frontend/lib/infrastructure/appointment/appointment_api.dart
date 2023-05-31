@@ -1,16 +1,26 @@
 import 'dart:convert';
 import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
 import 'package:frontend/infrastructure/appointment/appointment_form_dto.dart';
+import 'package:frontend/infrastructure/appointment/appointment_form_mapper.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
 
 class AppointmentAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
+  SharedPreferenceService _sharedPreferences = SharedPreferenceService();
 
   Future<AppointmentDto> createAppointment(
       AppointmentFormDto appointmentFormDto) async {
+    String author = await _sharedPreferences.getProfileId() ?? "";
+
+    if (author == "") {
+      throw JJHttpException("Not Logged In", 404);
+    }
+
+    var appointmentDto = appointmentFormDto.toAuthoredDto(author);
     var appointment = await _customHttpClient.post("appointment",
-        body: json.encode(appointmentFormDto.toJson()));
+        body: json.encode(appointmentDto.toJson()));
 
     print(appointmentFormDto.toJson());
     print(appointment.body + "API here");

@@ -1,15 +1,24 @@
 import 'dart:convert';
 import 'package:frontend/infrastructure/post/post_dto.dart';
 import 'package:frontend/infrastructure/post/post_form_dto.dart';
+import 'package:frontend/infrastructure/post/post_form_mapper.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
 
 class PostAPI {
   JJHttpClient jjHttpClient = JJHttpClient();
+  SharedPreferenceService sharedPreferences = SharedPreferenceService();
 
   Future<PostDto> createPost(PostFormDto postFormDto) async {
+    String author = await sharedPreferences.getProfileId() ?? "";
+    if (author == "") {
+      throw JJHttpException("Not Logged In", 404);
+    }
+
+    var postDto = postFormDto.toAuthoredDto(author);
     var post = await jjHttpClient.post("post",
-        body: json.encode(postFormDto.toJson()));
+        body: json.encode(postDto.toJson()));
 
     print("API here, for create");
     print(post.statusCode);

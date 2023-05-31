@@ -1,6 +1,6 @@
 
 import 'package:dartz/dartz.dart';
-import 'package:frontend/database/shared_preferences/jj_shared_preferences_service.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/domain/auth/auth_failure.dart';
 import 'package:frontend/domain/auth/auth_repository_interface.dart';
 import 'package:frontend/domain/auth/login_form.dart';
@@ -38,11 +38,12 @@ class AuthRepository implements AuthRepositoryInterface {
         password: loginForm.password.password,
       );
       await sharedPreferences.setAccessToken(response.access_token);
+      await sharedPreferences.setAuthenticatedUser(response.user.toUserDomain());
+      await sharedPreferences.setProfileId(response.user.profileId);
       return Right(response.user.toUserDomain());
-      } catch (e) {
-        return Left(AuthFailure.serverError());
+    } catch (e) {
+      return Left(AuthFailure.serverError());
       }
-    // await sharedPreferences.setAuthenticatedUser(response.user.toModel());
 
     // _authenticatedUser = response.user.toModel();
     // return Right(_authenticatedUser);
@@ -51,7 +52,8 @@ class AuthRepository implements AuthRepositoryInterface {
   @override
   Future<void> logout() async {
     await sharedPreferences.removeAccessToken();
-    // await sharedPreferences.removeAuthenticatedUser();
+    await sharedPreferences.removeAuthenticatedUser();
+    await sharedPreferences.removeProfileId();
     // _authenticatedUser = null;
   }
 

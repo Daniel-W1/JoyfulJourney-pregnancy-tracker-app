@@ -32,4 +32,17 @@ class PostEntity {
       'id': id,
     };
   }
+
+  Map<String, dynamic> toSqlJson() {
+    var serialized_comments = comments.join(',');
+    var serialized_likes = likes.join(',');
+
+    return {
+      'body': body,
+      'author': author,
+      'comments': serialized_comments,
+      'likes': serialized_likes,
+      'id': id,
+    };
+  }
 }

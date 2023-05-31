@@ -1,5 +1,5 @@
 class AppointmentDto {
-  String id;
+  String? id;
   String title;
   String body;
   String date;
@@ -7,7 +7,7 @@ class AppointmentDto {
   String author;
 
   AppointmentDto({
-    required this.id,
+    this.id,
     required this.title,
     required this.body,
     required this.date,
