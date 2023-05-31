@@ -14,7 +14,7 @@ extension CDMapper on CommentDto {
 
   CommentEntity toCommentEntity() {
     return CommentEntity(
-      id: id,
+      id: id!,
       body: body,
       postId: postId,
       author: author,

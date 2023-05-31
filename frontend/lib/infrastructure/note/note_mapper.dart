@@ -14,7 +14,7 @@ extension NDMapper on NoteDto {
 
   NoteEntity toNoteEntity() {
     return NoteEntity(
-      id: id,
+      id: id!,
       title: title,
       body: body,
       author: author,
@@ -23,7 +23,7 @@ extension NDMapper on NoteDto {
 
   NoteDomain toNoteDomain() {
     return NoteDomain(
-      id: id,
+      id: id!,
       title: title,
       body: body,
       author: author,

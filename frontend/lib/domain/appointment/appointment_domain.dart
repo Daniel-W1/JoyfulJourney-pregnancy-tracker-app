@@ -1,5 +1,5 @@
 class AppointmentDomain {
-  final String id;
+  String? id;
   final String title;
   final String body;
   final String date;
@@ -7,7 +7,7 @@ class AppointmentDomain {
   final String author;
 
   AppointmentDomain({
-    required this.id,
+    this.id,
     required this.title,
     required this.body,
     required this.date,
@@ -17,7 +17,7 @@ class AppointmentDomain {
 
   factory AppointmentDomain.fromJson(Map<String, dynamic> json) {
     return AppointmentDomain(
-      id: json['id'] as String,
+      id: json['_id'] as String,
       title: json['title'] as String,
       body: json['body'] as String,
       date: json['date'] as String,

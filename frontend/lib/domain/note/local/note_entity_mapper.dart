@@ -14,7 +14,7 @@ extension NoteEntityExtensions on NoteEntity {
 
   NoteEntity fromNoteDomain(NoteDomain note) {
     return NoteEntity(
-      id: note.id,
+      id: note.id!,
       body: note.body,
       title: note.title,
       author: note.author,
@@ -32,7 +32,7 @@ extension NoteEntityExtensions on NoteEntity {
 
   NoteEntity fromNoteDto(NoteDto noteDto) {
     return NoteEntity(
-      id: noteDto.id,
+      id: noteDto.id!,
       body: noteDto.body,
       title: noteDto.title,
       author: noteDto.author,

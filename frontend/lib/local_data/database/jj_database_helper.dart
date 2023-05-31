@@ -1,6 +1,14 @@
+import 'dart:async';
+
+import 'package:frontend/domain/appointment/appointment_domain.dart';
 import 'package:frontend/domain/appointment/local/appointment_entity.dart';
+import 'package:frontend/domain/appointment/local/appointment_entity_mapper.dart';
+import 'package:frontend/domain/comment/comment_domain.dart';
 import 'package:frontend/domain/comment/local/comment_entity.dart';
+import 'package:frontend/domain/comment/local/comment_entity_mapper.dart';
 import 'package:frontend/domain/note/local/note_entity.dart';
+import 'package:frontend/domain/note/local/note_entity_mapper.dart';
+import 'package:frontend/domain/note/note_domain.dart';
 import 'package:frontend/domain/post/local/post_entity.dart';
 import 'package:frontend/domain/post/local/post_entity_mapper.dart';
 import 'package:frontend/domain/post/post_domain.dart';
@@ -165,97 +173,147 @@ class DatabaseHelper {
     return postDomainList;
   }
 
-  Future<List<TipDomain>> getTips() async {
+  Future<List<AppointmentDomain>> getAppointmentsByUser(String author) async {
     final Database db = await database;
-    final List<Map<String, dynamic>> tipsList = await db.query("tips");
-    List<TipEntity> tipEntityList = tipsList.isEmpty
+    final List<Map<String, dynamic>> appointmentList = await db
+        .query("appointment", where: "author = ?", whereArgs: [author]);
+    List<AppointmentEntity> appointmentEntityList = appointmentList.isEmpty
         ? []
-        : tipsList.map((tip) => TipEntity.fromJson(tip)).toList();
+        : appointmentList.map((appointment) => AppointmentEntity.fromJson(appointment)).toList();
 
-    List<TipDomain> tipDomainList = tipEntityList.isEmpty
+    List<AppointmentDomain> appointmentDomainList = appointmentEntityList.isEmpty
         ? []
-        : tipEntityList.map((tip) => tip.toTipDomain()).toList();
+        : appointmentEntityList.map((appointment) => appointment.toAppointmentDomain()).toList();
     
-    return tipDomainList;
+    return appointmentDomainList;
+  }
+
+  Future<List<CommentDomain>> getCommentsByUser(String author) async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> commentList = await db
+        .query("comment", where: "author = ?", whereArgs: [author]);
+    List<CommentEntity> commentEntityList = commentList.isEmpty
+        ? []
+        : commentList.map((comment) => CommentEntity.fromJson(comment)).toList();
+
+    List<CommentDomain> commentDomainList = commentEntityList.isEmpty
+        ? []
+        : commentEntityList.map((comment) => comment.toCommentDomain()).toList();
+    
+    return commentDomainList;
+}
+
+  Future<List<CommentDomain>> getCommentsByPost(String postId) async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> commentList = await db
+        .query("comment", where: "postId = ?", whereArgs: [postId]);
+    List<CommentEntity> commentEntityList = commentList.isEmpty
+        ? []
+        : commentList.map((comment) => CommentEntity.fromJson(comment)).toList();
+
+    List<CommentDomain> commentDomainList = commentEntityList.isEmpty
+        ? []
+        : commentEntityList.map((comment) => comment.toCommentDomain()).toList();
+    
+    return commentDomainList;
+}
+
+Future<List<NoteDomain>> getNotesByUser(String author) async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> noteList = await db
+        .query("note", where: "author = ?", whereArgs: [author]);
+    List<NoteEntity> noteEntityList = noteList.isEmpty
+        ? []
+        : noteList.map((note) => NoteEntity.fromJson(note)).toList();
+
+    List<NoteDomain> noteDomainList = noteEntityList.isEmpty
+        ? []
+        : noteEntityList.map((note) => note.toNoteDomain()).toList();
+    
+    return noteDomainList;
 }
 
 
-  Future<List<Question>> getQuestionsByAuthorId(int authorId) async {
-    final Database db = await database;
-    final List<Map<String, dynamic>> questionsList = await db
-        .query("question", where: "authorId = ?", whereArgs: [authorId]);
-    List<QuestionEntity> questionEntityList = questionsList.isEmpty
-        ? []
-        : questionsList.map((e) => QuestionEntity.fromJson(e)).toList();
-    List<Question> finalResult = [];
-    for (QuestionEntity questionEntity in questionEntityList) {
-      final user = await getUser(questionEntity.authorId);
-      var tags = await db.query("tags",
-          where: "questionId = ?", whereArgs: [questionEntity.id]);
-      List<TagDto> tempTag = [];
-      for (var t in tags) {
-        tempTag.add(TagDto.fromJson(t));
-      }
-      finalResult.add(questionEntity.toQuestion(user.toUser(), tempTag));
-    }
-    return finalResult;
-  }
+
+
+
+  // Future<List<Question>> getQuestionsByAuthorId(int authorId) async {
+  //   final Database db = await database;
+  //   final List<Map<String, dynamic>> questionsList = await db
+  //       .query("question", where: "authorId = ?", whereArgs: [authorId]);
+  //   List<QuestionEntity> questionEntityList = questionsList.isEmpty
+  //       ? []
+  //       : questionsList.map((e) => QuestionEntity.fromJson(e)).toList();
+  //   List<Question> finalResult = [];
+  //   for (QuestionEntity questionEntity in questionEntityList) {
+  //     final user = await getUser(questionEntity.authorId);
+  //     var tags = await db.query("tags",
+  //         where: "questionId = ?", whereArgs: [questionEntity.id]);
+  //     List<TagDto> tempTag = [];
+  //     for (var t in tags) {
+  //       tempTag.add(TagDto.fromJson(t));
+  //     }
+  //     finalResult.add(questionEntity.toQuestion(user.toUser(), tempTag));
+  //   }
+  //   return finalResult;
+  // }
+
 
   // get a single question
-  Future<Question> getQuestion(int id) async {
-    final Database db = await database;
-    final List<Map<String, dynamic>> questionsList =
-        await db.query("question", where: "id = ?", whereArgs: [id]);
-    QuestionEntity questionEntity =
-        QuestionEntity.fromJson(questionsList.first);
-    final user = await getUser(questionEntity.authorId);
-    var tags = await db
-        .query("tags", where: "questionId = ?", whereArgs: [questionEntity.id]);
-    List<TagDto> tempTag = [];
-    for (var t in tags) {
-      tempTag.add(TagDto.fromJson(t));
-    }
-    return questionEntity.toQuestion(user.toUser(), tempTag);
-  }
+  // Future<Question> getQuestion(int id) async {
+  //   final Database db = await database;
+  //   final List<Map<String, dynamic>> questionsList =
+  //       await db.query("question", where: "id = ?", whereArgs: [id]);
+  //   QuestionEntity questionEntity =
+  //       QuestionEntity.fromJson(questionsList.first);
+  //   final user = await getUser(questionEntity.authorId);
+  //   var tags = await db
+  //       .query("tags", where: "questionId = ?", whereArgs: [questionEntity.id]);
+  //   List<TagDto> tempTag = [];
+  //   for (var t in tags) {
+  //     tempTag.add(TagDto.fromJson(t));
+  //   }
+  //   return questionEntity.toQuestion(user.toUser(), tempTag);
+  // }
 
-  // get answers to a question
-  Future<List<AnswerEntity>> getAnswers(int questionId) async {
-    final Database db = await database;
-    final List<Map<String, dynamic>> answersList = await db
-        .query("answer", where: "questionId = ?", whereArgs: [questionId]);
-    List<AnswerEntity> answerEntityList = answersList.isEmpty
-        ? []
-        : answersList.map((e) => AnswerEntity.fromJson(e)).toList();
-    return answerEntityList;
-  }
+  // // get answers to a question
+  // Future<List<AnswerEntity>> getAnswers(int questionId) async {
+  //   final Database db = await database;
+  //   final List<Map<String, dynamic>> answersList = await db
+  //       .query("answer", where: "questionId = ?", whereArgs: [questionId]);
+  //   List<AnswerEntity> answerEntityList = answersList.isEmpty
+  //       ? []
+  //       : answersList.map((e) => AnswerEntity.fromJson(e)).toList();
+  //   return answerEntityList;
+  // }
 
-  // get a single answer
-  Future<AnswerEntity> getAnswer(int answerId) async {
-    final Database db = await database;
-    final List<Map<String, dynamic>> answersList =
-        await db.query("answer", where: "id = ?", whereArgs: [answerId]);
-    AnswerEntity answerEntity = AnswerEntity.fromJson(answersList.first);
-    return answerEntity;
-  }
+  // // get a single answer
+  // Future<AnswerEntity> getAnswer(int answerId) async {
+  //   final Database db = await database;
+  //   final List<Map<String, dynamic>> answersList =
+  //       await db.query("answer", where: "id = ?", whereArgs: [answerId]);
+  //   AnswerEntity answerEntity = AnswerEntity.fromJson(answersList.first);
+  //   return answerEntity;
+  // }
 
-  // Profile
-  Future<Profile> getProfile(int id) async {
-    final Database db = await database;
-    final List<Map<String, dynamic>> profileList =
-        await db.query("profile", where: "id = ?", whereArgs: [id]);
-    ProfileEntity profileEntity = ProfileEntity.fromJson(profileList.first);
-    return profileEntity.toProfile();
-  }
+  // // Profile
+  // Future<Profile> getProfile(int id) async {
+  //   final Database db = await database;
+  //   final List<Map<String, dynamic>> profileList =
+  //       await db.query("profile", where: "id = ?", whereArgs: [id]);
+  //   ProfileEntity profileEntity = ProfileEntity.fromJson(profileList.first);
+  //   return profileEntity.toProfile();
+  // }
 
 
-  // get a single user
-  Future<UserEntity> getUser(int id) async {
-    final Database db = await database;
-    final List<Map<String, dynamic>> usersList =
-        await db.query("user", where: "id = ?", whereArgs: [id]);
-    UserEntity userModel = UserEntity.fromJson(usersList.first);
-    return userModel;
-  }
+  // // get a single user
+  // Future<UserEntity> getUser(int id) async {
+  //   final Database db = await database;
+  //   final List<Map<String, dynamic>> usersList =
+  //       await db.query("user", where: "id = ?", whereArgs: [id]);
+  //   UserEntity userModel = UserEntity.fromJson(usersList.first);
+  //   return userModel;
+  // }
 
   // Future<void> removeQuestion(int id) async {
   //   final Database db = await database;

@@ -2,16 +2,24 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/infrastructure/comment/comment_dto.dart';
 import 'package:frontend/infrastructure/comment/comment_form_dto.dart';
+import 'package:frontend/infrastructure/comment/comment_form_mapper.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
 
-
 class CommentAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
+  SharedPreferenceService _sharedPreferenceService = SharedPreferenceService();
 
   Future<CommentDto> createComment(CommentFormDto commentFormDto) async {
+    String author = await _sharedPreferenceService.getProfileId() ?? "";
+
+    if (author == "") {
+      throw JJHttpException("Not Logged In", 404);
+    }
+
     var comment = await _customHttpClient.post("comments",
-        body: json.encode(commentFormDto.toJson()));
+        body: json.encode(commentFormDto.toAuthoredDto(author).toJson()));
 
     if (comment.statusCode == 201) {
       return CommentDto.fromJson(jsonDecode(comment.body));
@@ -22,7 +30,8 @@ class CommentAPI {
     }
   }
 
-  Future<CommentDto> updateComment(CommentFormDto commentFormDto, String id) async {
+  Future<CommentDto> updateComment(
+      CommentFormDto commentFormDto, String id) async {
     var updatedComment = await _customHttpClient.put("comments/$id",
         body: json.encode(commentFormDto.toJson()));
 
@@ -87,8 +96,8 @@ class CommentAPI {
     }
   }
 
-  Future<List<CommentDto>> getCommentsByPost(String post_id) async {
-    var comments = await _customHttpClient.get("comments/post/$post_id");
+  Future<List<CommentDto>> getCommentsByPost(String postId) async {
+    var comments = await _customHttpClient.get("comments/post/$postId");
 
     if (comments.statusCode == 201) {
       return (jsonDecode(comments.body) as List)

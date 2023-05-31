@@ -1,11 +1,11 @@
 class CommentDto {
-  final String id;
+  String? id;
   final String body;
   final String postId;
   final String author;
 
   CommentDto({
-    required this.id,
+    this.id,
     required this.body,
     required this.postId,
     required this.author,
@@ -13,7 +13,7 @@ class CommentDto {
 
   factory CommentDto.fromJson(Map<String, dynamic> json) {
     return CommentDto(
-      id: json['id'],
+      id: json['_id'],
       body: json['body'],
       postId: json['postId'],
       author: json['author'],

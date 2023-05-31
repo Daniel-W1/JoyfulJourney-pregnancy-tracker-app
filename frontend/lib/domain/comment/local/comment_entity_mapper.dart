@@ -2,7 +2,7 @@ import 'package:frontend/domain/comment/comment_domain.dart';
 import 'package:frontend/domain/comment/local/comment_entity.dart';
 import 'package:frontend/infrastructure/comment/comment_dto.dart';
 
-extension CommentEntityExtensions on CommentEntity {
+extension CEMapper on CommentEntity {
   CommentDomain toCommentDomain() {
     return CommentDomain(
       id: id,
@@ -14,7 +14,7 @@ extension CommentEntityExtensions on CommentEntity {
 
   CommentEntity fromCommentDomain(CommentDomain comment) {
     return CommentEntity(
-      id: comment.id,
+      id: comment.id!,
       body: comment.body,
       postId: comment.postId,
       author: comment.author,
@@ -32,7 +32,7 @@ extension CommentEntityExtensions on CommentEntity {
 
   CommentEntity fromCommentDto(CommentDto commentDto) {
     return CommentEntity(
-      id: commentDto.id,
+      id: commentDto.id!,
       body: commentDto.body,
       postId: commentDto.postId,
       author: commentDto.author,

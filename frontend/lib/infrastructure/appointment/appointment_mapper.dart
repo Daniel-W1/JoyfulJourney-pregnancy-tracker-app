@@ -27,7 +27,7 @@ extension ADMapper on AppointmentDto {
 
   AppointmentDomain fromDto(AppointmentDto appointment) {
     return AppointmentDomain(
-      id: appointment.id!,
+      id: appointment.id,
       title: appointment.title,
       body: appointment.body,
       date: appointment.date,

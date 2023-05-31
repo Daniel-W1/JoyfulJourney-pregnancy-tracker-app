@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:frontend/infrastructure/note/note_form_mapper.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
 
@@ -7,10 +9,17 @@ import 'note_form_dto.dart';
 
 class NoteAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
+  SharedPreferenceService _sharedPreferenceService = SharedPreferenceService();
 
   Future<NoteDto> createNote(NoteFormDto noteFormDto) async {
+    String author = await _sharedPreferenceService.getProfileId() ?? "";
+
+    if (author == "") {
+      throw JJHttpException("Not Logged In", 404);
+    }
+
     var note = await _customHttpClient.post("notes",
-        body: json.encode(noteFormDto.toJson()));
+        body: json.encode(noteFormDto..toAuthoredDto(author).toJson()));
 
     if (note.statusCode == 201) {
       return NoteDto.fromJson(jsonDecode(note.body));
