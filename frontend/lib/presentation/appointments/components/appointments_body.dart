@@ -67,13 +67,23 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppointmentBloc, AppointmentState>(
+    return BlocConsumer<AppointmentBloc, AppointmentState>(
+      listener: (context, state) {
+        if (state is AppointmentStateSuccess ||
+            state is AppointmentStateDeleted) {
+          appointmentBloc
+              .add(AppointmentEventGetByUser('6474824cebecd37a7abd4cb3'));
+        }
+      },
       bloc: appointmentBloc,
       builder: (context, state) {
         if (state is AppointmentStateInitial) {
           return CircularProgressIndicator();
+        } else if (state is AppointmentStateLoading) {
+          return Center(child: CircularProgressIndicator());
         } else if (state is AppointmentStateSuccessMultiple) {
           appointments = state.appointments;
+          appointments.reversed.toList();
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -82,10 +92,14 @@ class _BodyState extends State<Body> {
               itemCount: appointments.length,
               itemBuilder: (context, index) {
                 final note = appointments[index];
+                // print(note.time);
+                // print("--------------------------------------------");
                 return AppointmentItem(
                   title: note.title,
                   body: note.body,
                   date: note.date,
+                  appointmentId: note.id,
+                  time: note.time,
                 );
               },
             ),
@@ -97,7 +111,6 @@ class _BodyState extends State<Body> {
             ),
           );
         }
-
         return Scaffold(
           body: Text("Failed to load notes."),
         );

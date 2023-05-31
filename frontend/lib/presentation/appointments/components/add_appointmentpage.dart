@@ -12,7 +12,6 @@ class AddAppointmentPage extends StatefulWidget {
 class _AddAppointmentPageState extends State<AddAppointmentPage> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return const Scaffold(
       //  appBar: appointmentsAppBar(size, context),
       body: AddAppointmentBody(),

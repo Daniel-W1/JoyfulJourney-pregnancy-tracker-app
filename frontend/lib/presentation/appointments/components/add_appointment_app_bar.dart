@@ -13,9 +13,6 @@ class AddAppointmentAppBar extends StatelessWidget {
         child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 27),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-        // SizedBox(
-        //   height: 25,
-        // ),
         InkWell(
           borderRadius: BorderRadius.circular(30),
           onTap: () {
