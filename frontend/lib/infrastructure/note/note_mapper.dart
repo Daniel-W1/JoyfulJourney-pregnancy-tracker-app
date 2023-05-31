@@ -2,7 +2,7 @@ import 'package:frontend/domain/note/note_domain.dart';
 import 'package:frontend/domain/note/local/note_entity.dart';
 import 'package:frontend/infrastructure/note/note_dto.dart';
 
-extension on NoteDto {
+extension NDMapper on NoteDto {
   NoteDto fromNoteEntity(NoteEntity note) {
     return NoteDto(
       id: note.id,
@@ -14,7 +14,7 @@ extension on NoteDto {
 
   NoteEntity toNoteEntity() {
     return NoteEntity(
-      id: id,
+      id: id!,
       title: title,
       body: body,
       author: author,
@@ -23,7 +23,7 @@ extension on NoteDto {
 
   NoteDomain toNoteDomain() {
     return NoteDomain(
-      id: id,
+      id: id!,
       title: title,
       body: body,
       author: author,

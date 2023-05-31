@@ -1,11 +1,11 @@
 class CommentDomain {
-  final String id;
+  String? id;
   final String body;
   final String postId;
   final String author;
 
   CommentDomain({
-    required this.id,
+    this.id,
     required this.body,
     required this.postId,
     required this.author,

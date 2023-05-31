@@ -3,7 +3,7 @@ import 'package:frontend/domain/post/local/post_entity.dart';
 import '../../domain/post/post_domain.dart';
 import 'post_dto.dart';
 
-extension on PostDto {
+extension PDMapper on PostDto {
   PostDto fromPost(PostEntity post) {
     return PostDto(
       id: post.id,

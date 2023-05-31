@@ -2,7 +2,7 @@ import 'package:frontend/domain/appointment/appointment_domain.dart';
 import 'package:frontend/domain/appointment/local/appointment_entity.dart';
 import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
 
-extension on AppointmentDto {
+extension ADMapper on AppointmentDto {
   AppointmentDto fromAppointment(AppointmentEntity appointment) {
     return AppointmentDto(
       id: appointment.id,
@@ -27,7 +27,7 @@ extension on AppointmentDto {
 
   AppointmentDomain fromDto(AppointmentDto appointment) {
     return AppointmentDomain(
-      id: appointment.id!,
+      id: appointment.id,
       title: appointment.title,
       body: appointment.body,
       date: appointment.date,

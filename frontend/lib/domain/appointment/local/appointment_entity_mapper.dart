@@ -4,8 +4,8 @@ import 'package:frontend/domain/appointment/appointment_domain.dart';
 import 'package:frontend/domain/appointment/local/appointment_entity.dart';
 import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
 
-extension on AppointmentEntity {
-  AppointmentDomain toAppointmentdomain() {
+extension AEMapper on AppointmentEntity {
+  AppointmentDomain toAppointmentDomain() {
     return AppointmentDomain(
       id: id,
       title: title,
@@ -18,7 +18,7 @@ extension on AppointmentEntity {
 
   AppointmentEntity fromAppointment(AppointmentDomain appointment) {
     return AppointmentEntity(
-      id: appointment.id,
+      id: appointment.id!,
       title: appointment.title,
       body: appointment.body,
       date: appointment.date,

@@ -1,11 +1,11 @@
 class NoteDomain {
-  final String id;
+  String? id;
   final String body;
   final String title;
   final String author;
 
   NoteDomain({
-    required this.id,
+    this.id,
     required this.body,
     required this.title,
     required this.author,

@@ -1,4 +1,5 @@
 class ProfileDto {
+  final String? id;
   final String userName;
   final String firstName;
   final String lastName;
@@ -11,6 +12,7 @@ class ProfileDto {
   final List<String> socialMedia;
 
   ProfileDto({
+    this.id,
     required this.userName,
     required this.firstName,
     required this.lastName,
@@ -25,6 +27,7 @@ class ProfileDto {
 
   factory ProfileDto.fromJson(Map<String, dynamic> json) {
     return ProfileDto(
+      id: json['_id'],
       userName: json['userName'],
       firstName: json['firstName'],
       lastName: json['lastName'],
@@ -40,6 +43,7 @@ class ProfileDto {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'userName': userName,
       'firstName': firstName,
       'lastName': lastName,

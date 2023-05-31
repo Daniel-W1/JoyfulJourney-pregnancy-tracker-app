@@ -1,6 +1,7 @@
 import 'package:frontend/domain/profile/profile_domain.dart';
 
 class ProfileEntity {
+  final String id;
   final String userName;
   final String firstName;
   final String lastName;
@@ -13,6 +14,7 @@ class ProfileEntity {
   final List<String> socialMedia;
 
   ProfileEntity({
+    required this.id,
     required this.userName,
     required this.firstName,
     required this.lastName,
@@ -27,6 +29,28 @@ class ProfileEntity {
 
   factory ProfileEntity.fromJson(Map<String, dynamic> json) {
     return ProfileEntity(
+      id: json['_id'],
+      userName: json['userName'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      bio: json['bio'],
+      profilePicture: json['profilePicture'],
+      followers: List<String>.from(json['followers']),
+      following: List<String>.from(json['following']),
+      comments: List<String>.from(json['comments']),
+      posts: List<String>.from(json['posts']),
+      socialMedia: List<String>.from(json['socialMedia']),
+    );
+  }
+  factory ProfileEntity.fromSqlJson(Map<String, dynamic> json) {
+    json['followers'] = json['followers'].split(',');
+    json['following'] = json['following'].split(',');
+    json['comments'] = json['comments'].split(',');
+    json['posts'] = json['posts'].split(',');
+    json['socialMedia'] = json['socialMedia'].split(',');
+    
+    return ProfileEntity(
+      id: json['_id'],
       userName: json['userName'],
       firstName: json['firstName'],
       lastName: json['lastName'],
@@ -42,6 +66,7 @@ class ProfileEntity {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'userName': userName,
       'firstName': firstName,
       'lastName': lastName,
@@ -54,15 +79,16 @@ class ProfileEntity {
       'socialMedia': socialMedia,
     };
   }
-  
+
   Map<String, dynamic> toSqlJson() {
     var serialized_followers = followers.join(',');
     var serialized_following = following.join(',');
     var serialized_comments = comments.join(',');
     var serialized_posts = posts.join(',');
     var serialized_socialMedia = socialMedia.join(',');
-  
+
     return {
+      'id': id,
       'userName': userName,
       'firstName': firstName,
       'lastName': lastName,
@@ -74,10 +100,11 @@ class ProfileEntity {
       'posts': serialized_posts,
       'socialMedia': serialized_socialMedia,
     };
-  }  
+  }
 
   ProfileDomain toProfile() {
     return ProfileDomain(
+      id: id,
       userName: userName,
       firstName: firstName,
       lastName: lastName,

@@ -22,15 +22,9 @@ class AppointmentAPI {
     var appointment = await _customHttpClient.post("appointment",
         body: json.encode(appointmentDto.toJson()));
 
-    print(appointmentFormDto.toJson());
-    print(appointment.body + "API here");
-    print(appointment.statusCode);
-    print(json.encode(appointmentFormDto.toJson()));
-
     if (appointment.statusCode == 201) {
       return AppointmentDto.fromJson(jsonDecode(appointment.body));
     } else {
-      print("here api exception");
       throw JJHttpException(
           json.decode(appointment.body)['message'] ?? "Unknown error",
           appointment.statusCode);
@@ -92,10 +86,6 @@ class AppointmentAPI {
   Future<List<AppointmentDto>> getAppointmentsByUser(String author) async {
     var appointment = await _customHttpClient.get("appointment/user/$author");
 
-    print("API here");
-    print(appointment.body);
-    print(appointment.statusCode);
-
     if (appointment.statusCode == 200) {
       return (jsonDecode(appointment.body) as List)
           .map((e) => AppointmentDto.fromJson(e))
@@ -106,18 +96,4 @@ class AppointmentAPI {
           appointment.statusCode);
     }
   }
-
-  // Future<List<AppointmentDto>> getAppointmentsByDate(String date) async {
-  //   var appointment = await _customHttpClient.get("appointment/date/$date");
-
-  //   if (appointment.statusCode == 201) {
-  //     return (jsonDecode(appointment.body) as List)
-  //         .map((e) => AppointmentDto.fromJson(e))
-  //         .toList();
-  //   } else {
-  //     throw JJHttpException(
-  //         json.decode(appointment.body)['message'] ?? "Unknown error",
-  //         appointment.statusCode);
-  //   }
-  // }
 }
