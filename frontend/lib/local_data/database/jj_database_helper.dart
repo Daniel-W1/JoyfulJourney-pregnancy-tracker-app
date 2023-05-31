@@ -249,7 +249,6 @@ Future<List<PostDomain>> getPostsByUser(String author) async {
 }
 
 
-
   // Future<List<Question>> getQuestionsByAuthorId(int authorId) async {
   //   final Database db = await database;
   //   final List<Map<String, dynamic>> questionsList = await db

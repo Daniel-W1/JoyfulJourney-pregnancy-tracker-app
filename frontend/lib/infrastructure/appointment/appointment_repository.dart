@@ -6,9 +6,11 @@ import 'package:frontend/infrastructure/appointment/appointment_form_mapper.dart
 import 'package:frontend/domain/appointment/appointment_repository_interface.dart';
 import 'package:frontend/infrastructure/appointment/appointment_api.dart';
 import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
+import 'package:frontend/local_data/database/jj_database_helper.dart';
 
 class AppointmentRepository implements AppointmentRepositoryInterface {
   final AppointmentAPI appointmentAPI;
+  final DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
   AppointmentRepository(this.appointmentAPI);
 
@@ -16,11 +18,22 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, List<AppointmentDomain>>>
       getAppointmentsForUser(String userId) async {
     try {
-      var appointment = await appointmentAPI.getAppointmentsByUser(userId);
-      return right(appointment
-          .map((AppointmentDto appointmentDto) =>
-              AppointmentDomain.fromJson(appointmentDto.toJson()))
-          .toList());
+      var appointments = await databaseHelper.getAppointmentsByUser(userId);
+
+      if (appointments.isEmpty) {
+        List<AppointmentDto> appointmentDto =
+            await appointmentAPI.getAppointmentsByUser(userId);
+        await databaseHelper.addAppointments(appointmentDto);
+        appointments = await databaseHelper.getAppointmentsByUser(userId);
+      }
+
+      return Right(appointments);
+
+      // var appointment = await appointmentAPI.getAppointmentsByUser(userId);
+      // return right(appointment
+      //     .map((AppointmentDto appointmentDto) =>
+      //         AppointmentDomain.fromJson(appointmentDto.toJson()))
+      //     .toList());
     } catch (e) {
       return left(AppointmentFailure.serverError());
     }
