@@ -5,7 +5,7 @@ import 'package:frontend/domain/profile/profile_form.dart';
 import 'package:frontend/domain/profile/profile_repository_interface.dart';
 import 'package:frontend/infrastructure/profile/profile_api.dart';
 import 'package:frontend/infrastructure/profile/profile_form_mapper.dart';
-import 'package:frontend/infrastructure/profile/profile_model_mapper.dart';
+import 'package:frontend/infrastructure/profile/profile_mapper.dart';
 
 class ProfileRepository implements ProfileRepositoryInterface {
   final ProfileApi profileApi;

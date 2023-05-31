@@ -1,6 +1,7 @@
 import 'dart:core';
 
 class ProfileDomain {
+  final String? id;
   final String userName;
   final String firstName;
   final String lastName;
@@ -13,6 +14,7 @@ class ProfileDomain {
   final List<String> socialMedia;
 
   ProfileDomain({
+    this.id,
     required this.userName,
     required this.firstName,
     required this.lastName,
