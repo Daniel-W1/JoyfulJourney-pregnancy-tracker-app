@@ -6,8 +6,7 @@ import 'package:frontend/infrastructure/note/note_api.dart';
 import 'package:frontend/infrastructure/note/note_repository.dart';
 import 'package:frontend/infrastructure/post/post_api.dart';
 import 'package:frontend/infrastructure/post/post_repository.dart';
-import 'package:frontend/presentation/post_page/postcard.dart';
-import 'package:frontend/presentation/post_page/posts.dart';
+import 'package:frontend/presentation/appointments/appointments_page.dart';
 
 void main() {
   NoteAPI noteApi = NoteAPI();
@@ -18,15 +17,21 @@ void main() {
   PostRepository postRepository = PostRepository(postApi);
   PostListBloc postBloc = PostListBloc(postRepository: postRepository);
 
-  runApp(MyApp(noteBloc: noteBloc, postBloc: postBloc));
+  runApp(MyApp(
+    noteBloc: noteBloc,
+    postBloc: postBloc,
+  ));
 }
-
 
 class MyApp extends StatelessWidget {
   final NoteBloc noteBloc;
   final PostListBloc postBloc;
 
-  const MyApp({Key? key, required this.noteBloc, required this.postBloc}) : super(key: key);
+  const MyApp({
+    Key? key,
+    required this.noteBloc,
+    required this.postBloc,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +44,10 @@ class MyApp extends StatelessWidget {
       home: MultiBlocProvider(
         providers: [
           BlocProvider<NoteBloc>.value(value: noteBloc),
-          BlocProvider<PostListBloc>.value(value: postBloc),
+          BlocProvider<PostListBloc>.value(value: postBloc)
         ],
-        child: PostsPage(postBloc: postBloc),
+        child: AppointmentsPage(),
       ),
     );
   }
 }
-

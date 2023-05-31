@@ -4,12 +4,11 @@ import 'package:frontend/infrastructure/appointment/appointment_form_dto.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
 
-
-
 class AppointmentAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
 
-  Future<AppointmentDto> createAppointment(AppointmentFormDto appointmentFormDto) async {
+  Future<AppointmentDto> createAppointment(
+      AppointmentFormDto appointmentFormDto) async {
     var appointment = await _customHttpClient.post("appointment",
         body: json.encode(appointmentFormDto.toJson()));
 
@@ -22,7 +21,8 @@ class AppointmentAPI {
     }
   }
 
-  Future<AppointmentDto> updateAppointment(AppointmentFormDto appointmentFormDto, String id) async {
+  Future<AppointmentDto> updateAppointment(
+      AppointmentFormDto appointmentFormDto, String id) async {
     var apppointment = await _customHttpClient.put("appointment/$id",
         body: json.encode(appointmentFormDto.toJson()));
 
@@ -76,7 +76,11 @@ class AppointmentAPI {
   Future<List<AppointmentDto>> getAppointmentsByUser(String author) async {
     var appointment = await _customHttpClient.get("appointment/user/$author");
 
-    if (appointment.statusCode == 201) {
+    print("API here");
+    print(appointment.body);
+    print(appointment.statusCode);
+
+    if (appointment.statusCode == 200) {
       return (jsonDecode(appointment.body) as List)
           .map((e) => AppointmentDto.fromJson(e))
           .toList();
@@ -100,5 +104,4 @@ class AppointmentAPI {
   //         appointment.statusCode);
   //   }
   // }
-
 }

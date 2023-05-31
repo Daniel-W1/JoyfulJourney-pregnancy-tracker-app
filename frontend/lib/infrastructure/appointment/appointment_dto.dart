@@ -17,7 +17,7 @@ class AppointmentDto {
 
   factory AppointmentDto.fromJson(Map<String, dynamic> json) {
     return AppointmentDto(
-      id: json['id'],
+      id: json['_id'],
       title: json['title'],
       body: json['body'],
       date: json['date'],
