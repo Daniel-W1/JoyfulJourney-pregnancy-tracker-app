@@ -1,30 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/core/utils/hex_color.dart';
+import '../../../../../../core/utils/hex_color.dart';
 
 class TimePicker extends StatefulWidget {
+  final Function(String) onTimeSelected; // New callback function
+
   const TimePicker({
-    super.key,
-  });
+    Key? key,
+    required this.onTimeSelected,
+  }) : super(key: key);
 
   @override
-  State<TimePicker> createState() => _TimePickerState();
+  _TimePickerState createState() => _TimePickerState();
 }
 
 class _TimePickerState extends State<TimePicker> {
-  TimeOfDay? selectedTime;
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? pickedS = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-      builder: (context, child) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-        child: child!,
-      ),
-    );
+  TimeOfDay selectedTime = TimeOfDay.now();
 
-    setState(() {
-      selectedTime = pickedS;
-    });
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+    if (picked != null && picked != selectedTime) {
+      setState(() {
+        selectedTime = picked;
+      });
+
+      // Call the onTimeSelected callback with the formatted time
+      final formattedTime = _formatTime(picked);
+      widget.onTimeSelected(formattedTime);
+    }
+  }
+
+  String _formatTime(TimeOfDay time) {
+    final hour = time.hour.toString().padLeft(2, '0');
+    final minute = time.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
   }
 
   @override
@@ -34,56 +45,22 @@ class _TimePickerState extends State<TimePicker> {
         _selectTime(context);
       },
       child: Container(
-        height: 40,
+        height: 52,
         margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: HexColor("#D9D9D9"),
-            borderRadius: BorderRadius.circular(20)),
+        color: HexColor("#D9D9D9"),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(""),
-                  Text(
-                    "${selectedTime?.hour ?? "00"}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  '${selectedTime.hour}:${selectedTime.minute}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
-                  const VerticalDivider()
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(""),
-                  Text(
-                    "${selectedTime?.minute ?? "00"}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  const VerticalDivider()
-                ],
-              ),
-            ),
-            const Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(""),
-                  Text(
-                    "PM",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Text(""),
-                ],
+                ),
               ),
             ),
           ],

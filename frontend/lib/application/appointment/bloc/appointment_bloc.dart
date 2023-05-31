@@ -10,54 +10,50 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
   AppointmentBloc({required this.appointmentRepositoryInterface})
       : super(const AppointmentStateInitial()) {
-
     on<AppointmentEventAdd>((event, emit) async {
       emit(const AppointmentStateLoading());
 
-      Either<AppointmentFailure, AppointmentDomain> result =
-          await appointmentRepositoryInterface.addAppointment(event.appointmentForm);
+      print("AppointmentBloc: ${event.appointmentForm}");
 
-          result.fold(
-            (l) => emit(AppointmentStateFailure(l)),
-            (r) => emit(AppointmentStateSuccess(r))
-          );
+      Either<AppointmentFailure, AppointmentDomain> result =
+          await appointmentRepositoryInterface
+              .addAppointment(event.appointmentForm);
+
+      result.fold((l) => emit(AppointmentStateFailure(l)),
+          (r) => emit(AppointmentStateSuccess(r)));
     });
 
     on<AppointmentEventUpdate>((event, emit) async {
       emit(const AppointmentStateLoading());
 
       Either<AppointmentFailure, AppointmentDomain> result =
-          await appointmentRepositoryInterface.updateAppointment(event.appointmentForm, event.appointmentId);
+          await appointmentRepositoryInterface.updateAppointment(
+              event.appointmentForm, event.appointmentId);
 
-          result.fold(
-            (l) => emit(AppointmentStateFailure(l)),
-            (r) => emit(AppointmentStateSuccess(r))
-          );
+      result.fold((l) => emit(AppointmentStateFailure(l)),
+          (r) => emit(AppointmentStateSuccess(r)));
     });
 
     on<AppointmentEventDelete>((event, emit) async {
       emit(const AppointmentStateLoading());
 
       Either<AppointmentFailure, Unit> result =
-          await appointmentRepositoryInterface.deleteAppointment(event.appointmentId);
+          await appointmentRepositoryInterface
+              .deleteAppointment(event.appointmentId);
 
-          result.fold(
-            (l) => emit(AppointmentStateFailure(l)),
-            (r) => emit(AppointmentStateDeleted())
-          );
+      result.fold((l) => emit(AppointmentStateFailure(l)),
+          (r) => emit(AppointmentStateDeleted()));
     });
 
     on<AppointmentEventGetByUser>((event, emit) async {
       emit(const AppointmentStateLoading());
 
       Either<AppointmentFailure, List<AppointmentDomain>> result =
-          await appointmentRepositoryInterface.getAppointmentsForUser(event.userId);
+          await appointmentRepositoryInterface
+              .getAppointmentsForUser(event.userId);
 
-          result.fold(
-            (l) => emit(AppointmentStateFailure(l)),
-            (r) => emit(AppointmentStateSuccessMultiple(r))
-          );
+      result.fold((l) => emit(AppointmentStateFailure(l)),
+          (r) => emit(AppointmentStateSuccessMultiple(r)));
     });
-
   }
 }

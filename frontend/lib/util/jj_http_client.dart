@@ -38,6 +38,7 @@ class JJHttpClient {
       if (_authToken != null) 'Authorization': 'Bearer $_authToken'
     };
 
+    print("POSTING TO: " + (baseUrl + url).uri.toString());
     return _httpClient.post(
       (baseUrl + url).uri,
       headers: headersWithContentTypeAndAuth,
