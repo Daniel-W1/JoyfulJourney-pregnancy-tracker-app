@@ -8,6 +8,7 @@ import 'package:frontend/infrastructure/appointment/appointment_api.dart';
 import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
 import 'package:frontend/infrastructure/appointment/appointment_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 class AppointmentRepository implements AppointmentRepositoryInterface {
   final AppointmentAPI appointmentAPI;
@@ -19,16 +20,20 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, List<AppointmentDomain>>>
       getAppointmentsForUser(String userId) async {
     try {
+      List<AppointmentDto> appointments =
+          await appointmentAPI.getAppointmentsByUser(userId);
+      await databaseHelper.addAppointments(appointments);
+
+      return Right(appointments
+          .map((e) => AppointmentDomain.fromJson(e.toJson()))
+          .toList());
+    } on JJTimeoutException catch (timeout) {
       var appointments = await databaseHelper.getAppointmentsByUser(userId);
-
       if (appointments.isEmpty) {
-        List<AppointmentDto> appointmentDto =
-            await appointmentAPI.getAppointmentsByUser(userId);
-        await databaseHelper.addAppointments(appointmentDto);
-        appointments = await databaseHelper.getAppointmentsByUser(userId);
+        return left(AppointmentFailure.serverError());
+      } else {
+        return right(appointments);
       }
-
-      return Right(appointments);
     } catch (e) {
       return left(AppointmentFailure.serverError());
     }
@@ -53,7 +58,8 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
     try {
       var AppointmentDomainDto = await appointmentAPI.updateAppointment(
           appointmentForm.toDto(), appointmentId);
-      await databaseHelper.updateAppointment(AppointmentDomainDto.toAppointmentEntity());
+      await databaseHelper
+          .updateAppointment(AppointmentDomainDto.toAppointmentEntity());
       return right(AppointmentDomain.fromJson(AppointmentDomainDto.toJson()));
     } catch (e) {
       return left(AppointmentFailure.serverError());

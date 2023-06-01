@@ -8,6 +8,7 @@ import 'package:frontend/infrastructure/post/post_dto.dart';
 import 'package:frontend/infrastructure/post/post_form_mapper.dart';
 import 'package:frontend/infrastructure/post/post_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 class PostRepository implements PostRepositoryInterface {
   final DatabaseHelper databaseHelper = DatabaseHelper.instance;
@@ -17,18 +18,33 @@ class PostRepository implements PostRepositoryInterface {
   @override
   Future<Either<PostFailure, List<PostDomain>>> getPosts() async {
     try {
+      List<PostDto> posts = await postApi.getPosts();
+      await databaseHelper.addPosts(posts);
+
+      return Right(posts.map((e) => PostDomain.fromJson(e.toJson())).toList());
+    } on JJTimeoutException catch (timeout) {
       var posts = await databaseHelper.getPosts();
-
       if (posts.isEmpty) {
-        List<PostDto> postDto = await postApi.getPosts();
-        await databaseHelper.addPosts(postDto);
-        posts = await databaseHelper.getPosts();
+        return left(PostFailure.serverError());
+      } else {
+        return right(posts);
       }
-
-      return Right(posts);
     } catch (e) {
       return left(PostFailure.serverError());
     }
+    // try {
+    //   var posts = await databaseHelper.getPosts();
+
+    //   if (posts.isEmpty) {
+    //     List<PostDto> postDto = await postApi.getPosts();
+    //     await databaseHelper.addPosts(postDto);
+    //     posts = await databaseHelper.getPosts();
+    //   }
+
+    //   return Right(posts);
+    // } catch (e) {
+    //   return left(PostFailure.serverError());
+    // }
   }
 
   @override
