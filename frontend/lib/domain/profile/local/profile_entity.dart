@@ -102,7 +102,7 @@ class ProfileEntity {
     };
   }
 
-  ProfileDomain toProfile() {
+  ProfileDomain toProfileDomain() {
     return ProfileDomain(
       id: id,
       userName: userName,

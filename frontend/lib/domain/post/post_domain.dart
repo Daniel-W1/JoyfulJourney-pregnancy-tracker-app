@@ -3,14 +3,14 @@ class PostDomain {
   final String author;
   final List<String> comments;
   final List<String> likes;
-  final String id;
+  String? id;
 
   PostDomain({
     required this.body,
     required this.author,
     required this.comments,
     required this.likes,
-    required this.id,
+    this.id,
   });
 
   factory PostDomain.fromJson(Map<String, dynamic> json) {

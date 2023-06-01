@@ -6,15 +6,16 @@ import 'package:frontend/domain/tip/tip_repository_interface.dart';
 import 'package:frontend/infrastructure/tip/tip_api.dart';
 import 'package:frontend/infrastructure/tip/tip_dto.dart';
 import 'package:frontend/infrastructure/tip/tip_form_mapper.dart';
+import 'package:frontend/local_data/database/jj_database_helper.dart';
 
 class TipRepository implements TipRepositoryInterface {
+  final DatabaseHelper databaseHelper = DatabaseHelper.instance;
   final TipAPI tipApi;
 
   TipRepository(this.tipApi);
 
   @override
-  Future<Either<TipFailure, TipDomain>> addTip(
-      TipForm tipForm) async {
+  Future<Either<TipFailure, TipDomain>> addTip(TipForm tipForm) async {
     try {
       var tip = await tipApi.createTip(tipForm.toDto());
       return right(TipDomain.fromJson(tip.toJson()));
@@ -27,13 +28,13 @@ class TipRepository implements TipRepositoryInterface {
   Future<Either<TipFailure, TipDomain>> updateTip(
       {required TipForm tipForm, required String tipId}) async {
     try {
-      var updatedTipDto =
-          await tipApi.updateTip(tipForm.toDto(), tipId);
+      var updatedTipDto = await tipApi.updateTip(tipForm.toDto(), tipId);
       return right(TipDomain.fromJson(updatedTipDto.toJson()));
     } catch (e) {
       return left(TipFailure.serverError());
     }
   }
+
   @override
   Future<Either<TipFailure, TipDomain>> getTipById(String tipId) async {
     try {
@@ -47,6 +48,7 @@ class TipRepository implements TipRepositoryInterface {
   @override
   Future<Either<TipFailure, Unit>> deleteTip(String tipId) async {
     try {
+      await databaseHelper.removeTip(tipId);
       await tipApi.deleteTip(tipId);
       return right(unit);
     } catch (e) {
@@ -55,27 +57,36 @@ class TipRepository implements TipRepositoryInterface {
   }
 
   @override
-  Future<Either<TipFailure, List<TipDomain>>> getTipsByType(
-      String tipId) async {
+  Future<Either<TipFailure, List<TipDomain>>> getTipsByType(String type) async {
     try {
-      var tips = await tipApi.getTipsByType(tipId);
-      return right(tips
-          .map((TipDto tipDto) => TipDomain.fromJson(tipDto.toJson()))
-          .toList());
+      var tips = await databaseHelper.getTipsByType(type);
+
+      if (tips.isEmpty) {
+        List<TipDto> tipDto = await tipApi.getTipsByType(type);
+        await databaseHelper.addTips(tipDto);
+        tips = await databaseHelper.getTipsByType(type);
+      }
+
+      return Right(tips);
     } catch (e) {
-      return left(TipFailure.serverError());
-    }
-  }
-  @override
-  Future<Either<TipFailure, List<TipDomain>>> getTips() async {
-    try {
-      var tips = await tipApi.getTips();
-      return right(tips
-          .map((TipDto tipDto) => TipDomain.fromJson(tipDto.toJson()))
-          .toList());
-    } catch (e) {
-      return left(TipFailure.serverError());
+      return Left(TipFailure.serverError());
     }
   }
 
+  @override
+  Future<Either<TipFailure, List<TipDomain>>> getTips() async {
+    try {
+      var tips = await databaseHelper.getTips();
+
+      if (tips.isEmpty) {
+        List<TipDto> tipDto = await tipApi.getTips();
+        await databaseHelper.addTips(tipDto);
+        tips = await databaseHelper.getTips();
+      }
+
+      return Right(tips);
+    } catch (e) {
+      return left(TipFailure.serverError());
+    }
+  }
 }

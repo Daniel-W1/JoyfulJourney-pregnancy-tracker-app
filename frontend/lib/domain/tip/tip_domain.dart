@@ -1,11 +1,11 @@
 class TipDomain {
-  final String id;
+  final String? id;
   final String body;
   final String title;
   final String type;
 
   TipDomain({
-    required this.id,
+    this.id,
     required this.body,
     required this.title,
     required this.type,

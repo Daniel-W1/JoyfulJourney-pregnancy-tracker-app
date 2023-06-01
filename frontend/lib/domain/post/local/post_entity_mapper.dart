@@ -15,7 +15,7 @@ extension PostEntityExtensions on PostEntity {
 
   PostEntity fromPostDomain(PostDomain post) {
     return PostEntity(
-      id: post.id,
+      id: post.id!,
       body: post.body,
       author: post.author,
       comments: post.comments,

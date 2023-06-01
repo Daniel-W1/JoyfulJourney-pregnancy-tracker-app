@@ -1,11 +1,11 @@
 class TipDto {
-  final String id;
+  final String? id;
   final String body;
   final String title;
   final String type;
 
   TipDto({
-    required this.id,
+    this.id,
     required this.body,
     required this.title,
     required this.type,
@@ -13,7 +13,7 @@ class TipDto {
 
   factory TipDto.fromJson(Map<String, dynamic> json) {
     return TipDto(
-      id: json['id'],
+      id: json['_id'],
       body: json['body'],
       title: json['title'],
       type: json['type'],

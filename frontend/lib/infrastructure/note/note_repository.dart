@@ -6,8 +6,10 @@ import 'package:frontend/domain/note/note_repository_interface.dart';
 import 'package:frontend/infrastructure/note/note_api.dart';
 import 'package:frontend/infrastructure/note/note_dto.dart';
 import 'package:frontend/infrastructure/note/note_form_mapper.dart';
+import 'package:frontend/local_data/database/jj_database_helper.dart';
 
 class NoteRepository implements NoteRepositoryInterface {
+  final DatabaseHelper databaseHelper = DatabaseHelper.instance;
   final NoteAPI noteApi;
 
   NoteRepository(this.noteApi);
@@ -36,6 +38,7 @@ class NoteRepository implements NoteRepositoryInterface {
   @override
   Future<Either<NoteFailure, Unit>> deleteNote(String noteId) async {
     try {
+      await databaseHelper.removeNote(noteId);
       await noteApi.deleteNote(noteId);
       return right(unit);
     } catch (e) {
@@ -47,12 +50,17 @@ class NoteRepository implements NoteRepositoryInterface {
   Future<Either<NoteFailure, List<NoteDomain>>> getNotesForUser(
       String userId) async {
     try {
-      var notes = await noteApi.getNotesForUser(userId);
-      return right(notes
-          .map((NoteDto noteDto) => NoteDomain.fromJson(noteDto.toJson()))
-          .toList());
+      var notes = await databaseHelper.getNotesByUser(userId);
+
+      if (notes.isEmpty) {
+        List<NoteDto> noteDto = await noteApi.getNotesForUser(userId);
+        await databaseHelper.addNotes(noteDto);
+        notes = await databaseHelper.getNotesByUser(userId);
+      }
+
+      return Right(notes);
     } catch (e) {
-      return left(NoteFailure.serverError());
+      return Left(NoteFailure.serverError());
     }
   }
 }

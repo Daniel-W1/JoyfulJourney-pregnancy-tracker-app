@@ -13,6 +13,7 @@ import 'package:frontend/domain/post/local/post_entity.dart';
 import 'package:frontend/domain/post/local/post_entity_mapper.dart';
 import 'package:frontend/domain/post/post_domain.dart';
 import 'package:frontend/domain/profile/local/profile_entity.dart';
+import 'package:frontend/domain/profile/profile.dart';
 import 'package:frontend/domain/tip/local/tip_entity.dart';
 import 'package:frontend/domain/tip/local/tip_entity_mapper.dart';
 import 'package:frontend/domain/tip/tip_domain.dart';
@@ -30,7 +31,6 @@ import 'package:frontend/infrastructure/tip/tip_dto.dart';
 import 'package:frontend/infrastructure/tip/tip_mapper.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
 
 class DatabaseHelper {
   DatabaseHelper._privateConstructor();
@@ -104,10 +104,11 @@ class DatabaseHelper {
 
     await db.execute('''
       CREATE TABLE tip (
-        id INTEGER PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         body TEXT NOT NULL,
         title TEXT NOT NULL,
         type TEXT NOT NULL
+        )
       ''');
 
     // await db.execute('''
@@ -119,7 +120,7 @@ class DatabaseHelper {
     //     userVote INTEGER NOT NULL,
     //     createdAt TEXT NOT NULL,
     //     updatedAt TEXT NOT NULL,
-    //     questionId INTEGER NOT NULL, 
+    //     questionId INTEGER NOT NULL,
     //     authorId INTEGER NOT NULL,
     //     FOREIGN KEY (questionId)
     //     REFERENCES question(id),
@@ -161,7 +162,7 @@ class DatabaseHelper {
   // get all requests
   Future<List<PostDomain>> getPosts() async {
     final Database db = await database;
-    final List<Map<String, dynamic>> postsList = await db.query("posts");
+    final List<Map<String, dynamic>> postsList = await db.query("post");
     List<PostEntity> postEntityList = postsList.isEmpty
         ? []
         : postsList.map((post) => PostEntity.fromSqlJson(post)).toList();
@@ -169,59 +170,105 @@ class DatabaseHelper {
     List<PostDomain> postDomainList = postEntityList.isEmpty
         ? []
         : postEntityList.map((post) => post.toPostDomain()).toList();
-    
+
     return postDomainList;
   }
 
+  Future<List<CommentDomain>> getComments() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> commentsList = await db.query("comment");
+    List<CommentEntity> commentEntityList = commentsList.isEmpty
+        ? []
+        : commentsList
+            .map((comment) => CommentEntity.fromJson(comment))
+            .toList();
+
+    List<CommentDomain> commentDomainList = commentEntityList.isEmpty
+        ? []
+        : commentEntityList.map((comment) => comment.toCommentDomain()).toList();
+
+    return commentDomainList;
+  }
+
+  Future<List<TipDomain>> getTips() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> tipsList = await db.query("tip");
+    List<TipEntity> tipEntityList = tipsList.isEmpty
+        ? []
+        : tipsList.map((tip) => TipEntity.fromJson(tip)).toList();
+
+    List<TipDomain> tipDomainList = tipEntityList.isEmpty ? [] : tipEntityList
+        .map((tip) => tip.toTipDomain())
+        .toList();
+    
+    return tipDomainList;
+  }
+
+
+
+  // get by id requests
   Future<List<AppointmentDomain>> getAppointmentsByUser(String author) async {
     final Database db = await database;
-    final List<Map<String, dynamic>> appointmentList = await db
-        .query("appointment", where: "author = ?", whereArgs: [author]);
+    final List<Map<String, dynamic>> appointmentList =
+        await db.query("appointment", where: "author = ?", whereArgs: [author]);
     List<AppointmentEntity> appointmentEntityList = appointmentList.isEmpty
         ? []
-        : appointmentList.map((appointment) => AppointmentEntity.fromJson(appointment)).toList();
+        : appointmentList
+            .map((appointment) => AppointmentEntity.fromJson(appointment))
+            .toList();
 
-    List<AppointmentDomain> appointmentDomainList = appointmentEntityList.isEmpty
-        ? []
-        : appointmentEntityList.map((appointment) => appointment.toAppointmentDomain()).toList();
-    
+    List<AppointmentDomain> appointmentDomainList =
+        appointmentEntityList.isEmpty
+            ? []
+            : appointmentEntityList
+                .map((appointment) => appointment.toAppointmentDomain())
+                .toList();
+
     return appointmentDomainList;
   }
 
   Future<List<CommentDomain>> getCommentsByUser(String author) async {
     final Database db = await database;
-    final List<Map<String, dynamic>> commentList = await db
-        .query("comment", where: "author = ?", whereArgs: [author]);
+    final List<Map<String, dynamic>> commentList =
+        await db.query("comment", where: "author = ?", whereArgs: [author]);
     List<CommentEntity> commentEntityList = commentList.isEmpty
         ? []
-        : commentList.map((comment) => CommentEntity.fromJson(comment)).toList();
+        : commentList
+            .map((comment) => CommentEntity.fromJson(comment))
+            .toList();
 
     List<CommentDomain> commentDomainList = commentEntityList.isEmpty
         ? []
-        : commentEntityList.map((comment) => comment.toCommentDomain()).toList();
-    
+        : commentEntityList
+            .map((comment) => comment.toCommentDomain())
+            .toList();
+
     return commentDomainList;
-}
+  }
 
   Future<List<CommentDomain>> getCommentsByPost(String postId) async {
     final Database db = await database;
-    final List<Map<String, dynamic>> commentList = await db
-        .query("comment", where: "postId = ?", whereArgs: [postId]);
+    final List<Map<String, dynamic>> commentList =
+        await db.query("comment", where: "postId = ?", whereArgs: [postId]);
     List<CommentEntity> commentEntityList = commentList.isEmpty
         ? []
-        : commentList.map((comment) => CommentEntity.fromJson(comment)).toList();
+        : commentList
+            .map((comment) => CommentEntity.fromJson(comment))
+            .toList();
 
     List<CommentDomain> commentDomainList = commentEntityList.isEmpty
         ? []
-        : commentEntityList.map((comment) => comment.toCommentDomain()).toList();
-    
-    return commentDomainList;
-}
+        : commentEntityList
+            .map((comment) => comment.toCommentDomain())
+            .toList();
 
-Future<List<NoteDomain>> getNotesByUser(String author) async {
+    return commentDomainList;
+  }
+
+  Future<List<NoteDomain>> getNotesByUser(String author) async {
     final Database db = await database;
-    final List<Map<String, dynamic>> noteList = await db
-        .query("note", where: "author = ?", whereArgs: [author]);
+    final List<Map<String, dynamic>> noteList =
+        await db.query("note", where: "author = ?", whereArgs: [author]);
     List<NoteEntity> noteEntityList = noteList.isEmpty
         ? []
         : noteList.map((note) => NoteEntity.fromJson(note)).toList();
@@ -229,14 +276,14 @@ Future<List<NoteDomain>> getNotesByUser(String author) async {
     List<NoteDomain> noteDomainList = noteEntityList.isEmpty
         ? []
         : noteEntityList.map((note) => note.toNoteDomain()).toList();
-    
-    return noteDomainList;
-}
 
-Future<List<PostDomain>> getPostsByUser(String author) async {
+    return noteDomainList;
+  }
+
+  Future<List<PostDomain>> getPostsByUser(String author) async {
     final Database db = await database;
-    final List<Map<String, dynamic>> postList = await db
-        .query("post", where: "author = ?", whereArgs: [author]);
+    final List<Map<String, dynamic>> postList =
+        await db.query("post", where: "author = ?", whereArgs: [author]);
     List<PostEntity> postEntityList = postList.isEmpty
         ? []
         : postList.map((post) => PostEntity.fromJson(post)).toList();
@@ -244,10 +291,24 @@ Future<List<PostDomain>> getPostsByUser(String author) async {
     List<PostDomain> postDomainList = postEntityList.isEmpty
         ? []
         : postEntityList.map((post) => post.toPostDomain()).toList();
-    
-    return postDomainList;
-}
 
+    return postDomainList;
+  }
+
+  Future<List<TipDomain>> getTipsByType(String type) async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> tipList =
+        await db.query("tip", where: "type = ?", whereArgs: [type]);
+    List<TipEntity> tipEntityList = tipList.isEmpty
+        ? []
+        : tipList.map((tip) => TipEntity.fromJson(tip)).toList();
+
+    List<TipDomain> tipDomainList = tipEntityList.isEmpty
+        ? []
+        : tipEntityList.map((tip) => tip.toTipDomain()).toList();
+
+    return tipDomainList;
+  }
 
   // Future<List<Question>> getQuestionsByAuthorId(int authorId) async {
   //   final Database db = await database;
@@ -269,7 +330,6 @@ Future<List<PostDomain>> getPostsByUser(String author) async {
   //   }
   //   return finalResult;
   // }
-
 
   // get a single question
   // Future<Question> getQuestion(int id) async {
@@ -308,15 +368,14 @@ Future<List<PostDomain>> getPostsByUser(String author) async {
   //   return answerEntity;
   // }
 
-  // // Profile
-  // Future<Profile> getProfile(int id) async {
-  //   final Database db = await database;
-  //   final List<Map<String, dynamic>> profileList =
-  //       await db.query("profile", where: "id = ?", whereArgs: [id]);
-  //   ProfileEntity profileEntity = ProfileEntity.fromJson(profileList.first);
-  //   return profileEntity.toProfile();
-  // }
-
+  // Profile
+  Future<ProfileDomain> getProfile(String id) async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> profileList =
+        await db.query("profile", where: "id = ?", whereArgs: [id]);
+    ProfileEntity profileEntity = ProfileEntity.fromJson(profileList.first);
+    return profileEntity.toProfileDomain();
+  }
 
   // // get a single user
   // Future<UserEntity> getUser(int id) async {
@@ -426,7 +485,8 @@ Future<List<PostDomain>> getPostsByUser(String author) async {
       final batch = transac.batch();
 
       for (AppointmentDto appointmentDto in appointmentDtoList) {
-        batch.insert("appointment", appointmentDto.toAppointmentEntity().toJson(),
+        batch.insert(
+            "appointment", appointmentDto.toAppointmentEntity().toJson(),
             conflictAlgorithm: ConflictAlgorithm.replace);
       }
       await batch.commit(noResult: true);
@@ -485,7 +545,6 @@ Future<List<PostDomain>> getPostsByUser(String author) async {
     });
   }
 
-
   Future<void> addTips(List<TipDto> tipDtoList) async {
     final Database db = await database;
     await db.transaction((transac) async {
@@ -499,19 +558,19 @@ Future<List<PostDomain>> getPostsByUser(String author) async {
     });
   }
 
-
-
   // Update requests
   Future<void> updateAppointment(AppointmentEntity appointmentEntity) async {
     final Database db = await database;
     await db.insert("appointment", appointmentEntity.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
+
   Future<void> updateComment(CommentEntity commentEntity) async {
     final Database db = await database;
     await db.insert("comment", commentEntity.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
+
   Future<void> updateNote(NoteEntity noteEntity) async {
     final Database db = await database;
     await db.insert("note", noteEntity.toJson(),
@@ -549,5 +608,4 @@ Future<List<PostDomain>> getPostsByUser(String author) async {
   //   await db.insert("user", profileDto.toJson(),
   //       conflictAlgorithm: ConflictAlgorithm.replace);
   // }
-
 }

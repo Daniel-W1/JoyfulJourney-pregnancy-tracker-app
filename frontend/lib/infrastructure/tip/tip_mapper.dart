@@ -8,7 +8,7 @@ extension TDMapper on TipDto {
   }
 
   TipEntity toTipEntity() {
-    return TipEntity(id: id, title: title, body: body, type: type);
+    return TipEntity(id: id!, title: title, body: body, type: type);
   }
 
   TipDomain toTipDomain() {
