@@ -17,12 +17,12 @@ export class CommentsController {
   }
 
   @Get('post/:postId')
-  async findCommentByPost(@Param() postId: string) {
+  async findCommentByPost(@Param('postId') postId: string) {
     return await this.commentsService.findCommentByPost(postId);
   }
 
   @Get('author/:author')
-  async findCommentByAuthor(@Param() author: string) {
+  async findCommentByAuthor(@Param('author') author: string) {
     return await this.commentsService.findCommentByAuthor(author);
   }
 

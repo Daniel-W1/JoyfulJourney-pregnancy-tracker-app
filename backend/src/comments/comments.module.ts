@@ -13,6 +13,6 @@ import { ProfileModule } from 'src/profile/profile.module';
     ProfileModule
   ],
   controllers: [CommentsController],
-  providers: [CommentsService]
+  providers: [CommentsService],
 })
 export class CommentsModule {}
