@@ -16,6 +16,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       Either<NoteFailure, NoteDomain> result =
           await noteRepositoryInterface.addNote(event.noteForm);
 
+      print('result bloc is $result');
       result.fold(
           (l) => emit(NoteStateFailure(l)), (r) => emit(NoteStateSuccess(r)));
     });
@@ -26,6 +27,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       Either<NoteFailure, NoteDomain> result = await noteRepositoryInterface
           .updateNote(noteForm: event.noteForm, noteId: event.noteId);
 
+      print('update result is $result');
       result.fold(
           (l) => emit(NoteStateFailure(l)), (r) => emit(NoteStateSuccess(r)));
     });

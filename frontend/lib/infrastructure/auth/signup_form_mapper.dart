@@ -3,9 +3,9 @@ import 'package:frontend/infrastructure/auth/signup_form_dto.dart';
 
 extension SignUpFormMapper on SignupForm {
   SignupFormDto toDto() => SignupFormDto(
-        username: username.username,
-        password: password.password,
-        email: email.email,
+        username: username,
+        password: password,
+        email: email,
         // confirmPassword: confirmPassword,
       );
 }

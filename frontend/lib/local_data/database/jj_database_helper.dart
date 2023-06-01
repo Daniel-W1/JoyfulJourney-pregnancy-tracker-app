@@ -185,7 +185,9 @@ class DatabaseHelper {
 
     List<CommentDomain> commentDomainList = commentEntityList.isEmpty
         ? []
-        : commentEntityList.map((comment) => comment.toCommentDomain()).toList();
+        : commentEntityList
+            .map((comment) => comment.toCommentDomain())
+            .toList();
 
     return commentDomainList;
   }
@@ -197,14 +199,12 @@ class DatabaseHelper {
         ? []
         : tipsList.map((tip) => TipEntity.fromJson(tip)).toList();
 
-    List<TipDomain> tipDomainList = tipEntityList.isEmpty ? [] : tipEntityList
-        .map((tip) => tip.toTipDomain())
-        .toList();
-    
+    List<TipDomain> tipDomainList = tipEntityList.isEmpty
+        ? []
+        : tipEntityList.map((tip) => tip.toTipDomain()).toList();
+
     return tipDomainList;
   }
-
-
 
   // get by id requests
   Future<List<AppointmentDomain>> getAppointmentsByUser(String author) async {

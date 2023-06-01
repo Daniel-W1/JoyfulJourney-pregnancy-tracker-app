@@ -29,6 +29,10 @@ class NoteRepository implements NoteRepositoryInterface {
       {required NoteForm noteForm, required String noteId}) async {
     try {
       var updatedNoteDto = await noteApi.updateNote(noteForm.toDto(), noteId);
+
+      print(updatedNoteDto.toJson());
+      print('repo update note');
+
       return right(NoteDomain.fromJson(updatedNoteDto.toJson()));
     } catch (e) {
       return left(NoteFailure.serverError());
@@ -52,7 +56,7 @@ class NoteRepository implements NoteRepositoryInterface {
     try {
       var notes = await databaseHelper.getNotesByUser(userId);
 
-      if (notes.isEmpty) {
+      if (true) {
         List<NoteDto> noteDto = await noteApi.getNotesForUser(userId);
         await databaseHelper.addNotes(noteDto);
         notes = await databaseHelper.getNotesByUser(userId);

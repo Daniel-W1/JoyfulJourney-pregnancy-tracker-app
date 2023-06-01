@@ -20,7 +20,8 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
     try {
       var appointments = await databaseHelper.getAppointmentsByUser(userId);
 
-      if (appointments.isEmpty) {
+      print('infra here $appointments');
+      if (true) {
         List<AppointmentDto> appointmentDto =
             await appointmentAPI.getAppointmentsByUser(userId);
         await databaseHelper.addAppointments(appointmentDto);
@@ -37,9 +38,12 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, AppointmentDomain>> addAppointment(
       AppointmentForm appointmentForm) async {
     try {
-      print("AppointmentRepository here");
       var appointment =
           await appointmentAPI.createAppointment(appointmentForm.toDto());
+
+      print("AppointmentRepository ere");
+      print(appointment.toJson());
+
       return right(AppointmentDomain.fromJson(appointment.toJson()));
     } catch (e) {
       return left(AppointmentFailure.serverError());
@@ -50,8 +54,12 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, AppointmentDomain>> updateAppointment(
       AppointmentForm appointmentForm, String appointmentId) async {
     try {
+      print('app repo $appointmentForm');
       var AppointmentDomainDto = await appointmentAPI.updateAppointment(
           appointmentForm.toDto(), appointmentId);
+
+      print(AppointmentDomainDto.toJson());
+
       return right(AppointmentDomain.fromJson(AppointmentDomainDto.toJson()));
     } catch (e) {
       return left(AppointmentFailure.serverError());
