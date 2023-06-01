@@ -6,6 +6,7 @@ import 'package:frontend/domain/tip/tip_repository_interface.dart';
 import 'package:frontend/infrastructure/tip/tip_api.dart';
 import 'package:frontend/infrastructure/tip/tip_dto.dart';
 import 'package:frontend/infrastructure/tip/tip_form_mapper.dart';
+import 'package:frontend/infrastructure/tip/tip_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
 
 class TipRepository implements TipRepositoryInterface {
@@ -18,6 +19,7 @@ class TipRepository implements TipRepositoryInterface {
   Future<Either<TipFailure, TipDomain>> addTip(TipForm tipForm) async {
     try {
       var tip = await tipApi.createTip(tipForm.toDto());
+      await databaseHelper.addTips([tip]);
       return right(TipDomain.fromJson(tip.toJson()));
     } catch (e) {
       return left(TipFailure.serverError());
@@ -29,6 +31,7 @@ class TipRepository implements TipRepositoryInterface {
       {required TipForm tipForm, required String tipId}) async {
     try {
       var updatedTipDto = await tipApi.updateTip(tipForm.toDto(), tipId);
+      await databaseHelper.updateTip(updatedTipDto.toTipEntity());
       return right(TipDomain.fromJson(updatedTipDto.toJson()));
     } catch (e) {
       return left(TipFailure.serverError());

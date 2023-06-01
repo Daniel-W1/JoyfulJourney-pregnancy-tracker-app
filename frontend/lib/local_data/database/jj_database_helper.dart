@@ -110,33 +110,6 @@ class DatabaseHelper {
         type TEXT NOT NULL
         )
       ''');
-
-    // await db.execute('''
-    //   CREATE TABLE answer (
-    //     id INTEGER PRIMARY KEY,
-    //     content TEXT NOT NULL,
-    //     upVotes INTEGER NOT NULL,
-    //     downVotes INTEGER NOT NULL,
-    //     userVote INTEGER NOT NULL,
-    //     createdAt TEXT NOT NULL,
-    //     updatedAt TEXT NOT NULL,
-    //     questionId INTEGER NOT NULL,
-    //     authorId INTEGER NOT NULL,
-    //     FOREIGN KEY (questionId)
-    //     REFERENCES question(id),
-    //     FOREIGN KEY (authorId)
-    //     REFERENCES user(id) )
-    //   ''');
-
-    // await db.execute('''
-    //   CREATE TABLE profile (
-    //     id INTEGER PRIMARY KEY,
-    //     userName TEXT NOT NULL,
-    //     firstName TEXT NOT NULL,
-    //     lastName TEXT NOT NULL,
-    //     profilePicture TEXT NOT NULL,
-    //     role TEXT NOT NULL)
-    //   ''');
   }
 
   // Future<List<Question>> getQuestions() async {

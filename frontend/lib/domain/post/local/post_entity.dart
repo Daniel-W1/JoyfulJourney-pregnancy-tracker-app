@@ -23,14 +23,11 @@ class PostEntity {
     );
   }
   factory PostEntity.fromSqlJson(Map<String, dynamic> json) {
-    json['comments'] = json['comments'].split(',');
-    json['likes'] = json['likes'].split(',');
-
     return PostEntity(
       body: json['body'],
       author: json['author'],
-      comments: List<String>.from(json['comments']),
-      likes: List<String>.from(json['likes']),
+      comments: List<String>.from(json['comments'].split(',')),
+      likes: List<String>.from(json['likes'].split(',')),
       id: json['id'],
     );
   }

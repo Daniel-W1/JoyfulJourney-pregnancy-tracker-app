@@ -35,7 +35,7 @@ export class NotesService {
 
   async findOne(id: string): Promise<Note> {
     try {
-      const note = this.NoteModel.findById(id).exec();
+      const note = await this.NoteModel.findById(id).exec();
       return note;
     } catch (error) {
       throw new NotFoundException('Note Not Found');
@@ -57,7 +57,7 @@ export class NotesService {
   async updateNote(id: string, updateCreateNoteDto: CreateNoteDto): Promise<Note> {
     try {
 
-      return this.NoteModel.findByIdAndUpdate(id, updateCreateNoteDto, { new: true }).exec();
+      return await this.NoteModel.findByIdAndUpdate(id, updateCreateNoteDto, { new: true }).exec();
     } catch (error) {
       throw new Error(`{error.message}`);
 
@@ -66,7 +66,7 @@ export class NotesService {
 
   async removeNote(id: string): Promise<any> {
     try {
-      return this.NoteModel.deleteOne({ _id: id }).exec();
+      return await this.NoteModel.deleteOne({ _id: id }).exec();
     } catch (error) {
       throw new Error(`{error.message}`);
     }
