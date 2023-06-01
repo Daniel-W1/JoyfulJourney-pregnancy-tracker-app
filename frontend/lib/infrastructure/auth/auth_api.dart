@@ -10,9 +10,9 @@ class AuthApi {
   static const String _loginUrl = "auth/login";
   static const String _signupUrl = "auth/signup";
 
-  final JJHttpClient _httpClient;
+  JJHttpClient _httpClient = JJHttpClient();
 
-  AuthApi(this._httpClient);
+  AuthApi();
 
   Future<LoginResponseDto> login(
       {required String username, required String password}) async {

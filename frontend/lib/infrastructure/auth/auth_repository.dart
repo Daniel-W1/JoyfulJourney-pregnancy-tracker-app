@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/domain/auth/auth_failure.dart';
@@ -21,29 +20,32 @@ class AuthRepository implements AuthRepositoryInterface {
   AuthRepository(this.authApi, this.sharedPreferences);
 
   @override
-  Future<Either<AuthFailure, UserDomain>> signup({required SignupForm signupForm}) async {
-    try{  
+  Future<Either<AuthFailure, UserDomain>> signup(
+      {required SignupForm signupForm}) async {
+    try {
       UserDto user = await authApi.signup(signupFormDto: signupForm.toDto());
       return Right(user.toUserDomain());
-      } catch (e) {
-        return Left(AuthFailure.serverError());
-      }
+    } catch (e) {
+      return Left(AuthFailure.serverError());
+    }
   }
 
   @override
-  Future<Either<AuthFailure, UserDomain>> login({required LoginForm loginForm}) async {
+  Future<Either<AuthFailure, UserDomain>> login(
+      {required LoginForm loginForm}) async {
     try {
       LoginResponseDto response = await authApi.login(
-        username: loginForm.username.username,
-        password: loginForm.password.password,
+        username: loginForm.username,
+        password: loginForm.password,
       );
       await sharedPreferences.setAccessToken(response.access_token);
-      await sharedPreferences.setAuthenticatedUser(response.user.toUserDomain());
+      await sharedPreferences
+          .setAuthenticatedUser(response.user.toUserDomain());
       await sharedPreferences.setProfileId(response.user.profileId);
       return Right(response.user.toUserDomain());
     } catch (e) {
       return Left(AuthFailure.serverError());
-      }
+    }
 
     // _authenticatedUser = response.user.toModel();
     // return Right(_authenticatedUser);
@@ -69,7 +71,6 @@ class AuthRepository implements AuthRepositoryInterface {
   // Future<String?> getAuthToken() {
   //   return sharedPreferences.getToken();
   // }
-
 
   // @override
   // Future<User?> getAuthenticatedUser() async {

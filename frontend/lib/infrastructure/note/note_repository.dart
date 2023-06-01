@@ -55,7 +55,7 @@ class NoteRepository implements NoteRepositoryInterface {
     try {
       var notes = await databaseHelper.getNotesByUser(userId);
 
-      if (notes.isEmpty) {
+      if (true) {
         List<NoteDto> noteDto = await noteApi.getNotesForUser(userId);
         await databaseHelper.addNotes(noteDto);
         notes = await databaseHelper.getNotesByUser(userId);
