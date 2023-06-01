@@ -104,6 +104,7 @@ export class CommentsService {
       // update the profile
       const reqProfile = await this.profileService.findOne(deletedComment.author);
       var profileComments = reqProfile.comments;
+      var index = profileComments.indexOf(deletedComment._id.toString());
       if (index !== -1) {
         profileComments.splice(index, 1);
       }
