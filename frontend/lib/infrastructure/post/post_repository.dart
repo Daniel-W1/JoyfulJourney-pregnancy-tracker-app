@@ -32,19 +32,6 @@ class PostRepository implements PostRepositoryInterface {
     } catch (e) {
       return left(PostFailure.serverError());
     }
-    // try {
-    //   var posts = await databaseHelper.getPosts();
-
-    //   if (posts.isEmpty) {
-    //     List<PostDto> postDto = await postApi.getPosts();
-    //     await databaseHelper.addPosts(postDto);
-    //     posts = await databaseHelper.getPosts();
-    //   }
-
-    //   return Right(posts);
-    // } catch (e) {
-    //   return left(PostFailure.serverError());
-    // }
   }
 
   @override
