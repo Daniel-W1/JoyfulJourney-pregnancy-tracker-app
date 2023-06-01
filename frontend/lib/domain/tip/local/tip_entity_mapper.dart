@@ -14,7 +14,7 @@ extension TipsEntityExtensions on TipEntity {
 
   TipEntity fromTipDomain(TipDomain tip) {
     return TipEntity(
-      id: tip.id,
+      id: tip.id!,
       body: tip.body,
       title: tip.title,
       type: tip.type,
@@ -32,7 +32,7 @@ extension TipsEntityExtensions on TipEntity {
 
   TipEntity fromTipDto(TipDto tipDto) {
     return TipEntity(
-      id: tipDto.id,
+      id: tipDto.id!,
       body: tipDto.body,
       title: tipDto.title,
       type: tipDto.type,

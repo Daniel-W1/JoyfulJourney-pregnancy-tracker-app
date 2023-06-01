@@ -28,12 +28,6 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
       }
 
       return Right(appointments);
-
-      // var appointment = await appointmentAPI.getAppointmentsByUser(userId);
-      // return right(appointment
-      //     .map((AppointmentDto appointmentDto) =>
-      //         AppointmentDomain.fromJson(appointmentDto.toJson()))
-      //     .toList());
     } catch (e) {
       return left(AppointmentFailure.serverError());
     }
@@ -68,6 +62,7 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, Unit>> deleteAppointment(
       String appointmentId) async {
     try {
+      await databaseHelper.removeAppointment(appointmentId);
       await appointmentAPI.deleteAppointment(appointmentId);
       return right(unit);
     } catch (e) {

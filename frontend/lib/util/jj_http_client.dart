@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import './string_extension.dart';
 
 // Custom HTTP client to streamline the HTTP requests.
 class JJHttpClient {
@@ -131,4 +130,8 @@ class JJHttpClient {
 
     return await request.send();
   }
+}
+
+extension UriParsing on String {
+  Uri get uri => Uri.parse(this);
 }
