@@ -9,9 +9,11 @@ class CommentFailure {
   factory CommentFailure.forbidden() = Forbidden;
   factory CommentFailure.emptyTitleError() = EmptyTitleError;
   factory CommentFailure.emptyDescriptionError() = EmptyDescriptionError;
-}
 
-class ServerError extends CommentFailure {
+}
+  
+
+class ServerError extends CommentFailure implements Exception{
   const ServerError() : super._();
 }
 

@@ -11,6 +11,8 @@ import 'package:frontend/infrastructure/comment/comment_dto.dart';
 import 'package:frontend/infrastructure/comment/comment_form_mapper.dart';
 import 'package:frontend/infrastructure/comment/comment_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
+import 'package:http/http.dart';
 
 class CommentRepository implements CommentRepositoryInterface {
   final DatabaseHelper databaseHelper = DatabaseHelper.instance;
@@ -22,19 +24,37 @@ class CommentRepository implements CommentRepositoryInterface {
   Future<Either<CommentFailure, List<CommentDomain>>> getCommentsForPost(
       String postId) async {
     try {
+      List<CommentDto> comments = await commentApi.getCommentsByPost(postId);
+      await databaseHelper.addComments(comments);
+
+      return Right(
+          comments.map((e) => CommentDomain.fromJson(e.toJson())).toList());
+    } on JJTimeoutException catch (timeout) {
       var comments = await databaseHelper.getCommentsByPost(postId);
-
       if (comments.isEmpty) {
-        List<CommentDto> commentDto =
-            await commentApi.getCommentsByPost(postId);
-        await databaseHelper.addComments(commentDto);
-        comments = await databaseHelper.getCommentsByPost(postId);
+        return left(CommentFailure.serverError());
+      } else {
+        return right(comments);
       }
-
-      return Right(comments);
     } catch (e) {
-      return Left(CommentFailure.serverError());
+      return left(CommentFailure.serverError());
     }
+
+    // try {
+    //   var comments = await databaseHelper.getCommentsByPost(postId);
+
+    //   if (comments.isEmpty) {
+    //     List<CommentDto> commentDto =
+    //         await commentApi.getCommentsByPost(postId);
+    //     await databaseHelper.addComments(commentDto);
+    //     comments = await databaseHelper.getCommentsByPost(postId);
+    //   }
+
+    //   return Right(comments);
+    // } catch (e) {
+    //   return Left(CommentFailure.serverError());
+
+    // }
   }
 
   @override
