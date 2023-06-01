@@ -5,14 +5,28 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Post } from './schema/post.schema';
 import mongoose, { Model, Types, ObjectId } from 'mongoose';
 import { PostInterface } from './interfaces/post.interface';
+import { ProfileService } from 'src/profile/profile.service';
+import { CommentsService } from 'src/comments/comments.service';
 
 @Injectable()
 export class PostService {
-    constructor(@InjectModel(Post.name) private postModel: Model<Post>) {}
+    constructor(
+      @InjectModel(Post.name) private postModel: Model<Post>,
+      private profileService: ProfileService,
+      ) {}
 
     async create(createPostDto: CreatePostDto) : Promise<Post> {
         try{
             const newPost = new this.postModel(createPostDto);
+
+            // update the profile
+            const reqProfile = await this.profileService.findOne(createPostDto.author);
+            if (reqProfile != null) {
+              var profilePosts = reqProfile.posts;
+              profilePosts.push(newPost.id.toString());
+              const updatedProfile = await this.profileService.updateProfile(createPostDto.author, { posts: profilePosts});
+            }
+
             return await newPost.save();
 
         } catch(error) {
@@ -90,7 +104,16 @@ export class PostService {
     
     async removePost(id: string) {
       try{
-        return this.postModel.deleteOne({ _id: id }).exec();
+        const deletedPost = await this.postModel.findByIdAndDelete({ _id: id }).exec();
+
+        // update the profile
+        const reqProfile = await this.profileService.findOne(deletedPost.author);
+        var profilePosts = reqProfile.posts;
+        var index = profilePosts.indexOf(deletedPost._id.toString());
+        if (index !== -1) {
+          profilePosts.splice(index, 1);
+        }
+        const updatedProfile = this.profileService.updateProfile(deletedPost.author, { posts: profilePosts});
 
       } catch(error) {
         return error

@@ -6,6 +6,7 @@ import 'package:frontend/domain/note/note_repository_interface.dart';
 import 'package:frontend/infrastructure/note/note_api.dart';
 import 'package:frontend/infrastructure/note/note_dto.dart';
 import 'package:frontend/infrastructure/note/note_form_mapper.dart';
+import 'package:frontend/infrastructure/note/note_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
 
 class NoteRepository implements NoteRepositoryInterface {
@@ -18,6 +19,7 @@ class NoteRepository implements NoteRepositoryInterface {
   Future<Either<NoteFailure, NoteDomain>> addNote(NoteForm noteForm) async {
     try {
       var note = await noteApi.createNote(noteForm.toDto());
+      await databaseHelper.addNotes([note]);
       return right(NoteDomain.fromJson(note.toJson()));
     } catch (e) {
       return left(NoteFailure.serverError());
@@ -29,10 +31,7 @@ class NoteRepository implements NoteRepositoryInterface {
       {required NoteForm noteForm, required String noteId}) async {
     try {
       var updatedNoteDto = await noteApi.updateNote(noteForm.toDto(), noteId);
-
-      print(updatedNoteDto.toJson());
-      print('repo update note');
-
+      await databaseHelper.updateNote(updatedNoteDto.toNoteEntity());
       return right(NoteDomain.fromJson(updatedNoteDto.toJson()));
     } catch (e) {
       return left(NoteFailure.serverError());

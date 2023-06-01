@@ -8,26 +8,31 @@ export class CommentsController {
 
   @Post()
   async create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentsService.createComment(createCommentDto);
+    return await this.commentsService.createComment(createCommentDto);
+  }
+
+  @Get()
+  async findAll() {
+    return await this.commentsService.findAll(); 
   }
 
   @Get('post/:postId')
-  async findCommentByPost(@Param() postId: string) {
-    return this.commentsService.findCommentByPost(postId);
+  async findCommentByPost(@Param('postId') postId: string) {
+    return await this.commentsService.findCommentByPost(postId);
   }
 
   @Get('author/:author')
-  async findCommentByAuthor(@Param() author: string) {
-    return this.commentsService.findCommentByAuthor(author);
+  async findCommentByAuthor(@Param('author') author: string) {
+    return await this.commentsService.findCommentByAuthor(author);
   }
 
   @Put(':id')
   async updateComment(@Param('id') id: string, @Body() updateCommentDto: CreateCommentDto) {
-    return this.commentsService.updateComment(id, updateCommentDto);
+    return await this.commentsService.updateComment(id, updateCommentDto);
   }
 
   @Delete(':id')
   async removeComment(@Param('id') id: string) {
-    return this.commentsService.removeComment(id);
+    return await this.commentsService.removeComment(id);
   }
 }

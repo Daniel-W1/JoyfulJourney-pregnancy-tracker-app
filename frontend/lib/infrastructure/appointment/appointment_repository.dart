@@ -6,7 +6,9 @@ import 'package:frontend/infrastructure/appointment/appointment_form_mapper.dart
 import 'package:frontend/domain/appointment/appointment_repository_interface.dart';
 import 'package:frontend/infrastructure/appointment/appointment_api.dart';
 import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
+import 'package:frontend/infrastructure/appointment/appointment_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 class AppointmentRepository implements AppointmentRepositoryInterface {
   final AppointmentAPI appointmentAPI;
@@ -18,17 +20,20 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, List<AppointmentDomain>>>
       getAppointmentsForUser(String userId) async {
     try {
+      List<AppointmentDto> appointments =
+          await appointmentAPI.getAppointmentsByUser(userId);
+      await databaseHelper.addAppointments(appointments);
+
+      return Right(appointments
+          .map((e) => AppointmentDomain.fromJson(e.toJson()))
+          .toList());
+    } on JJTimeoutException catch (timeout) {
       var appointments = await databaseHelper.getAppointmentsByUser(userId);
-
-      print('infra here $appointments');
-      if (true) {
-        List<AppointmentDto> appointmentDto =
-            await appointmentAPI.getAppointmentsByUser(userId);
-        await databaseHelper.addAppointments(appointmentDto);
-        appointments = await databaseHelper.getAppointmentsByUser(userId);
+      if (appointments.isEmpty) {
+        return left(AppointmentFailure.serverError());
+      } else {
+        return right(appointments);
       }
-
-      return Right(appointments);
     } catch (e) {
       return left(AppointmentFailure.serverError());
     }
@@ -41,8 +46,7 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
       var appointment =
           await appointmentAPI.createAppointment(appointmentForm.toDto());
 
-      print("AppointmentRepository ere");
-      print(appointment.toJson());
+      await databaseHelper.addAppointments([appointment]);
 
       return right(AppointmentDomain.fromJson(appointment.toJson()));
     } catch (e) {
@@ -58,8 +62,8 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
       var AppointmentDomainDto = await appointmentAPI.updateAppointment(
           appointmentForm.toDto(), appointmentId);
 
-      print(AppointmentDomainDto.toJson());
-
+      await databaseHelper
+          .updateAppointment(AppointmentDomainDto.toAppointmentEntity());
       return right(AppointmentDomain.fromJson(AppointmentDomainDto.toJson()));
     } catch (e) {
       return left(AppointmentFailure.serverError());

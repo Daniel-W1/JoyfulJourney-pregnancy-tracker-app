@@ -68,4 +68,6 @@ class SharedPreferenceService {
     return await SharedPreferences.getInstance()
         .then((value) => value.remove('profileId'));
   }
+
+  // we are about to do the above for role
 }
