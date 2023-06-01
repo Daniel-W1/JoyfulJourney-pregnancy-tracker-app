@@ -6,6 +6,7 @@ import 'package:frontend/domain/post/post_repository_interface.dart';
 import 'package:frontend/infrastructure/post/post_api.dart';
 import 'package:frontend/infrastructure/post/post_dto.dart';
 import 'package:frontend/infrastructure/post/post_form_mapper.dart';
+import 'package:frontend/infrastructure/post/post_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
 
 class PostRepository implements PostRepositoryInterface {
@@ -52,6 +53,7 @@ class PostRepository implements PostRepositoryInterface {
   Future<Either<PostFailure, PostDomain>> addPost(PostForm postForm) async {
     try {
       var createdPost = await postApi.createPost(postForm.toDto());
+      await databaseHelper.addPosts([createdPost]);
       return right(PostDomain.fromJson(createdPost.toJson()));
     } catch (e) {
       return left(PostFailure.serverError());
@@ -63,6 +65,7 @@ class PostRepository implements PostRepositoryInterface {
       {required PostForm postForm, required String postId}) async {
     try {
       var updatedPost = await postApi.updatePost(postForm.toDto(), postId);
+      await databaseHelper.updatePost(updatedPost.toPostEntity());
       return right(PostDomain.fromJson(updatedPost.toJson()));
     } catch (e) {
       return left(PostFailure.serverError());
@@ -85,6 +88,7 @@ class PostRepository implements PostRepositoryInterface {
       String liker, String postId) async {
     try {
       var updatedPost = await postApi.changeLike(liker, postId);
+      await databaseHelper.updatePost(updatedPost.toPostEntity());
       return right(PostDomain.fromJson(updatedPost.toJson()));
     } catch (e) {
       return left(PostFailure.serverError());

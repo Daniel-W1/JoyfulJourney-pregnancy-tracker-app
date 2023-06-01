@@ -6,6 +6,7 @@ import 'package:frontend/infrastructure/appointment/appointment_form_mapper.dart
 import 'package:frontend/domain/appointment/appointment_repository_interface.dart';
 import 'package:frontend/infrastructure/appointment/appointment_api.dart';
 import 'package:frontend/infrastructure/appointment/appointment_dto.dart';
+import 'package:frontend/infrastructure/appointment/appointment_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
 
 class AppointmentRepository implements AppointmentRepositoryInterface {
@@ -37,9 +38,9 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, AppointmentDomain>> addAppointment(
       AppointmentForm appointmentForm) async {
     try {
-      print("AppointmentRepository here");
       var appointment =
           await appointmentAPI.createAppointment(appointmentForm.toDto());
+      await databaseHelper.addAppointments([appointment]);
       return right(AppointmentDomain.fromJson(appointment.toJson()));
     } catch (e) {
       return left(AppointmentFailure.serverError());
@@ -52,6 +53,7 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
     try {
       var AppointmentDomainDto = await appointmentAPI.updateAppointment(
           appointmentForm.toDto(), appointmentId);
+      await databaseHelper.updateAppointment(AppointmentDomainDto.toAppointmentEntity());
       return right(AppointmentDomain.fromJson(AppointmentDomainDto.toJson()));
     } catch (e) {
       return left(AppointmentFailure.serverError());

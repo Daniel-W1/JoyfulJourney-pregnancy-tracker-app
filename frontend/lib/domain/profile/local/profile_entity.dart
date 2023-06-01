@@ -43,12 +43,6 @@ class ProfileEntity {
     );
   }
   factory ProfileEntity.fromSqlJson(Map<String, dynamic> json) {
-    json['followers'] = json['followers'].split(',');
-    json['following'] = json['following'].split(',');
-    json['comments'] = json['comments'].split(',');
-    json['posts'] = json['posts'].split(',');
-    json['socialMedia'] = json['socialMedia'].split(',');
-    
     return ProfileEntity(
       id: json['_id'],
       userName: json['userName'],
@@ -56,11 +50,11 @@ class ProfileEntity {
       lastName: json['lastName'],
       bio: json['bio'],
       profilePicture: json['profilePicture'],
-      followers: List<String>.from(json['followers']),
-      following: List<String>.from(json['following']),
-      comments: List<String>.from(json['comments']),
-      posts: List<String>.from(json['posts']),
-      socialMedia: List<String>.from(json['socialMedia']),
+      followers: List<String>.from(json['followers'].split(',')),
+      following: List<String>.from(json['following'].split(',')),
+      comments: List<String>.from(json['comments'].split(',')),
+      posts: List<String>.from(json['posts'].split(',')),
+      socialMedia: List<String>.from(json['socialMedia'].split(',')),
     );
   }
 

@@ -9,6 +9,7 @@ import 'package:frontend/domain/comment/comment_repository_interface.dart';
 import 'package:frontend/infrastructure/comment/comment_api.dart';
 import 'package:frontend/infrastructure/comment/comment_dto.dart';
 import 'package:frontend/infrastructure/comment/comment_form_mapper.dart';
+import 'package:frontend/infrastructure/comment/comment_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
 
 class CommentRepository implements CommentRepositoryInterface {
@@ -41,6 +42,7 @@ class CommentRepository implements CommentRepositoryInterface {
       CommentForm commentForm) async {
     try {
       var comment = await commentApi.createComment(commentForm.toDto());
+      await databaseHelper.addComments([comment]);
       return right(CommentDomain.fromJson(comment.toJson()));
     } catch (e) {
       return left(CommentFailure.serverError());
@@ -53,6 +55,7 @@ class CommentRepository implements CommentRepositoryInterface {
     try {
       var commentDomainDto =
           await commentApi.updateComment(commentForm.toDto(), commentId);
+      await databaseHelper.updateComment(commentDomainDto.toCommentEntity());
       return right(CommentDomain.fromJson(commentDomainDto.toJson()));
     } catch (e) {
       return left(CommentFailure.serverError());
