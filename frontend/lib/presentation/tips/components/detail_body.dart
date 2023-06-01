@@ -141,7 +141,7 @@ class _DetailBodyState extends State<DetailBody> {
                                       ),
                                       onPressed: () {
                                         tipBloc
-                                            .add(TipEventDelete(tipId: tip.id));
+                                            .add(TipEventDelete(tipId: tip.id!));
                                       },
                                     ),
                                   ),
@@ -172,7 +172,7 @@ class _DetailBodyState extends State<DetailBody> {
                                                     // Dispatch the PostListEventAddPost event with the created post
                                                     tipBloc.add(TipEventUpdate(
                                                         tipForm: tipForm,
-                                                        tipId: tip.id));
+                                                        tipId: tip.id!));
                                                     if (tipBloc.state
                                                         is TipStateSuccess) {
                                                       ScaffoldMessenger.of(

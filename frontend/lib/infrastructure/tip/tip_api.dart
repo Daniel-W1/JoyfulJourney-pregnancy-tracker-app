@@ -24,7 +24,7 @@ class TipAPI {
     var updatedTip = await _customHttpClient.put("tips/$id",
         body: json.encode(tipFormDto.toJson()));
 
-    if (updatedTip.statusCode == 201) {
+    if (updatedTip.statusCode == 200) {
       return TipDto.fromJson(jsonDecode(updatedTip.body));
     } else {
       throw JJHttpException(
@@ -35,8 +35,8 @@ class TipAPI {
 
   Future<void> deleteTip(String tipid) async {
     var response = await _customHttpClient.delete("tips/$tipid");
-
-    if (response.statusCode != 204) {
+    print("statusCode" + response.statusCode.toString());
+    if (response.statusCode != 200) {
       throw JJHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);
@@ -46,7 +46,7 @@ class TipAPI {
   Future<List<TipDto>> getTips() async {
     var tips = await _customHttpClient.get("tips");
 
-    if (tips.statusCode == 201) {
+    if (tips.statusCode == 200) {
       return (jsonDecode(tips.body) as List)
           .map((e) => TipDto.fromJson(e))
           .toList();
@@ -72,11 +72,16 @@ class TipAPI {
   Future<List<TipDto>> getTipsByType(String type) async {
     var tips = await _customHttpClient.get("tips/bytype/$type");
 
-    if (tips.statusCode == 201) {
-      return (jsonDecode(tips.body) as List)
+    if (tips.statusCode == 200) {
+      print("Yeah I did it, got 200");
+      List<TipDto> res = (jsonDecode(tips.body) as List)
           .map((e) => TipDto.fromJson(e))
           .toList();
+      print("the tips");
+      print(res);
+      return res;
     } else {
+      print("There has been an error" + tips.statusCode.toString());
       throw JJHttpException(json.decode(tips.body)['message'] ?? "Unknown error",
           tips.statusCode);
     }

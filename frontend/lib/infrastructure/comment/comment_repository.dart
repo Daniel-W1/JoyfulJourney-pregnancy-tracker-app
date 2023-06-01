@@ -22,16 +22,16 @@ class CommentRepository implements CommentRepositoryInterface {
   Future<Either<CommentFailure, List<CommentDomain>>> getCommentsForPost(
       String postId) async {
     try {
-      var comments = await databaseHelper.getCommentsByPost(postId);
+      // var comments = await databaseHelper.getCommentsByPost(postId);
 
-      if (comments.isEmpty) {
+      // if (comments.isEmpty) {
         List<CommentDto> commentDto =
             await commentApi.getCommentsByPost(postId);
-        await databaseHelper.addComments(commentDto);
-        comments = await databaseHelper.getCommentsByPost(postId);
-      }
+        // await databaseHelper.addComments(commentDto);
+        // comments = await databaseHelper.getCommentsByPost(postId);
+      // }
 
-      return Right(comments);
+      return Right(commentDto.map((e) => CommentDomain.fromJson(e.toJson())).toList());
     } catch (e) {
       return Left(CommentFailure.serverError());
     }

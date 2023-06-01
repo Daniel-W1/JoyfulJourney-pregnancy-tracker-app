@@ -27,6 +27,7 @@ class PostRepository implements PostRepositoryInterface {
 
       return Right(posts);
     } catch (e) {
+      print("Error: $e");
       return left(PostFailure.serverError());
     }
   }
@@ -52,6 +53,7 @@ class PostRepository implements PostRepositoryInterface {
   @override
   Future<Either<PostFailure, PostDomain>> addPost(PostForm postForm) async {
     try {
+      print("add post called");
       var createdPost = await postApi.createPost(postForm.toDto());
       await databaseHelper.addPosts([createdPost]);
       return right(PostDomain.fromJson(createdPost.toJson()));
