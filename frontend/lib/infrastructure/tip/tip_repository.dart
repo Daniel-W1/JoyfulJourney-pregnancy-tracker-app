@@ -8,6 +8,7 @@ import 'package:frontend/infrastructure/tip/tip_dto.dart';
 import 'package:frontend/infrastructure/tip/tip_form_mapper.dart';
 import 'package:frontend/infrastructure/tip/tip_mapper.dart';
 import 'package:frontend/local_data/database/jj_database_helper.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 class TipRepository implements TipRepositoryInterface {
   final DatabaseHelper databaseHelper = DatabaseHelper.instance;
@@ -62,32 +63,50 @@ class TipRepository implements TipRepositoryInterface {
   @override
   Future<Either<TipFailure, List<TipDomain>>> getTipsByType(String type) async {
     try {
+      List<TipDto> tips = await tipApi.getTipsByType(type);
+      await databaseHelper.addTips(tips);
+
+      return Right(tips.map((e) => TipDomain.fromJson(e.toJson())).toList());
+    } on JJTimeoutException catch (timeout) {
       var tips = await databaseHelper.getTipsByType(type);
-
       if (tips.isEmpty) {
-        List<TipDto> tipDto = await tipApi.getTipsByType(type);
-        await databaseHelper.addTips(tipDto);
-        tips = await databaseHelper.getTipsByType(type);
+        return left(TipFailure.serverError());
+      } else {
+        return right(tips);
       }
-
-      return Right(tips);
     } catch (e) {
-      return Left(TipFailure.serverError());
+      return left(TipFailure.serverError());
     }
+
+    // try {
+    //   var tips = await databaseHelper.getTipsByType(type);
+
+    //   if (tips.isEmpty) {
+    //     List<TipDto> tipDto = await tipApi.getTipsByType(type);
+    //     await databaseHelper.addTips(tipDto);
+    //     tips = await databaseHelper.getTipsByType(type);
+    //   }
+
+    //   return Right(tips);
+    // } catch (e) {
+    //   return Left(TipFailure.serverError());
+    // }
   }
 
   @override
   Future<Either<TipFailure, List<TipDomain>>> getTips() async {
     try {
+      List<TipDto> tips = await tipApi.getTips();
+      await databaseHelper.addTips(tips);
+
+      return Right(tips.map((e) => TipDomain.fromJson(e.toJson())).toList());
+    } on JJTimeoutException catch (timeout) {
       var tips = await databaseHelper.getTips();
-
       if (tips.isEmpty) {
-        List<TipDto> tipDto = await tipApi.getTips();
-        await databaseHelper.addTips(tipDto);
-        tips = await databaseHelper.getTips();
+        return left(TipFailure.serverError());
+      } else {
+        return right(tips);
       }
-
-      return Right(tips);
     } catch (e) {
       return left(TipFailure.serverError());
     }
