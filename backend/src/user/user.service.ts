@@ -99,8 +99,7 @@ export class UserService {
     let user;
     try {
       user = await this.userModel.findOne({ username });
-      console.log(user);
-      console.log(username);
+     
     } catch (err) {
       throw new NotFoundException('User Not Found');
     }

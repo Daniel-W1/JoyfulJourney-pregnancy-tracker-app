@@ -14,7 +14,6 @@ export class BabyController {
 
   @Get()
   async findAll(): Promise<Baby[]> {
-    console.log("baby.controller.ts: findAll()");
     return await this.BabyService.findAll();
   }
 

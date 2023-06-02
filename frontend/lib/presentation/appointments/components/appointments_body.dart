@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/application/appointment/bloc/appointment_bloc.dart';
 import 'package:frontend/application/appointment/bloc/appointment_event.dart';
 import 'package:frontend/application/appointment/bloc/appointment_state.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/presentation/appointments/components/add_appointmentpage.dart';
 import '../../core/constants/assets.dart';
 import 'appointment_item.dart';
@@ -52,12 +53,14 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   late AppointmentBloc appointmentBloc;
   var appointments = [];
+  final SharedPreferenceService service = SharedPreferenceService();
 
   @override
   void initState() {
     super.initState();
     appointmentBloc = BlocProvider.of<AppointmentBloc>(context);
-    fetchApps('6474824cebecd37a7abd4cb3');
+    service.getProfileId().then((value) => fetchApps(value!),);
+    // fetchApps('6474824cebecd37a7abd4cb3');
   }
 
   Future<void> fetchApps(String userId) async {
@@ -71,8 +74,7 @@ class _BodyState extends State<Body> {
       listener: (context, state) {
         if (state is AppointmentStateSuccess ||
             state is AppointmentStateDeleted) {
-          appointmentBloc
-              .add(AppointmentEventGetByUser('6474824cebecd37a7abd4cb3'));
+          service.getProfileId().then((value) => fetchApps(value!),);
         }
       },
       bloc: appointmentBloc,
@@ -82,8 +84,7 @@ class _BodyState extends State<Body> {
         } else if (state is AppointmentStateLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state is AppointmentStateSuccessMultiple) {
-          appointments = state.appointments;
-          appointments.reversed.toList();
+          appointments = state.appointments.reversed.toList();
 
           return Padding(
             padding: const EdgeInsets.all(8.0),

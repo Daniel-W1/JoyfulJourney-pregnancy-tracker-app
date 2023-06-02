@@ -6,6 +6,7 @@ import 'package:frontend/infrastructure/comment/comment_form_mapper.dart';
 import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 class CommentAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
@@ -17,10 +18,11 @@ class CommentAPI {
     if (author == "") {
       throw JJHttpException("Not Logged In", 404);
     }
-
+    print('post comment called');
     var comment = await _customHttpClient.post("comments",
         body: json.encode(commentFormDto.toAuthoredDto(author).toJson()));
 
+    print(comment.statusCode);
     if (comment.statusCode == 201) {
       return CommentDto.fromJson(jsonDecode(comment.body));
     } else {
@@ -84,32 +86,42 @@ class CommentAPI {
   }
 
   Future<List<CommentDto>> getCommentsByUser(String author) async {
-    var comments = await _customHttpClient.get("comments/author/$author");
+    try {
+      var comments = await _customHttpClient
+          .get("comments/user/$author")
+          .timeout(jjTimeout);
 
-    print(comments.statusCode);
-    if (comments.statusCode == 200) {
-      return (jsonDecode(comments.body) as List)
-          .map((e) => CommentDto.fromJson(e))
-          .toList();
-    } else {
-      throw JJHttpException(
-          json.decode(comments.body)['message'] ?? "Unknown error",
-          comments.statusCode);
+      if (comments.statusCode == 200) {
+        return (jsonDecode(comments.body) as List)
+            .map((e) => CommentDto.fromJson(e))
+            .toList();
+      } else {
+        throw JJHttpException(
+            json.decode(comments.body)['message'] ?? "Unknown error",
+            comments.statusCode);
+      }
+    } catch (e) {
+      throw JJTimeoutException();
     }
   }
 
   Future<List<CommentDto>> getCommentsByPost(String postId) async {
-    var comments = await _customHttpClient.get("comments/post/$postId");
-    print('comment api called');
-    print(comments.statusCode);
-    if (comments.statusCode == 200) {
-      return (jsonDecode(comments.body) as List)
-          .map((e) => CommentDto.fromJson(e))
-          .toList();
-    } else {
-      throw JJHttpException(
-          json.decode(comments.body)['message'] ?? "Unknown error",
-          comments.statusCode);
+    try {
+      var comments = await _customHttpClient
+          .get("comments/post/$postId")
+          .timeout(jjTimeout);
+
+      if (comments.statusCode == 201) {
+        return (jsonDecode(comments.body) as List)
+            .map((e) => CommentDto.fromJson(e))
+            .toList();
+      } else {
+        throw JJHttpException(
+            json.decode(comments.body)['message'] ?? "Unknown error",
+            comments.statusCode);
+      }
+    } catch (e) {
+      throw JJTimeoutException();
     }
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/application/tip/bloc/tip_event.dart';
+import 'package:frontend/domain/auth/auth.dart';
 import 'package:frontend/domain/tip/tip.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
+import 'package:frontend/presentation/core/Themes/light_theme.dart';
 
 import '../../../application/tip/bloc/tip_bloc.dart';
 
@@ -30,20 +33,36 @@ class DetailBody extends StatefulWidget {
 class _DetailBodyState extends State<DetailBody> {
   final smallTxtStyle = TextStyle(color: HexColor("#6E798C"), fontSize: 11);
   bool get wantKeepAlive => true;
+  final SharedPreferenceService service = SharedPreferenceService();
+  bool isAdmin = false;
 
   @override
   void initState() {
+    print("init");
+    service.getAuthenticatedUser().then((value) => {
+          if (value != null)
+            {
+              if (value.roles.contains('admin'))
+                {
+                  setState(() {
+                    isAdmin = true;
+                  })
+                }
+            }
+        });
+
     BlocProvider.of<TipBloc>(context).add(TipEventGetByType(type: widget.type));
+    
     super.initState();
   }
 
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    ThemeData themeData = Theme.of(context);
+    ThemeData themeData = LightTheme().getThemeData;
     final TipBloc tipBloc = BlocProvider.of<TipBloc>(context);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: !isAdmin ? Container() : FloatingActionButton(
         onPressed: () => {
           showDialog(
               context: context,
@@ -131,22 +150,22 @@ class _DetailBodyState extends State<DetailBody> {
                               Stack(
                                 children: [
                                   ImageHolder(widget: widget),
-                                  Positioned(
+                                   isAdmin ? Positioned(
                                     top: 10,
                                     right: 10,
                                     child: IconButton(
                                       icon: Icon(
                                         Icons.delete,
                                         color: Colors.red,
-                                      ),
+                                      ) ,
                                       onPressed: () {
                                         tipBloc.add(
                                             TipEventDelete(tipId: tip.id!));
                                       },
                                     ),
-                                  ),
+                                  ) : Container(),
                                   // Edit button
-                                  Positioned(
+                                  isAdmin ? Positioned(
                                     top: 10,
                                     left: 10,
                                     child: IconButton(
@@ -203,7 +222,7 @@ class _DetailBodyState extends State<DetailBody> {
                                                 ));
                                       },
                                     ),
-                                  )
+                                  ) : Container()
                                 ],
                               ),
 

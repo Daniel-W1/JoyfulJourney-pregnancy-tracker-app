@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/constants/assets.dart';
 
 class ChoiceLists extends StatelessWidget {
@@ -16,13 +17,17 @@ class ChoiceLists extends StatelessWidget {
           children: [
             LandingChoiceCard(
               imagePath: Assets.assetsImagesTipsImage,
-              onPressed: () {},
+              onPressed: () {
+                GoRouter.of(context).go('/tips');
+              },
               text: 'TIPS',
             ),
             const SizedBox(width: 4),
             LandingChoiceCard(
               imagePath: Assets.assetsImagesAppointmentImage,
-              onPressed: () {},
+              onPressed: () {
+                GoRouter.of(context).go('/appointments');
+              },
               text: 'Appointment',
             ),
           ],
@@ -39,7 +44,9 @@ class ChoiceLists extends StatelessWidget {
             const SizedBox(width: 4),
             LandingChoiceCard(
               imagePath: Assets.assetsImagesSymptomsImage,
-              onPressed: () {},
+              onPressed: () {
+                GoRouter.of(context).go('/notes');
+              },
               text: 'NOTES',
             ),
           ],

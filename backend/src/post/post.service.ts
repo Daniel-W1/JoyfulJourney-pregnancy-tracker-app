@@ -63,7 +63,6 @@ export class PostService {
     async findPostByAuthor(author: string): Promise<Post[]> {
         try {
           const posts = await this.postModel.find({ author: author }).exec();
-          console.log(posts, 'posts service');
           
           return posts;
         } catch (error) {
@@ -72,7 +71,6 @@ export class PostService {
     }
     
     async updatePost(id: string, updatePostDto: UpdatePostDto) {
-      console.log(updatePostDto, 'updatePostDto');
       try {
         const updatedPost = await this.postModel.findByIdAndUpdate(id, updatePostDto, { new: true }).exec();
         return updatedPost;

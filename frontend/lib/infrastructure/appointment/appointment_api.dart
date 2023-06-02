@@ -12,14 +12,14 @@ class AppointmentAPI {
 
   Future<AppointmentDto> createAppointment(
       AppointmentFormDto appointmentFormDto) async {
-    // String author = await _sharedPreferences.getProfileId() ?? "";
+    String author = await _sharedPreferences.getProfileId() ?? "";
 
-    // if (author == "") {
-    //   throw JJHttpException("Not Logged In", 404);
-    // }
+    if (author == "") {
+      throw JJHttpException("Not Logged In", 404);
+    }
 
     var appointmentDto =
-        appointmentFormDto.toAuthoredDto('6474824cebecd37a7abd4cb3');
+        appointmentFormDto.toAuthoredDto(author);
     var appointment = await _customHttpClient.post("appointment",
         body: json.encode(appointmentDto.toJson()));
 

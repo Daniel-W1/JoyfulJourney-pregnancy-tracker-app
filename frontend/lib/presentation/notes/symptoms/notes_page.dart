@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/notes/symptoms/components/notes_body.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/constants/assets.dart';
 
@@ -37,7 +38,7 @@ class _NotesPageState extends State<NotesPage> {
                   InkWell(
                     borderRadius: BorderRadius.circular(30),
                     onTap: () {
-                      Navigator.pop(context);
+                      GoRouter.of(context).go('/landingpage');
                     },
                     child: Image.asset(
                       Assets.assetsImagesArrow,

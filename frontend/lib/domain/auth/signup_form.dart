@@ -1,7 +1,7 @@
 class SignupForm {
-  final String username;
-  final String password;
-  final String email;
+  final String? username;
+  final String? password;
+  final String? email;
 
   SignupForm({
     required this.username,

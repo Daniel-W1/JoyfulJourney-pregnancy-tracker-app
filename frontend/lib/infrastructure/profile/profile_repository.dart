@@ -6,16 +6,22 @@ import 'package:frontend/domain/profile/profile_repository_interface.dart';
 import 'package:frontend/infrastructure/profile/profile_api.dart';
 import 'package:frontend/infrastructure/profile/profile_form_mapper.dart';
 import 'package:frontend/infrastructure/profile/profile_mapper.dart';
+import 'package:frontend/local_data/database/jj_database_helper.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 class ProfileRepository implements ProfileRepositoryInterface {
   final ProfileApi profileApi;
+  final DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
   ProfileRepository(this.profileApi);
 
   @override
-  Future<Either<ProfileFailure, ProfileDomain>> updateProfile({required ProfileForm profileForm, required String profileId}) async {
+  Future<Either<ProfileFailure, ProfileDomain>> updateProfile(
+      {required ProfileForm profileForm, required String profileId}) async {
     try {
-      var profile = await profileApi.updateProfile(profileForm.toDto(), profileId);
+      var profile =
+          await profileApi.updateProfile(profileForm.toDto(), profileId);
+      await databaseHelper.addProfiles([profile]);
       return right(profile.toProfile());
     } catch (e) {
       return left(ProfileFailure.serverError());
@@ -23,11 +29,20 @@ class ProfileRepository implements ProfileRepositoryInterface {
   }
 
   @override
-  Future<Either<ProfileFailure, ProfileDomain>> getProfile(String userId) async {
+  Future<Either<ProfileFailure, ProfileDomain>> getProfile(
+      String userId) async {
     try {
       var profile = await profileApi.getProfile(userId);
-      print(profile);
+      await databaseHelper.addProfiles([profile]);
       return right(profile.toProfile());
+    } on JJTimeoutException catch (timeout) {
+      print("Timeout: $timeout");
+      var profile = await databaseHelper.getProfile(userId);
+      if (profile == null) {
+        return left(ProfileFailure.serverError());
+      } else {
+        return right(profile);
+      }
     } catch (e) {
       return left(ProfileFailure.serverError());
     }

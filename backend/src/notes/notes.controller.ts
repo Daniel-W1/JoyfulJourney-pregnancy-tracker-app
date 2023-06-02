@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('notes')
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
@@ -21,7 +23,6 @@ export class NotesController {
 
   @Get('user/:user_id')
   async findByUser(@Param('user_id') user_id: string) {
-    console.log(user_id, 'user_id');
     
     var res =  await this.notesService.findByUser(user_id);
     console.log(res, 'res');

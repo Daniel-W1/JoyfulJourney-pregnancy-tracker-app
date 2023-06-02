@@ -1,3 +1,5 @@
+import 'package:frontend/domain/appointment/appointment.dart';
+
 class AppointmentDomain {
   String? id;
   final String title;
@@ -35,5 +37,27 @@ class AppointmentDomain {
       'time': time,
       'author': author,
     };
+  }
+
+  void validate() {
+    if (title.isEmpty) {
+      throw ValidationError('Title cannot be empty');
+    }
+
+    if (body.isEmpty) {
+      throw ValidationError('Body cannot be empty');
+    }
+
+    if (date.isEmpty) {
+      throw ValidationError('Date cannot be empty');
+    }
+
+    if (time.isEmpty) {
+      throw ValidationError('Time cannot be empty');
+    }
+
+    if (author.isEmpty) {
+      throw ValidationError('Author cannot be empty');
+    }
   }
 }

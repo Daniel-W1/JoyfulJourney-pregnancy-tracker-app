@@ -16,10 +16,14 @@ export class AuthController {
 
   @Post('signup')
   async signup(@Body() body) {
-    console.log(body, 'body');
-    console.log('signup');
     
     return await this.authService.signup(body);
+  }
+
+  @Patch('change-password')
+  @UseGuards(AuthGuard('jwt'))
+  async changePassword(@Body() body) {
+    return await this.authService.changePassword(body);
   }
 
   @Post('logout')

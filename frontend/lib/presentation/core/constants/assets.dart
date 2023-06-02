@@ -25,9 +25,17 @@ class Assets {
   /// assets/images/arrow.png
   static const String assetsImagesArrow = "assets/images/arrow.png";
 
+  /// Assets for assetsImagesBabyImage
+  /// assets/images/babyImage.png
+  static const String assetsImagesBabyImage = "assets/images/babyImage.png";
+
   /// Assets for assetsImagesCalendarImage
   /// assets/images/CalendarImage.png
   static const String assetsImagesCalendarImage = "assets/images/CalendarImage.png";
+
+  /// Assets for assetsImagesCalenderIcon
+  /// assets/images/calenderIcon.png
+  static const String assetsImagesCalenderIcon = "assets/images/calenderIcon.png";
 
   /// Assets for assetsImagesCommunity
   /// assets/images/community.png

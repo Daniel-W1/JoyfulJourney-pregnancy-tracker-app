@@ -18,7 +18,6 @@ export class AuthService {
   async signup(userDto: CreateUserDto) {
     try {
       const user = await this.userService.create(userDto);
-      console.log(user.id);
       return user;
     } catch (e) {
       throw e;
@@ -27,11 +26,8 @@ export class AuthService {
 
   @HttpCode(HttpStatus.CREATED)
   async login(loginData) {
-    // console.log(loginData, 'loginData');
     const { username, password } = loginData;
-    // console.log(username);
     const user = await this.userService.findOneByUsername(username);
-    // console.log(user);
 
     if (!user) {
       throw new ForbiddenException('Access Denied');
@@ -48,7 +44,18 @@ export class AuthService {
     console.log(user.role, 'user.role');
     const token = await this.getToken(username, user._id, user.roles);
 
-    return { id: user._id, username: user.username, ...token };
+    return { user, ...token };
+  }
+
+  async changePassword(body) {
+    const { username, oldPassword, newPassword } = body;
+    const user = await this.userService.findOneByUsername(username);
+    
+    if (user.password !== oldPassword) {
+      throw new ForbiddenException('Access Denied');
+    }
+    const update = { password: newPassword };
+    return await this.userService.update(user._id, update);
   }
 
   async getToken(username: string, id: string, roles: Role[]) {

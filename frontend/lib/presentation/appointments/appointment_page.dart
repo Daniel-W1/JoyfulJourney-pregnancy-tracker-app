@@ -27,7 +27,7 @@ class AppointmentsPage extends StatelessWidget {
             InkWell(
               borderRadius: BorderRadius.circular(30),
               onTap: () {
-                context.pop();
+                GoRouter.of(context).go('/landingpage');
               },
               child: Image.asset(
                 Assets.assetsImagesArrow,

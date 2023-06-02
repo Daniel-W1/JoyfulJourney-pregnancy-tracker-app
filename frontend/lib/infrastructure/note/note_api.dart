@@ -9,19 +9,19 @@ import 'note_form_dto.dart';
 
 class NoteAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
-  // SharedPreferenceService _sharedPreferenceService = SharedPreferenceService();
+  SharedPreferenceService _sharedPreferenceService = SharedPreferenceService();
 
   Future<NoteDto> createNote(NoteFormDto noteFormDto) async {
-    // String author = await _sharedPreferenceService.getProfileId() ?? "";
+    String author = await _sharedPreferenceService.getProfileId() ?? "";
 
-    // if (author == "") {
-    //   throw JJHttpException("Not Logged In", 404);
-    // }
+    if (author == "") {
+      throw JJHttpException("Not Logged In", 404);
+    }
 
-    print(json.encode(noteFormDto..toAuthoredDto('6474824cebecd37a7abd4cb3')));
+    print(json.encode(noteFormDto..toAuthoredDto(author)));
     var note = await _customHttpClient.post("notes",
         body: json.encode(
-            noteFormDto.toAuthoredDto('6474824cebecd37a7abd4cb3').toJson()));
+            noteFormDto.toAuthoredDto(author).toJson()));
 
     print(note.statusCode);
     if (note.statusCode == 201) {
