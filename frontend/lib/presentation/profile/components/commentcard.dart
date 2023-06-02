@@ -10,24 +10,28 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Card(
-        borderOnForeground: true,
-        elevation: 10,
-        child: Padding(
-          // padding from left and right
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(height: 10),
-              Text(
-                description,
+    return Card(
+      borderOnForeground: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 10,
+      child: Padding(
+        // padding from left and right
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: 10),
+            Text(
+              description,
+              style: TextStyle(
+                fontSize: 18,
               ),
-              SizedBox(height: 10),
-            ],
-          ),
+            ),
+            SizedBox(height: 10),
+          ],
         ),
       ),
     );

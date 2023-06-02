@@ -5,6 +5,7 @@ import 'package:frontend/infrastructure/post/post_form_mapper.dart';
 import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 class PostAPI {
   JJHttpClient jjHttpClient = JJHttpClient();
@@ -18,11 +19,8 @@ class PostAPI {
     }
 
     var postDto = postFormDto.toAuthoredDto(author);
-    var post = await jjHttpClient.post("post",
-        body: json.encode(postDto.toJson()));
-
-    print("API here, for create");
-    print(post.statusCode);
+    var post =
+        await jjHttpClient.post("post", body: json.encode(postDto.toJson()));
 
     if (post.statusCode == 201) {
       return PostDto.fromJson(jsonDecode(post.body));
@@ -57,16 +55,20 @@ class PostAPI {
   }
 
   Future<List<PostDto>> getPosts() async {
-    var posts = await jjHttpClient.get("post");
-    print(posts.statusCode);
-    if (posts.statusCode == 200) {
-      return (jsonDecode(posts.body) as List)
-          .map((e) => PostDto.fromJson(e))
-          .toList();
-    } else {
-      throw JJHttpException(
-          json.decode(posts.body)['message'] ?? "Unknown error",
-          posts.statusCode);
+    try {
+      var posts = await jjHttpClient.get("post").timeout(jjTimeout);
+
+      if (posts.statusCode == 201) {
+        return (jsonDecode(posts.body) as List)
+            .map((e) => PostDto.fromJson(e))
+            .toList();
+      } else {
+        throw JJHttpException(
+            json.decode(posts.body)['message'] ?? "Unknown error",
+            posts.statusCode);
+      }
+    } catch (e) {
+      throw JJTimeoutException();
     }
   }
 
@@ -86,10 +88,6 @@ class PostAPI {
 
   Future<List<PostDto>> getPostByUser(String author) async {
     var posts = await jjHttpClient.get("post/author/$author");
-
-    // print("API here");
-    // print(posts.statusCode);
-    // print(posts.body);
 
     if (posts.statusCode == 200) {
       return (jsonDecode(posts.body) as List)
