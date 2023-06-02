@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/presentation/core/Themes/light_theme.dart';
 
 import '../../core/utils/hex_color.dart';
 
@@ -19,7 +20,7 @@ class TipcCard extends StatelessWidget {
   final String id;
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = Theme.of(context);
+    ThemeData themeData = LightTheme().getThemeData;
     return Padding(
       padding: const EdgeInsets.all(11),
       child: InkWell(

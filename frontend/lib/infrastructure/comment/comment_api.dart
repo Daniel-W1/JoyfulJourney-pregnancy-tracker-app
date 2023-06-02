@@ -18,10 +18,11 @@ class CommentAPI {
     if (author == "") {
       throw JJHttpException("Not Logged In", 404);
     }
-
+    print('post comment called');
     var comment = await _customHttpClient.post("comments",
         body: json.encode(commentFormDto.toAuthoredDto(author).toJson()));
 
+    print(comment.statusCode);
     if (comment.statusCode == 201) {
       return CommentDto.fromJson(jsonDecode(comment.body));
     } else {

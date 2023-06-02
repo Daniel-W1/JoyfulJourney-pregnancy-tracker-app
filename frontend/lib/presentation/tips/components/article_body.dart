@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/presentation/core/Themes/light_theme.dart';
 
 import '../../core/constants/assets.dart';
 
@@ -16,7 +17,7 @@ class ArticleBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    ThemeData theme = LightTheme().getThemeData;
     return Expanded(
       child: Column(
         children: [

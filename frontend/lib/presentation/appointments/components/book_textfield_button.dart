@@ -103,7 +103,7 @@ class _BookTextFieldButtonState extends State<BookTextFieldButton> {
                 appointmentBloc.add(
                   AppointmentEventAdd(appointmentForm),
                 );
-
+                Navigator.of(context).pop();
                 // Access appointmentBloc here and perform necessary operations
               },
               icon: const Icon(Icons.send),

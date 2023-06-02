@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/application/tip/bloc/tip_bloc.dart';
 import 'package:frontend/infrastructure/tip/tip_api.dart';
 import 'package:frontend/infrastructure/tip/tip_repository.dart';
+import 'package:go_router/go_router.dart';
 import 'components/detail_page.dart';
 import 'package:frontend/presentation/core/constants/assets.dart';
 
@@ -63,9 +64,9 @@ class _TipsHomePageState extends State<TipsHomePage> {
                 alignment: Alignment.centerLeft,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(30),
-                  // onTap: () {
-                  //   Navigator.pop(context);
-                  // },
+                  onTap: () {
+                    GoRouter.of(context).go('/landingpage');
+                  },
                   child: Image.asset(
                     Assets.assetsImagesArrow,
                     width: 36,

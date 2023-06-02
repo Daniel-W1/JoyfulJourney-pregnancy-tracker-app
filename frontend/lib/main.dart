@@ -1,8 +1,10 @@
+import 'package:dartz/dartz_streaming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/application/appointment/bloc/appointment_bloc.dart';
 import 'package:frontend/application/comment/bloc/comment_bloc.dart';
 import 'package:frontend/application/note/bloc/note_bloc.dart';
+import 'package:frontend/application/page_provider/bloc/page_provider_bloc.dart';
 import 'package:frontend/application/post/post_list/bloc/post_list_bloc.dart';
 import 'package:frontend/application/tip/bloc/tip_bloc.dart';
 
@@ -29,12 +31,15 @@ import 'package:frontend/presentation/profile/profile.dart';
 import 'package:frontend/presentation/signup/signup_page.dart';
 import 'package:frontend/presentation/tips/home_page.dart';
 import 'package:frontend/presentation/tips/home_page.dart';
+import 'package:go_router/go_router.dart';
 
 import 'infrastructure/appointment/appointment_api.dart';
 import 'infrastructure/appointment/appointment_repository.dart';
 import 'infrastructure/profile/profile_api.dart';
 import 'infrastructure/tip/tip_api.dart';
 import 'infrastructure/tip/tip_repository.dart';
+
+import 'presentation/routes/routes.dart';
 
 void main() {
   NoteAPI noteApi = NoteAPI();
@@ -114,8 +119,14 @@ class MyApp extends StatelessWidget {
           BlocProvider<PostListBloc>.value(value: postBloc),
           BlocProvider<CommentBloc>.value(value: commentBloc),
           BlocProvider<ProfileBloc>.value(value: profileBloc),
+          BlocProvider<PageProviderBloc>.value(value: PageProviderBloc()),
         ],
-        child: ProfilePage(),
+        child: Scaffold(
+          body: MaterialApp.router(
+            theme: LightTheme().getThemeData,
+              routerConfig: router,
+          )
+        ),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:frontend/application/note/bloc/note_state.dart';
 import 'package:frontend/presentation/notes/symptoms/components/add_notepage.dart';
 import 'package:frontend/presentation/notes/symptoms/components/note_item.dart';
 
+import '../../../../local_data/shared_preferences/jj_shared_preferences_service.dart';
 import '../../../core/constants/assets.dart';
 
 class NoteBody extends StatefulWidget {
@@ -53,12 +54,14 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   late NoteBloc noteBloc;
   var notes = [];
+  final SharedPreferenceService service = SharedPreferenceService();
 
   @override
   void initState() {
     super.initState();
     noteBloc = BlocProvider.of<NoteBloc>(context);
-    fetchNotes('6474824cebecd37a7abd4cb3');
+    service.getProfileId().then((value) => fetchNotes(value!));
+    // fetchNotes('6474824cebecd37a7abd4cb3');
   }
 
   Future<void> fetchNotes(String userId) async {
@@ -71,7 +74,8 @@ class _BodyState extends State<Body> {
     return BlocConsumer<NoteBloc, NoteState>(
       listener: (context, state) {
         if (state is NoteStateSuccess || state is NoteStateDeleted) {
-          noteBloc.add(NoteEventGetByUser('6474824cebecd37a7abd4cb3'));
+          service.getProfileId().then((value) => fetchNotes(value!));
+          // noteBloc.add(NoteEventGetByUser('6474824cebecd37a7abd4cb3'));
         }
       },
       bloc: noteBloc,
@@ -81,7 +85,7 @@ class _BodyState extends State<Body> {
             child: CircularProgressIndicator(),
           );
         } else if (state is NoteStateSuccessMultiple) {
-          notes = state.notes;
+          notes = state.notes.reversed.toList();
           return ListView.builder(
             itemCount: notes.length,
             itemBuilder: (context, index) {

@@ -6,23 +6,47 @@ import 'package:frontend/application/profile/bloc/profile_bloc.dart';
 import 'package:frontend/application/profile/bloc/profile_event.dart';
 import 'package:frontend/domain/post/post.dart';
 import 'package:frontend/domain/profile/profile.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/presentation/posts/components/createPostForm.dart';
 
 import '../../../application/profile/bloc/profile_state.dart';
 import '../../core/constants/assets.dart';
 import '../comments/comments_page.dart';
 
-class PostItem extends StatelessWidget {
+class PostItem extends StatefulWidget {
   const PostItem({super.key, required this.size, required this.post});
 
   final Size size;
   final PostDomain post;
+  
 
   @override
+  State<PostItem> createState() => _PostItemState();
+}
+
+class _PostItemState extends State<PostItem> {
+  String? profileId = '';
+  @override
+  void initState() {
+    SharedPreferenceService service = SharedPreferenceService();
+    
+    service.getProfileId().then((value) {
+      setState(() {
+        profileId = value;
+        print("set the value of profileId");
+        print(profileId);
+        print(widget.post.author);
+      });
+    });
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+    
+    
     return Container(
-      width: size.width,
+      width: widget.size.width,
       padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +59,7 @@ class PostItem extends StatelessWidget {
                   if (state is ProfileStateInitial) {
                     print("hah hah hah");
                     BlocProvider.of<ProfileBloc>(context)
-                        .add(ProfileEventGetProfile(profileId: post.author));
+                        .add(ProfileEventGetProfile(profileId: widget.post.author));
                   }
                 },
                 builder: (context, state) {
@@ -60,7 +84,7 @@ class PostItem extends StatelessWidget {
                                   color: theme.colorScheme.onSecondary),
                             ),
                             Text(
-                              "@_${state.profile.userName}",
+                              "@${state.profile.userName}",
                               style: TextStyle(color: Colors.grey),
                             )
                           ],
@@ -70,15 +94,42 @@ class PostItem extends StatelessWidget {
                   } else if (state is ProfileStateLoading) {
                     return Text('Loading but loading');
                   } else if (state is ProfileStateFailure) {
-                    return Text('Failure... you should die');
+                    return Row(
+                      children: [
+                        const CircleAvatar(
+                          backgroundImage:
+                              AssetImage(Assets.assetsImagesFancyBack),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Anonymous",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: theme.colorScheme.onSecondary),
+                            ),
+                            Text(
+                              "@anon",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
+                      ],
+                    );
                   } else {
                     BlocProvider.of<ProfileBloc>(context)
-                        .add(ProfileEventGetProfile(profileId: post.author));
+                        .add(ProfileEventGetProfile(profileId: widget.post.author));
                     return Text(state.toString());
                   }
                 },
               ),
-              post.author == "644ec9e0da3f7fc3a4c30a2a" ?
+              widget.post.author ==  profileId ? 
+              
               Row(
                 children: [
                   IconButton(
@@ -93,15 +144,15 @@ class PostItem extends StatelessWidget {
                                 onCreate: (body) {
                                   PostForm postForm = PostForm(
                                       body: body,
-                                      likes: post.likes,
-                                      comments: post.comments);
+                                      likes: widget.post.likes,
+                                      comments: widget.post.comments);
                                   BlocProvider.of<PostListBloc>(context).add(
                                       PostListEventUpdatePost(
-                                          postForm, post.id!));
+                                          postForm, widget.post.id!));
                                 },
-                                initialBody: post.body,
+                                initialBody: widget.post.body,
                                 mode: 'Update',
-                                postId: post.id!,
+                                postId: widget.post.id!,
                               );
                             });
                       }),
@@ -116,7 +167,7 @@ class PostItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Text(
-              post.body,
+              widget.post.body,
               textAlign: TextAlign.start,
               style: TextStyle(
                 color: theme.colorScheme.onSecondary,
@@ -137,7 +188,7 @@ class PostItem extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CommentsPage(
-                                    post: post,
+                                    post: widget.post,
                                     profile: state is ProfileStateSuccess
                                         ? state.profile as ProfileDomain
                                         : ProfileDomain(
@@ -163,7 +214,7 @@ class PostItem extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          "Comments (${post.comments.length})",
+                          "Comments (${widget.post.comments.length})",
                           style: TextStyle(color: Colors.grey),
                         )
                       ],
@@ -181,7 +232,7 @@ class PostItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Likes (${post.likes.length})",
+                    "Likes (${widget.post.likes.length})",
                     style: TextStyle(color: Colors.grey),
                   )
                 ],

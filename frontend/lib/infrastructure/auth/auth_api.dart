@@ -22,10 +22,11 @@ class AuthApi {
     });
 
     var response = await _httpClient.post(_loginUrl, body: body);
+    print(response.statusCode);
 
-    final Map<String, dynamic> data = json.decode(response.body);
-
-    if (response.statusCode == 200) {
+    final Map<String, dynamic> data = await json.decode(response.body);
+    print("here");
+    if (response.statusCode == 201) {
       return LoginResponseDto.fromJson(data);
     } else {
       throw JJHttpException(
@@ -35,11 +36,12 @@ class AuthApi {
   }
 
   Future<UserDto> signup({required SignupFormDto signupFormDto}) async {
+    print(signupFormDto.toJson());
     var response = await _httpClient.post(_signupUrl,
         body: json.encode(signupFormDto.toJson()));
 
     final Map<String, dynamic> data = json.decode(response.body);
-
+    print(response.statusCode);
     if (response.statusCode == 201) {
       return UserDto.fromJson(data);
     } else {

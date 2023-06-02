@@ -49,7 +49,7 @@ class CommentsBody extends StatelessWidget {
 
           // write a comment here
 
-          WriteAComment(size: size),
+          WriteAComment(size: size, postId: post.id!,),
         ],
       ),
     );
@@ -153,14 +153,14 @@ class PostItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${profile.firstName} ${profile.lastName}",
+                    ("${profile.firstName} ${profile.lastName}").length > 1 ? "${profile.firstName} ${profile.lastName}" : "Anonymous",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         color: theme.colorScheme.onSecondary),
                   ),
                   Text(
-                    "@${profile.userName}",
+                    ("@${profile.userName}").length > 1 ? "@${profile.userName}" : "@Anon",
                     style: TextStyle(color: Colors.grey),
                   )
                 ],

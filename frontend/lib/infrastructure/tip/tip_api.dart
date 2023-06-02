@@ -4,6 +4,7 @@ import 'package:frontend/infrastructure/tip/tip_form_dto.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
 import 'package:frontend/util/jj_timeout_exception.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 class TipAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
