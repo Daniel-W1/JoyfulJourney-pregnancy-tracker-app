@@ -5,5 +5,6 @@ import 'package:frontend/domain/auth/user_domain.dart';
 abstract class UserRepositoryInterface {
   Future<Either<AuthFailure, List<UserDomain>>> getUsers();
   Future<Either<AuthFailure, UserDomain>> setUserRole(UserDomain user);
-  Future<Either<AuthFailure, Unit>> deleteUser(String userId);
+  Future<Either<AuthFailure, Unit>> deleteUser();
+  Future<Either<AuthFailure, Unit>> deleteUserById(String id);
 }
