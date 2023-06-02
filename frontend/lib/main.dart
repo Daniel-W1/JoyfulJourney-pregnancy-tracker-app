@@ -5,7 +5,7 @@ import 'package:frontend/application/comment/bloc/comment_bloc.dart';
 import 'package:frontend/application/note/bloc/note_bloc.dart';
 import 'package:frontend/application/post/post_list/bloc/post_list_bloc.dart';
 import 'package:frontend/application/tip/bloc/tip_bloc.dart';
-import 'package:frontend/core/Themes/light_theme.dart';
+
 import 'package:frontend/application/profile/bloc/profile_bloc.dart';
 import 'package:frontend/infrastructure/comment/comment_api.dart';
 import 'package:frontend/infrastructure/comment/comment_repository.dart';
@@ -13,6 +13,7 @@ import 'package:frontend/infrastructure/note/note_api.dart';
 import 'package:frontend/infrastructure/note/note_repository.dart';
 import 'package:frontend/infrastructure/post/post_api.dart';
 import 'package:frontend/infrastructure/post/post_repository.dart';
+import 'package:frontend/presentation/core/Themes/light_theme.dart';
 import 'package:frontend/presentation/posts/posts_page.dart';
 // import 'package:frontend/infrastructure/profile/profile_api.dart';
 import 'package:frontend/infrastructure/profile/profile_repository.dart';
@@ -27,6 +28,7 @@ import 'package:frontend/presentation/tips/home_page.dart';
 
 import 'infrastructure/appointment/appointment_api.dart';
 import 'infrastructure/appointment/appointment_repository.dart';
+import 'infrastructure/profile/profile_api.dart';
 import 'infrastructure/tip/tip_api.dart';
 import 'infrastructure/tip/tip_repository.dart';
 

@@ -11,6 +11,7 @@ import 'package:frontend/presentation/core/constants/color.dart';
 import '../../../application/post/post_list/bloc/post_list_bloc.dart';
 import 'package:frontend/application/profile/bloc/profile_bloc.dart';
 import '../../../presentation/core/constants/color.dart';
+import '../../core/Themes/light_theme.dart';
 import 'post_item.dart';
 
 class PostsBody extends StatefulWidget {
