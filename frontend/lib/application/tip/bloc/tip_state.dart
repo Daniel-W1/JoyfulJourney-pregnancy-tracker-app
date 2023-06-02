@@ -10,8 +10,7 @@ class TipState {
 
   const factory TipState.success(TipDomain tip) = TipStateSuccess;
 
-  const factory TipState.successMultiple(List<TipDomain> tips) =
-      TipStateSuccessMultiple;
+  const factory TipState.successMultiple(List<TipDomain> tips) = TipStateSuccessMultiple;
 
   const factory TipState.deleted(Unit success) = TipStateDeleted;
 
@@ -36,6 +35,7 @@ class TipState {
     }
   }
 }
+
 
 class TipStateInitial extends TipState {
   const TipStateInitial() : super._();

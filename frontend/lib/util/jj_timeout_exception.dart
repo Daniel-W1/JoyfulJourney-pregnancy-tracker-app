@@ -1,5 +1,7 @@
 import 'dart:async';
 
 class JJTimeoutException extends TimeoutException {
-  JJTimeoutException() : super('Request timed out', Duration(seconds: 5));
+  JJTimeoutException() : super('Request timed out', const Duration(seconds: 5));
 }
+
+Duration jjTimeout = const Duration(seconds: 1000);

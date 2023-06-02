@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:frontend/local_data/database/jj_database_helper.dart';
 import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/domain/auth/auth_failure.dart';
 import 'package:frontend/domain/auth/auth_repository_interface.dart';
@@ -9,13 +10,14 @@ import 'package:frontend/infrastructure/auth/login_response_dto.dart';
 import 'package:frontend/infrastructure/auth/signup_form_mapper.dart';
 import 'package:frontend/infrastructure/auth/user_dto.dart';
 import 'package:frontend/infrastructure/auth/user_mapper.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'auth_api.dart';
 
 class AuthRepository implements AuthRepositoryInterface {
   AuthApi authApi;
   SharedPreferenceService sharedPreferences;
-  // User? _authenticatedUser;
+  DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
   AuthRepository(this.authApi, this.sharedPreferences);
 
@@ -47,8 +49,6 @@ class AuthRepository implements AuthRepositoryInterface {
       return Left(AuthFailure.serverError());
     }
 
-    // _authenticatedUser = response.user.toModel();
-    // return Right(_authenticatedUser);
   }
 
   @override
@@ -56,7 +56,7 @@ class AuthRepository implements AuthRepositoryInterface {
     await sharedPreferences.removeAccessToken();
     await sharedPreferences.removeAuthenticatedUser();
     await sharedPreferences.removeProfileId();
-    // _authenticatedUser = null;
+    await databaseHelper.removeAll();
   }
 
   // @override
@@ -65,21 +65,5 @@ class AuthRepository implements AuthRepositoryInterface {
   //   User user =
   //       await authApi.changePassword(changePassword: changePasswordForm);
   //   return Right(user);
-  // }
-
-  // @override
-  // Future<String?> getAuthToken() {
-  //   return sharedPreferences.getToken();
-  // }
-
-  // @override
-  // Future<User?> getAuthenticatedUser() async {
-  //   _authenticatedUser = await sharedPreferences.getAuthenticatedUser();
-  //   return _authenticatedUser;
-  // }
-
-  // @override
-  // User? getAuthenticatedUserSync() {
-  //   return _authenticatedUser;
   // }
 }

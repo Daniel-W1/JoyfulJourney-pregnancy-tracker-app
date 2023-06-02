@@ -50,7 +50,27 @@ class PostListBloc extends Bloc<PostListEvent, PostListState> {
       );
 
       // Refresh the post list
-      add(const PostListEventRefresh());
+      
     });
+
+    on<PostListEventUpdatePost> ((event, emit) async {
+      emit(const PostListStateLoading());
+      print("made it to the event");
+      // Update the post in the repository
+      Either<PostFailure, PostDomain> result =
+          await postRepository.updatePost(postForm: event.postForm, postId:event.postId);
+
+      result.fold(
+        (l) => emit(PostListStateFailure(postFailure: l)),
+        (_) => emit(const PostListStateAddSuccess()),
+      );
+    
+    },);
+
+    on<PostListEventDeletePost> ((event, emit) async {
+      Either<PostFailure, Unit> result = await postRepository.deletePost(event.postId);
+
+      result.fold((l) => emit(PostListStateFailure(postFailure: l)), (r) => emit(const PostListStateDeleted()),);
+    },);
   }
 }

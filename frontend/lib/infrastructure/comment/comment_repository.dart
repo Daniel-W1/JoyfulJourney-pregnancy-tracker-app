@@ -39,22 +39,6 @@ class CommentRepository implements CommentRepositoryInterface {
     } catch (e) {
       return left(CommentFailure.serverError());
     }
-
-    // try {
-    //   var comments = await databaseHelper.getCommentsByPost(postId);
-
-    //   if (comments.isEmpty) {
-    //     List<CommentDto> commentDto =
-    //         await commentApi.getCommentsByPost(postId);
-    //     await databaseHelper.addComments(commentDto);
-    //     comments = await databaseHelper.getCommentsByPost(postId);
-    //   }
-
-    //   return Right(comments);
-    // } catch (e) {
-    //   return Left(CommentFailure.serverError());
-
-    // }
   }
 
   @override
@@ -97,18 +81,20 @@ class CommentRepository implements CommentRepositoryInterface {
   Future<Either<CommentFailure, List<CommentDomain>>> getUserComments(
       String userId) async {
     try {
+      List<CommentDto> comments = await commentApi.getCommentsByUser(userId);
+      await databaseHelper.addComments(comments);
+
+      return Right(
+          comments.map((e) => CommentDomain.fromJson(e.toJson())).toList());
+    } on JJTimeoutException catch (timeout) {
       var comments = await databaseHelper.getCommentsByUser(userId);
-
       if (comments.isEmpty) {
-        List<CommentDto> commentDto =
-            await commentApi.getCommentsByUser(userId);
-        await databaseHelper.addComments(commentDto);
-        comments = await databaseHelper.getCommentsByUser(userId);
+        return left(CommentFailure.serverError());
+      } else {
+        return right(comments);
       }
-
-      return Right(comments);
     } catch (e) {
-      return Left(CommentFailure.serverError());
+      return left(CommentFailure.serverError());
     }
   }
 
