@@ -37,8 +37,8 @@ class AuthRepository implements AuthRepositoryInterface {
       {required LoginForm loginForm}) async {
     try {
       LoginResponseDto response = await authApi.login(
-        username: loginForm.username.username,
-        password: loginForm.password.password,
+        username: loginForm.username,
+        password: loginForm.password,
       );
       await sharedPreferences.setAccessToken(response.access_token);
       await sharedPreferences
@@ -48,6 +48,7 @@ class AuthRepository implements AuthRepositoryInterface {
     } catch (e) {
       return Left(AuthFailure.serverError());
     }
+
   }
 
   @override

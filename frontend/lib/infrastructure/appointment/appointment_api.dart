@@ -12,18 +12,25 @@ class AppointmentAPI {
 
   Future<AppointmentDto> createAppointment(
       AppointmentFormDto appointmentFormDto) async {
-    String author = await _sharedPreferences.getProfileId() ?? "";
+    // String author = await _sharedPreferences.getProfileId() ?? "";
 
-    if (author == "") {
-      throw JJHttpException("Not Logged In", 404);
-    }
+    // if (author == "") {
+    //   throw JJHttpException("Not Logged In", 404);
+    // }
 
-    var appointmentDto = appointmentFormDto.toAuthoredDto(author);
+    var appointmentDto =
+        appointmentFormDto.toAuthoredDto('6474824cebecd37a7abd4cb3');
     var appointment = await _customHttpClient.post("appointment",
         body: json.encode(appointmentDto.toJson()));
 
+    print('appointment api: $appointment');
+    print(appointment.statusCode);
+    print(json.encode(appointmentDto.toJson()));
     if (appointment.statusCode == 201) {
-      return AppointmentDto.fromJson(jsonDecode(appointment.body));
+      var res = AppointmentDto.fromJson(jsonDecode(appointment.body));
+      print('res here and dfasdjf $res');
+
+      return res;
     } else {
       throw JJHttpException(
           json.decode(appointment.body)['message'] ?? "Unknown error",
@@ -36,7 +43,8 @@ class AppointmentAPI {
     var apppointment = await _customHttpClient.put("appointment/$id",
         body: json.encode(appointmentFormDto.toJson()));
 
-    if (apppointment.statusCode == 201) {
+    print(apppointment.statusCode);
+    if (apppointment.statusCode == 200) {
       return AppointmentDto.fromJson(jsonDecode(apppointment.body));
     } else {
       throw JJHttpException(
@@ -48,7 +56,9 @@ class AppointmentAPI {
   Future<void> deleteAppointment(String id) async {
     var response = await _customHttpClient.delete("appointment/$id");
 
-    if (response.statusCode != 204) {
+    print(response.statusCode);
+
+    if (response.statusCode != 200) {
       throw JJHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);

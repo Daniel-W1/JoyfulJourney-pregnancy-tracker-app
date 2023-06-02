@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/presentation/appointments/components/appointments_body.dart';
-import '../../../../../core/constants/assets.dart';
-import '../../application/appointment/bloc/appointment_bloc.dart';
-import '../../infrastructure/appointment/appointment_api.dart';
-import '../../infrastructure/appointment/appointment_repository.dart';
+import 'package:frontend/presentation/notes/symptoms/components/notes_body.dart';
 
-class AppointmentsPage extends StatefulWidget {
-  const AppointmentsPage({Key? key}) : super(key: key);
+import '../../core/constants/assets.dart';
+
+class NotesPage extends StatefulWidget {
+  const NotesPage({Key? key}) : super(key: key);
 
   @override
-  State<AppointmentsPage> createState() => _AppointmentsPageState();
+  State<NotesPage> createState() => _NotesPageState();
 }
 
-class _AppointmentsPageState extends State<AppointmentsPage> {
+class _NotesPageState extends State<NotesPage> {
   @override
   Widget build(BuildContext context) {
     print("build called");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: appointmentsAppBar(size, context),
-      body: AppointmentsBody(),
+      appBar: NotesAppBar(size, context),
+      body: NoteBody(),
     );
   }
 
-  PreferredSize appointmentsAppBar(Size size, BuildContext context) {
+  PreferredSize NotesAppBar(Size size, BuildContext context) {
     return PreferredSize(
       preferredSize: Size(size.width, 80),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 27),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   InkWell(
                     borderRadius: BorderRadius.circular(30),
@@ -42,13 +41,13 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                     },
                     child: Image.asset(
                       Assets.assetsImagesArrow,
-                      width: 36,
-                      height: 36,
+                      width: 30,
+                      height: 30,
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 20),
                   const Text(
-                    "Appointment",
+                    "Notes",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,

@@ -29,6 +29,7 @@ import 'package:frontend/infrastructure/profile/profile_dto.dart';
 import 'package:frontend/infrastructure/profile/profile_mapper.dart';
 import 'package:frontend/infrastructure/tip/tip_dto.dart';
 import 'package:frontend/infrastructure/tip/tip_mapper.dart';
+import 'package:http/http.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -117,9 +118,13 @@ class DatabaseHelper {
   Future<List<PostDomain>> getPosts() async {
     final Database db = await database;
     final List<Map<String, dynamic>> postsList = await db.query("post");
+    // print(postsList);
     List<PostEntity> postEntityList = postsList.isEmpty
         ? []
         : postsList.map((post) => PostEntity.fromSqlJson(post)).toList();
+
+    print('entity list');  
+    print(postEntityList);
 
     List<PostDomain> postDomainList = postEntityList.isEmpty
         ? []
@@ -139,7 +144,9 @@ class DatabaseHelper {
 
     List<CommentDomain> commentDomainList = commentEntityList.isEmpty
         ? []
-        : commentEntityList.map((comment) => comment.toCommentDomain()).toList();
+        : commentEntityList
+            .map((comment) => comment.toCommentDomain())
+            .toList();
 
     return commentDomainList;
   }
@@ -151,10 +158,10 @@ class DatabaseHelper {
         ? []
         : tipsList.map((tip) => TipEntity.fromJson(tip)).toList();
 
-    List<TipDomain> tipDomainList = tipEntityList.isEmpty ? [] : tipEntityList
-        .map((tip) => tip.toTipDomain())
-        .toList();
-    
+    List<TipDomain> tipDomainList = tipEntityList.isEmpty
+        ? []
+        : tipEntityList.map((tip) => tip.toTipDomain()).toList();
+
     return tipDomainList;
   }
 

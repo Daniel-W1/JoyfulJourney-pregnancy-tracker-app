@@ -9,6 +9,7 @@ class PostListState {
   const factory PostListState.success({required List<PostDomain> post}) = PostListStateSuccess;
   const factory PostListState.failure({required PostFailure postFailure}) = PostListStateFailure;
   const factory PostListState.addSuccess() = PostListStateAddSuccess;
+  const factory PostListState.deleted() = PostListStateDeleted; // New factory constructor
 
   PostListState copyWith({
     List<PostDomain>? post,
@@ -33,55 +34,21 @@ class PostListStateLoading extends PostListState {
 }
 
 class PostListStateSuccess extends PostListState {
-  final List<PostDomain> post;
-
   const PostListStateSuccess({required this.post}) : super._();
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is PostListStateSuccess && runtimeType == other.runtimeType && post == other.post;
-
-  @override
-  int get hashCode => runtimeType.hashCode ^ post.hashCode;
-
-  @override
-  PostListStateSuccess copyWith({
-    PostFailure? postFailure,
-    List<PostDomain>? post,
-  }) {
-    return PostListStateSuccess(
-      post: post ?? this.post,
-    );
-  }
+  final List<PostDomain> post;
 }
 
 class PostListStateFailure extends PostListState {
-  final PostFailure postFailure;
-
   const PostListStateFailure({required this.postFailure}) : super._();
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is PostListStateFailure &&
-          runtimeType == other.runtimeType &&
-          postFailure == other.postFailure;
-
-  @override
-  int get hashCode => runtimeType.hashCode ^ postFailure.hashCode;
-
-  @override
-  PostListStateFailure copyWith({
-    List<PostDomain>? post,
-    PostFailure? postFailure,
-  }) {
-    return PostListStateFailure(
-      postFailure: postFailure ?? this.postFailure,
-    );
-  }
+  final PostFailure postFailure;
 }
 
 class PostListStateAddSuccess extends PostListState {
   const PostListStateAddSuccess() : super._();
+}
+
+class PostListStateDeleted extends PostListState { // New state class
+  const PostListStateDeleted() : super._();
 }

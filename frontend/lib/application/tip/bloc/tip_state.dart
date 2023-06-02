@@ -8,24 +8,24 @@ class TipState {
 
   const factory TipState.loading() = TipStateLoading;
 
-  const factory TipState.success(TipDomain comment) = TipStateSuccess;
+  const factory TipState.success(TipDomain tip) = TipStateSuccess;
 
-  const factory TipState.successMultiple(List<TipDomain> comments) = TipStateSuccessMultiple;
+  const factory TipState.successMultiple(List<TipDomain> tips) = TipStateSuccessMultiple;
 
   const factory TipState.deleted(Unit success) = TipStateDeleted;
 
   const factory TipState.failure(TipFailure failure) = TipStateFailure;
 
   TipState copyWith({
-    TipDomain? comment,
-    List<TipDomain>? comments,
+    TipDomain? tip,
+    List<TipDomain>? tips,
     TipFailure? failure,
     Unit? success,
   }) {
-    if (comment != null) {
-      return TipState.success(comment);
-    } else if (comments != null) {
-      return TipState.successMultiple(comments);
+    if (tip != null) {
+      return TipState.success(tip);
+    } else if (tips != null) {
+      return TipState.successMultiple(tips);
     } else if (failure != null) {
       return TipState.failure(failure);
     } else if (success != null) {
@@ -36,6 +36,7 @@ class TipState {
   }
 }
 
+
 class TipStateInitial extends TipState {
   const TipStateInitial() : super._();
 }
@@ -45,15 +46,15 @@ class TipStateLoading extends TipState {
 }
 
 class TipStateSuccess extends TipState {
-  final TipDomain comment;
+  final TipDomain tip;
 
-  const TipStateSuccess(this.comment) : super._();
+  const TipStateSuccess(this.tip) : super._();
 }
 
 class TipStateSuccessMultiple extends TipState {
-  final List<TipDomain> comments;
+  final List<TipDomain> tips;
 
-  const TipStateSuccessMultiple(this.comments) : super._();
+  const TipStateSuccessMultiple(this.tips) : super._();
 }
 
 class TipStateDeleted extends TipState {

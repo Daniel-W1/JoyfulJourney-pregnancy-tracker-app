@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../../core/constants/assets.dart';
+
+import '../../core/constants/assets.dart';
 
 class AddAppointmentAppBar extends StatelessWidget {
   const AddAppointmentAppBar({
@@ -11,11 +12,8 @@ class AddAppointmentAppBar extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     return SafeArea(
         child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 27),
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 27),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-        // SizedBox(
-        //   height: 25,
-        // ),
         InkWell(
           borderRadius: BorderRadius.circular(30),
           onTap: () {
@@ -23,16 +21,15 @@ class AddAppointmentAppBar extends StatelessWidget {
           },
           child: Image.asset(
             Assets.assetsImagesArrow,
-            width: 36,
-            height: 36,
+            width: 30,
+            height: 30,
           ),
         ),
+        SizedBox(width: 20),
         Text(
           "Back",
           style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.onSecondary),
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
         )
       ]),
     ));
