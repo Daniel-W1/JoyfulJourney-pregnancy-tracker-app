@@ -4,11 +4,13 @@ import "package:frontend/infrastructure/profile/profile_dto.dart";
 import "package:frontend/infrastructure/profile/profile_form_dto.dart";
 import "package:frontend/util/jj_http_client.dart";
 import "package:frontend/util/jj_http_exception.dart";
+import "package:frontend/util/jj_timeout_exception.dart";
 
 class ProfileApi {
   JJHttpClient _customHttpClient = JJHttpClient();
 
-  Future<ProfileDto> updateProfile(ProfileFormDto profileForm, String profileId) async {
+  Future<ProfileDto> updateProfile(
+      ProfileFormDto profileForm, String profileId) async {
     var updatedProfile = await _customHttpClient.put("profile/$profileId",
         body: json.encode(profileForm.toJson()));
 
@@ -22,14 +24,18 @@ class ProfileApi {
   }
 
   Future<ProfileDto> getProfile(String profileId) async {
-    var response = await _customHttpClient.get("profile/$profileId");
+    try {
+      var response = await _customHttpClient.get("profile/$profileId").timeout(jjTimeout);
 
-    if (response.statusCode == 200) {
-      return ProfileDto.fromJson(json.decode(response.body));
-    } else {
-      throw Exception(
-        "Unknown error",
-      );
+      if (response.statusCode == 200) {
+        return ProfileDto.fromJson(json.decode(response.body));
+      } else {
+        throw JJHttpException(
+            json.decode(response.body)['message'] ?? "Unknown error",
+            response.statusCode);
+      }
+    } catch (e) {
+      throw JJTimeoutException();
     }
   }
 

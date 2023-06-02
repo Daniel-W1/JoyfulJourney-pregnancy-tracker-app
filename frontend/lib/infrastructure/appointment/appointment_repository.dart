@@ -20,22 +20,18 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, List<AppointmentDomain>>>
       getAppointmentsForUser(String userId) async {
     try {
-      List<AppointmentDto> appointments =
-          await appointmentAPI.getAppointmentsByUser(userId);
-      await databaseHelper.addAppointments(appointments);
-
-      return Right(appointments
-          .map((e) => AppointmentDomain.fromJson(e.toJson()))
-          .toList());
-    } on JJTimeoutException catch (timeout) {
       var appointments = await databaseHelper.getAppointmentsByUser(userId);
+
       if (appointments.isEmpty) {
-        return left(AppointmentFailure.serverError());
-      } else {
-        return right(appointments);
+        List<AppointmentDto> appointmentDto =
+            await appointmentAPI.getAppointmentsByUser(userId);
+        await databaseHelper.addAppointments(appointmentDto);
+        appointments = await databaseHelper.getAppointmentsByUser(userId);
       }
+
+      return Right(appointments);
     } catch (e) {
-      return left(AppointmentFailure.serverError());
+      return Left(AppointmentFailure.serverError());
     }
   }
 
