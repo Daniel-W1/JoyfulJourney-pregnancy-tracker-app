@@ -13,6 +13,8 @@ import 'package:frontend/infrastructure/post/post_api.dart';
 import 'package:frontend/infrastructure/post/post_repository.dart';
 import 'package:frontend/infrastructure/profile/profile_api.dart';
 import 'package:frontend/infrastructure/profile/profile_repository.dart';
+import 'package:frontend/presentation/BabyStatus/baby_status_page.dart';
+import 'package:frontend/presentation/DueDateCalculator/Body/due_date_calculator_body.dart';
 import 'package:frontend/presentation/appointments/appointment_page.dart';
 import 'package:frontend/presentation/appointments/components/add_appointmentpage.dart';
 import 'package:frontend/presentation/login/login_page.dart';
@@ -102,7 +104,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<CommentBloc>.value(value: commentBloc),
           BlocProvider<ProfileBloc>.value(value: profileBloc),
         ],
-        child: ProfilePage(),
+        child: DueDateCalculatorBody(),
       ),
     );
   }
