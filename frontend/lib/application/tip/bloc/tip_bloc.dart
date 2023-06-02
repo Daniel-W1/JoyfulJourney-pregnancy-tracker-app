@@ -28,7 +28,7 @@ class TipBloc extends Bloc<TipEvent, TipState> {
           await tipRepositoryInterface.getTipsByType(event.type);
 
       result.fold((l) => emit(TipStateFailure(l)),
-          (r) => emit(TipStateSuccessMultiple(r)));
+          (r) => emit(TipStateSuccessMultiple(r).copyWith()));
     });   
     on<TipEventAdd>((event, emit) async {
       emit(const TipStateLoading());

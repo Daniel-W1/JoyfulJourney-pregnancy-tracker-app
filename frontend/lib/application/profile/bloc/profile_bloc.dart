@@ -12,6 +12,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     on<ProfileEventGetProfile>((event, emit) async {
       emit(const ProfileStateLoading());
+      print("profile get event called");
 
       Either<ProfileFailure, ProfileDomain> result = await profileRepositoryInterface.getProfile(event.profileId);
 

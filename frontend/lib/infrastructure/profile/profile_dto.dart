@@ -28,10 +28,10 @@ class ProfileDto {
   factory ProfileDto.fromJson(Map<String, dynamic> json) {
     return ProfileDto(
       id: json['_id'],
-      userName: json['userName'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      profilePicture: json['profilePicture'],
+      userName: json['username'],
+      firstName: json['firstname'],
+      lastName: json['lastname'],
+      profilePicture: json['image'],
       bio: json['bio'],
       followers: (json['followers'] as List<dynamic>).cast<String>(),
       following: (json['following'] as List<dynamic>).cast<String>(),
@@ -44,10 +44,10 @@ class ProfileDto {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'userName': userName,
-      'firstName': firstName,
-      'lastName': lastName,
-      'profilePicture': profilePicture,
+      'username': userName,
+      'firstname': firstName,
+      'lastname': lastName,
+      'image': profilePicture,
       'bio': bio,
       'followers': followers,
       'following': following,
