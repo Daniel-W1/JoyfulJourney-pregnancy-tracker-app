@@ -12,6 +12,7 @@ import 'package:frontend/infrastructure/auth/user_dto.dart';
 import 'package:frontend/infrastructure/auth/user_mapper.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../domain/auth/change_password_form.dart';
 import 'auth_api.dart';
 
 class AuthRepository implements AuthRepositoryInterface {
@@ -60,11 +61,11 @@ class AuthRepository implements AuthRepositoryInterface {
     await databaseHelper.removeAll();
   }
 
-  // @override
-  // Future<Either<Error, User>> changePassword(
-  //     {required ChangePasswordForm changePasswordForm}) async {
-  //   User user =
-  //       await authApi.changePassword(changePassword: changePasswordForm);
-  //   return Right(user);
-  // }
+  @override
+  Future<Either<Error, UserDomain>> changePassword(
+      {required ChangePasswordForm changePasswordForm}) async {
+    UserDomain user =
+        await authApi.changePassword(changePasswordForm: changePasswordForm);
+    return Right(user);
+  }
 }

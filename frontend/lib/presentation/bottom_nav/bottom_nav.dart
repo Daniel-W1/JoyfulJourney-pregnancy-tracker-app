@@ -57,6 +57,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   //    selectedColor: theme.colorScheme.onSecondary,
                 ),
                 SalomonBottomBarItem(
+                  selectedColor: theme.colorScheme.onPrimary,
                   icon: Image.asset(
                     Assets.assetsImagesMore,
                     height: 19,

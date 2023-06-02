@@ -22,8 +22,6 @@ class LoginBody extends StatelessWidget {
             child: SingleChildScrollView(
           child: Column(
             children: [
-              // appbar
-              const AppBar(),
 
               const LoginFormWidget(),
               Row(

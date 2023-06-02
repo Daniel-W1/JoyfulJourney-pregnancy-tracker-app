@@ -29,7 +29,7 @@ class ProfileApi {
 
   Future<ProfileDto> getProfile(String profileId) async {
     try {
-      var response = await _customHttpClient.get("profile/$profileId").timeout(jjTimeout);
+      var response = await _customHttpClient.get("profile/$profileId");
 
       if (response.statusCode == 200) {
         return ProfileDto.fromJson(json.decode(response.body));

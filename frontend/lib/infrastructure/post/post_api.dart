@@ -56,7 +56,7 @@ class PostAPI {
 
   Future<List<PostDto>> getPosts() async {
     try {
-      var posts = await jjHttpClient.get("post").timeout(jjTimeout);
+      var posts = await jjHttpClient.get("post");
 
       if (posts.statusCode == 201) {
         return (jsonDecode(posts.body) as List)

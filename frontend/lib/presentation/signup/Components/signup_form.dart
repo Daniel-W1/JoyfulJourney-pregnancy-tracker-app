@@ -40,7 +40,13 @@ class _SignUpFormState extends State<SignUpForm> {
       child: BlocListener<SignupBloc, SignupState>(
         listener: (context, state) {
           if (state is SignupSuccess) {
-            GoRouter.of(context).go('/');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Sign up successful"),
+                backgroundColor: Colors.green,
+              ),
+            );
+            Navigator.of(context).pop();
           } else if (state is SignUpFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -53,7 +59,7 @@ class _SignUpFormState extends State<SignUpForm> {
         child: Form(
           child: Column(
             children: [
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -70,16 +76,15 @@ class _SignUpFormState extends State<SignUpForm> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Name",
+                    "Username",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
               CustomTextFormField(
-                key: const ValueKey('name'),
                 controller: _nameController,
                 keyboardType: TextInputType.text,
-                hint: 'write your name',
+                hint: 'Choose your username',
                 validator: (String? value) {
                   // write your own validation here please
                   return null;
@@ -91,16 +96,15 @@ class _SignUpFormState extends State<SignUpForm> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Username",
+                    "Email",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
               CustomTextFormField(
-                key: const ValueKey('email'),
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                hint: 'create your username',
+                hint: 'Enter your email',
                 validator: (String? value) {
                   // write your own validation here please
                   return null;
@@ -118,7 +122,6 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               CustomTextFormField(
-                key: const ValueKey('phoneNumber'),
                 controller: _phoneNumberController,
                 keyboardType: TextInputType.phone,
                 hint: 'write your phone number',
@@ -139,7 +142,6 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               CustomTextFormField(
-                key: const ValueKey('password'),
                 controller: _passwordController,
                 hint: 'write your password',
                 validator: (String? value) {

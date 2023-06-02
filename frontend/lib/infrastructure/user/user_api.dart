@@ -2,19 +2,29 @@ import 'dart:convert';
 
 import 'package:frontend/domain/auth/user_domain.dart';
 import 'package:frontend/infrastructure/auth/user_dto.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
 
 class UserAPI {
+  SharedPreferenceService sharedPreferenceService = SharedPreferenceService();
+
   JJHttpClient jjHttpClient = JJHttpClient();
 
-  Future<void> deleteUser(String id) async {
-    var response = await jjHttpClient.delete("user/$id");
+  Future<void> deleteUser() async {
+    var user = await sharedPreferenceService.getAuthenticatedUser();
+    try {
+      print(user!.id);
+      String? userId = user!.id;
+      var response = await jjHttpClient.delete("user/$userId");
 
-    if (response.statusCode != 204) {
-      throw JJHttpException(
-          json.decode(response.body)['message'] ?? "Unknown error",
-          response.statusCode);
+      if (response.statusCode != 204) {
+        throw JJHttpException(
+            json.decode(response.body)['message'] ?? "Unknown error",
+            response.statusCode);
+      }
+    } catch (e) {
+      throw Exception('No loggedin user');
     }
   }
 
@@ -33,7 +43,8 @@ class UserAPI {
   }
 
   Future<UserDto> setUserRole(UserDomain user) async {
-    var response = await jjHttpClient.put("user/role/${user.id}", body: user.toJson());
+    var response =
+        await jjHttpClient.put("user/role/${user.id}", body: user.toJson());
 
     if (response.statusCode == 201) {
       return UserDto.fromJson(jsonDecode(response.body));
@@ -42,5 +53,5 @@ class UserAPI {
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);
     }
-  }  
+  }
 }

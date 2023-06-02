@@ -4,9 +4,14 @@ import 'package:frontend/domain/auth/user_domain.dart';
 import 'package:frontend/domain/user/user_repository_interface.dart';
 import 'package:frontend/infrastructure/user/user_api.dart';
 import 'package:frontend/infrastructure/auth/user_dto.dart';
+import 'package:frontend/local_data/database/jj_database_helper.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 
 class UserRepository implements UserRepositoryInterface {
   final UserAPI userApi;
+  final SharedPreferenceService sharedPreferenceService =
+      SharedPreferenceService();
+  final DatabaseHelper databaseHelper = DatabaseHelper.instance;
 
   UserRepository(this.userApi);
 
@@ -23,9 +28,15 @@ class UserRepository implements UserRepositoryInterface {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> deleteUser(String userId) async {
+  Future<Either<AuthFailure, Unit>> deleteUser() async {
     try {
-      await userApi.deleteUser(userId);
+      await userApi.deleteUser();
+
+      await sharedPreferenceService.removeAccessToken();
+      await sharedPreferenceService.removeAuthenticatedUser();
+      await sharedPreferenceService.removeProfileId();
+      await databaseHelper.removeAll();
+
       return right(unit);
     } catch (e) {
       return left(AuthFailure.serverError());

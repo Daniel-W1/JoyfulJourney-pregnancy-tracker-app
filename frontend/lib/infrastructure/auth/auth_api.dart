@@ -3,14 +3,18 @@ import 'dart:convert';
 import 'package:frontend/infrastructure/auth/login_response_dto.dart';
 import 'package:frontend/infrastructure/auth/signup_form_dto.dart';
 import 'package:frontend/infrastructure/auth/user_dto.dart';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
+
+import '../../domain/auth/change_password_form.dart';
 
 class AuthApi {
   static const String _loginUrl = "auth/login";
   static const String _signupUrl = "auth/signup";
 
   JJHttpClient _httpClient = JJHttpClient();
+  SharedPreferenceService sharedPreferenceService = SharedPreferenceService();
 
   AuthApi();
 
@@ -52,20 +56,23 @@ class AuthApi {
   }
 
   // change password
-  // Future<void> changePassword(ChangePasswordForm changePasswordForm) async {
-  //   var body = jsonEncode({
-  //     'currentPassword': changePasswordForm.currentPassword.value,
-  //     'newPassword': changePasswordForm.newPassword.value,
-  //   });
-  //   var response =
-  //       await _httpClient.patch("profile/change-password", body: body);
+  Future<dynamic> changePassword(
+      {required ChangePasswordForm changePasswordForm}) async {
+    var user = await sharedPreferenceService.getAuthenticatedUser();
+    var username = user!.username;
+    var body = jsonEncode({
+      'username': username,
+      'currentPassword': changePasswordForm.currentPassword,
+      'newPassword': changePasswordForm.newPassword,
+    });
+    var response = await _httpClient.patch("auth/change-password", body: body);
 
-  //   if (response.statusCode == 200) {
-  //     return;
-  //   } else {
-  //     throw QHttpException(
-  //         json.decode(response.body)['message'] ?? "Unknown error",
-  //         response.statusCode);
-  //   }
-  // }
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return;
+    } else {
+      throw JJHttpException(
+          json.decode(response.body)['message'] ?? "Unknown error",
+          response.statusCode);
+    }
+  }
 }

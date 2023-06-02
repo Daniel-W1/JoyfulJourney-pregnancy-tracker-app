@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:frontend/local_data/shared_preferences/jj_shared_preferences_service.dart';
 import 'package:http/http.dart' as http;
 
 // Custom HTTP client to streamline the HTTP requests.
@@ -6,6 +7,9 @@ class JJHttpClient {
   static String baseUrl = "http://10.0.2.2:3000/";
 
   final http.Client _httpClient = http.Client();
+  final SharedPreferenceService sharedPreferenceService =
+      SharedPreferenceService();
+
   String? _authToken;
 
   JJHttpClient();
@@ -16,6 +20,7 @@ class JJHttpClient {
 
   Future<http.Response> get(String url,
       {Map<String, String> headers = const {}}) async {
+    _authToken = await sharedPreferenceService.getAccessToken();
     Map<String, String> headersWithContentTypeAndAuth = {
       ...headers,
       if (_authToken != null) 'Authorization': 'Bearer $_authToken'
@@ -31,6 +36,7 @@ class JJHttpClient {
       {Map<String, String> headers = const <String, String>{},
       Object? body,
       String contentType = "application/json"}) async {
+    _authToken = await sharedPreferenceService.getAccessToken();
     Map<String, String> headersWithContentTypeAndAuth = {
       ...headers,
       'Content-Type': contentType,
@@ -49,6 +55,7 @@ class JJHttpClient {
       {Map<String, String> headers = const {},
       Object? body,
       String contentType = "application/json"}) async {
+    _authToken = await sharedPreferenceService.getAccessToken();
     Map<String, String> headersWithContentTypeAndAuth = {
       ...headers,
       'Content-Type': contentType,
@@ -66,6 +73,7 @@ class JJHttpClient {
       {Map<String, String> headers = const {},
       Object? body,
       String contentType = "application/json"}) async {
+    _authToken = await sharedPreferenceService.getAccessToken();
     Map<String, String> headersWithContentTypeAndAuth = {
       ...headers,
       'Content-Type': contentType,
@@ -83,6 +91,7 @@ class JJHttpClient {
       {Map<String, String> headers = const {},
       Object? body,
       String contentType = "application/json"}) async {
+    _authToken = await sharedPreferenceService.getAccessToken();
     Map<String, String> headersWithContentTypeAndAuth = {
       ...headers,
       'Content-Type': contentType,
@@ -103,6 +112,7 @@ class JJHttpClient {
     Map<String, dynamic> body = const {},
     Map<String, File> files = const {},
   }) async {
+    _authToken = await sharedPreferenceService.getAccessToken();
     Map<String, String> headersWithContentTypeAndAuth = {
       ...headers,
       'Content-Type': "multipart/form-data",

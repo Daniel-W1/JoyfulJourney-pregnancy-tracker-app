@@ -27,7 +27,7 @@ class _NotesPageState extends State<NotesPage> {
       preferredSize: Size(size.width, 80),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

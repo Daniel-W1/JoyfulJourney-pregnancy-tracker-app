@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/constants/assets.dart';
 
@@ -13,7 +14,7 @@ class LandingAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 240,
+      height: 230,
       child: Stack(
         children: [
           Container(
@@ -28,34 +29,23 @@ class LandingAppBar extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      icon: const Icon(Icons.menu),
-                      color: Colors.white,
-                      onPressed: () {},
-                    ),
                   ),
+                  SizedBox(height: 10,),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     alignment: Alignment.centerRight,
-                    child: const Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundImage:
-                              AssetImage(Assets.assetsImagesWomanProfile),
-                        ),
-                        Text(
-                          "Welcome to the...,",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Text(
-                          "Dianna",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
+                        GestureDetector(
+                          onTap: () => GoRouter.of(context).go('/profile'),
+                          child: const CircleAvatar(
+                            radius: 30,
+                            backgroundImage:
+                                AssetImage(Assets.assetsImagesFancyBack),
                           ),
-                        )
+                        ),
+                        
                       ],
                     ),
                   )

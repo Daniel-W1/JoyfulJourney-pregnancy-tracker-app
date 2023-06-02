@@ -13,7 +13,7 @@ abstract class AuthRepositoryInterface {
 
   Future<void> logout();
 
-  // Future<dynamic> changePassword(
-  //     {required ChangePasswordForm changePasswordForm});
+  Future<dynamic> changePassword(
+      {required ChangePasswordForm changePasswordForm});
 
 }

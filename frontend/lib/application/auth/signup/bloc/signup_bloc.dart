@@ -18,9 +18,13 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           (failure) => emit(SignupState.failure(failure)),
           (user) => emit(SignupState.success(user)),
         );
-        // } else if (event is SignupEventChangePassword) {
-        //   emit(const SignupLoading());
-        //     await authRepositoryInterface.changePassword();
+        } else if (event is SignupEventChangePassword) {
+          emit(const SignupLoading());
+           final result = await authRepositoryInterface.changePassword(changePasswordForm: event.changePasswordForm);
+            result.fold(
+          (failure) => emit(SignupState.failure(failure)),
+          (r) => emit(SignupState.success(r)),
+        );
       }
     });
   }

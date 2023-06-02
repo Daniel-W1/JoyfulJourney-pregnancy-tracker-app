@@ -123,11 +123,7 @@ class PostsAppBar extends StatelessWidget {
           child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.arrow_back_ios),
-            color: Colors.white,
-          ),
+          SizedBox(width: 10,),
           const Text(
             "Posts",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

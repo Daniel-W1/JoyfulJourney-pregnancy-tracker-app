@@ -22,13 +22,13 @@ class PostRepository implements PostRepositoryInterface {
       await databaseHelper.addPosts(posts);
 
       return Right(posts.map((e) => PostDomain.fromJson(e.toJson())).toList());
-    } on JJTimeoutException catch (timeout) {
-      var posts = await databaseHelper.getPosts();
-      if (posts.isEmpty) {
-        return left(PostFailure.serverError());
-      } else {
-        return right(posts);
-      }
+    // } on JJTimeoutException catch (timeout) {
+    //   var posts = await databaseHelper.getPosts();
+    //   if (posts.isEmpty) {
+    //     return left(PostFailure.serverError());
+    //   } else {
+    //     return right(posts);
+    //   }
     } catch (e) {
       print("Error: $e");
       return left(PostFailure.serverError());

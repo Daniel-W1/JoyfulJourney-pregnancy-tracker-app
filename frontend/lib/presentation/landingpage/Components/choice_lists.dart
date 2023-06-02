@@ -22,13 +22,13 @@ class ChoiceLists extends StatelessWidget {
               },
               text: 'TIPS',
             ),
-            const SizedBox(width: 4),
+            const SizedBox(width: 10),
             LandingChoiceCard(
               imagePath: Assets.assetsImagesAppointmentImage,
               onPressed: () {
                 GoRouter.of(context).go('/appointments');
               },
-              text: 'Appointment',
+              text: 'APPOINTMENTS',
             ),
           ],
         ),
@@ -38,10 +38,13 @@ class ChoiceLists extends StatelessWidget {
           children: [
             LandingChoiceCard(
               imagePath: Assets.assetsImagesCalendarImage,
-              onPressed: () {},
+
+              onPressed: () {
+                GoRouter.of(context).go('/calendar');
+              },
               text: 'CALENDAR',
             ),
-            const SizedBox(width: 4),
+            const SizedBox(width: 10),
             LandingChoiceCard(
               imagePath: Assets.assetsImagesSymptomsImage,
               onPressed: () {
@@ -74,7 +77,7 @@ class LandingChoiceCard extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: size.height / 3,
+        height: size.height / 4,
         width: size.width / 2.1,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),

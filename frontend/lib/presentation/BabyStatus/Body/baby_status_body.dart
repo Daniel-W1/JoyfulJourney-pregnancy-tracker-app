@@ -137,7 +137,7 @@ class AppBar extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: IconButton(
         onPressed: () {
-          context.pop();
+          GoRouter.of(context).go('/landingpage');
         },
         icon: const Icon(Icons.arrow_back),
       ),

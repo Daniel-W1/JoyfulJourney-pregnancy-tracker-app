@@ -33,16 +33,16 @@ class ProfileRepository implements ProfileRepositoryInterface {
       String userId) async {
     try {
       var profile = await profileApi.getProfile(userId);
-      await databaseHelper.addProfiles([profile]);
+      // await databaseHelper.addProfiles([profile]);
       return right(profile.toProfile());
-    } on JJTimeoutException catch (timeout) {
-      print("Timeout: $timeout");
-      var profile = await databaseHelper.getProfile(userId);
-      if (profile == null) {
-        return left(ProfileFailure.serverError());
-      } else {
-        return right(profile);
-      }
+      // } on JJTimeoutException catch (timeout) {
+      //   print("Timeout: $timeout");
+      //   var profile = await databaseHelper.getProfile(userId);
+      //   if (profile == null) {
+      //     return left(ProfileFailure.serverError());
+      //   } else {
+      //     return right(profile);
+      //   }
     } catch (e) {
       return left(ProfileFailure.serverError());
     }

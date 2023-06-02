@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/landingpage/landing_page.dart';
+import 'package:frontend/presentation/others/others_page.dart';
 import 'package:frontend/presentation/posts/posts_page.dart';
 
 part 'page_provider_event.dart';
@@ -29,7 +30,7 @@ class PageProviderBloc extends Bloc<PageProviderEvent, PageProviderState> {
         emit(SelectedPage(const PostsPage(), currentIndex));
         break;
       case 2:
-        emit(SelectedPage(const Text(""), currentIndex));
+        emit(SelectedPage(OthersPage(), currentIndex));
         break;
 
       default:
