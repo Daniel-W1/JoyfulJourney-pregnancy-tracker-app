@@ -40,6 +40,7 @@ class _BookTextFieldButtonState extends State<BookTextFieldButton> {
     final NoteBloc noteBloc = BlocProvider.of<NoteBloc>(context);
 
     return SingleChildScrollView(
+
       child: BlocListener<NoteBloc, NoteState>(
         listener: (context, state) {
          if (state is NoteStateSuccess) {
