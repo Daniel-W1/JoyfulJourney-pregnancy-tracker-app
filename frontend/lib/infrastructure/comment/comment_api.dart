@@ -100,8 +100,9 @@ class CommentAPI {
 
   Future<List<CommentDto>> getCommentsByPost(String postId) async {
     var comments = await _customHttpClient.get("comments/post/$postId");
-
-    if (comments.statusCode == 201) {
+    print('comment api called');
+    print(comments.statusCode);
+    if (comments.statusCode == 200) {
       return (jsonDecode(comments.body) as List)
           .map((e) => CommentDto.fromJson(e))
           .toList();

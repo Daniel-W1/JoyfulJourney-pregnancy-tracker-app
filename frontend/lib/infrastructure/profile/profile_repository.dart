@@ -26,6 +26,7 @@ class ProfileRepository implements ProfileRepositoryInterface {
   Future<Either<ProfileFailure, ProfileDomain>> getProfile(String userId) async {
     try {
       var profile = await profileApi.getProfile(userId);
+      print(profile);
       return right(profile.toProfile());
     } catch (e) {
       return left(ProfileFailure.serverError());
