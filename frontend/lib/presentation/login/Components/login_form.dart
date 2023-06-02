@@ -31,6 +31,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       }
     });
   }
+
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -81,6 +82,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 ),
               ),
               CustomTextFormField(
+                key: const Key('loginForm_usernameField'),
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 hint: 'write your username',
@@ -90,7 +92,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 },
               ),
               SizedBox(height: 20),
-              Padding(
+              const Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
@@ -101,6 +103,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 ),
               ),
               CustomTextFormField(
+                key: const Key('loginForm_passwordField'),
                 controller: _passwordController,
                 obsecure: true,
                 keyboardType: TextInputType.text,

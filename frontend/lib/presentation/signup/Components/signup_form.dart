@@ -53,7 +53,7 @@ class _SignUpFormState extends State<SignUpForm> {
         child: Form(
           child: Column(
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -76,6 +76,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               CustomTextFormField(
+                key: const ValueKey('name'),
                 controller: _nameController,
                 keyboardType: TextInputType.text,
                 hint: 'write your name',
@@ -96,6 +97,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               CustomTextFormField(
+                key: const ValueKey('email'),
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 hint: 'create your username',
@@ -116,6 +118,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               CustomTextFormField(
+                key: const ValueKey('phoneNumber'),
                 controller: _phoneNumberController,
                 keyboardType: TextInputType.phone,
                 hint: 'write your phone number',
@@ -136,6 +139,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
               ),
               CustomTextFormField(
+                key: const ValueKey('password'),
                 controller: _passwordController,
                 hint: 'write your password',
                 validator: (String? value) {
