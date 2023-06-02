@@ -58,6 +58,7 @@ class CommentAPI {
   Future<List<CommentDto>> getComments() async {
     var comments = await _customHttpClient.get("comments");
 
+    print(comments.statusCode);
     if (comments.statusCode == 201) {
       return (jsonDecode(comments.body) as List)
           .map((e) => CommentDto.fromJson(e))
@@ -89,7 +90,7 @@ class CommentAPI {
           .get("comments/user/$author")
           .timeout(jjTimeout);
 
-      if (comments.statusCode == 201) {
+      if (comments.statusCode == 200) {
         return (jsonDecode(comments.body) as List)
             .map((e) => CommentDto.fromJson(e))
             .toList();

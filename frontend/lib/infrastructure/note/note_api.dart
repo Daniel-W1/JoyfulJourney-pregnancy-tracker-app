@@ -9,18 +9,21 @@ import 'note_form_dto.dart';
 
 class NoteAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
-  SharedPreferenceService _sharedPreferenceService = SharedPreferenceService();
+  // SharedPreferenceService _sharedPreferenceService = SharedPreferenceService();
 
   Future<NoteDto> createNote(NoteFormDto noteFormDto) async {
-    String author = await _sharedPreferenceService.getProfileId() ?? "";
+    // String author = await _sharedPreferenceService.getProfileId() ?? "";
 
-    if (author == "") {
-      throw JJHttpException("Not Logged In", 404);
-    }
+    // if (author == "") {
+    //   throw JJHttpException("Not Logged In", 404);
+    // }
 
+    print(json.encode(noteFormDto..toAuthoredDto('6474824cebecd37a7abd4cb3')));
     var note = await _customHttpClient.post("notes",
-        body: json.encode(noteFormDto..toAuthoredDto(author).toJson()));
+        body: json.encode(
+            noteFormDto.toAuthoredDto('6474824cebecd37a7abd4cb3').toJson()));
 
+    print(note.statusCode);
     if (note.statusCode == 201) {
       return NoteDto.fromJson(jsonDecode(note.body));
     } else {
@@ -34,7 +37,8 @@ class NoteAPI {
     var updatedNote = await _customHttpClient.put("notes/$noteId",
         body: json.encode(noteFormDto.toJson()));
 
-    if (updatedNote.statusCode == 201) {
+    print(updatedNote.statusCode);
+    if (updatedNote.statusCode == 200) {
       return NoteDto.fromJson(jsonDecode(updatedNote.body));
     } else {
       throw JJHttpException(
@@ -46,7 +50,7 @@ class NoteAPI {
   Future<void> deleteNote(String noteId) async {
     var response = await _customHttpClient.delete("notes/$noteId");
 
-    if (response.statusCode != 204) {
+    if (response.statusCode != 200) {
       throw JJHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);

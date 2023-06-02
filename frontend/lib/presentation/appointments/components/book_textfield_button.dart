@@ -4,7 +4,18 @@ import 'package:frontend/application/appointment/bloc/appointment_bloc.dart';
 import 'package:frontend/application/appointment/bloc/appointment_event.dart';
 import 'package:frontend/domain/appointment/appointment.dart';
 
-import '../../../../../../core/utils/hex_color.dart';
+import '../../core/utils/hex_color.dart';
+
+String _formatTime(TimeOfDay time) {
+  final hour = time.hour.toString().padLeft(2, '0');
+  final minute = time.minute.toString().padLeft(2, '0');
+  return '$hour:$minute';
+}
+
+var time = TimeOfDay.now();
+var date = DateTime.now();
+final formattedDate = '${date.day}/${date.month}/${date.year}';
+final formattedTime = _formatTime(time);
 
 class BookTextFieldButton extends StatefulWidget {
   final String selectedDate;
@@ -38,48 +49,65 @@ class _BookTextFieldButtonState extends State<BookTextFieldButton> {
   @override
   Widget build(BuildContext context) {
     final appointmentBloc = BlocProvider.of<AppointmentBloc>(context);
-
-    return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: HexColor("#DDDDDD"),
-      ),
-      height: 60,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+    return SingleChildScrollView(
+      child: Column(
         children: [
-          Expanded(
-            child: TextField(
-              controller: _bodyController,
-              decoration: InputDecoration(
-                disabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
+          Container(
+            height: 250,
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: HexColor("#DDDDDD"),
+            ),
+            child: Expanded(
+              child: TextField(
+                controller: _bodyController,
+                decoration: const InputDecoration(
+                  disabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                ),
               ),
             ),
           ),
-          IconButton(
-            onPressed: () {
-              // Get the appointment title and body from the TextField
-              final appointmentTitle = "Appointment";
-              final appointmentBody = _bodyController.text;
+          Container(
+            width: 150,
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color.fromARGB(255, 228, 194, 206),
+            ),
+            child: IconButton(
+              // increase the size of the button
 
-              AppointmentForm appointmentForm = AppointmentForm(
-                title: appointmentTitle,
-                body: appointmentBody,
-                date: widget.selectedDate,
-                time: widget.selectedTime,
-              );
+              onPressed: () {
+                // Get the appointment title and body from the TextField
+                final appointmentTitle = "Appointment";
+                final appointmentBody = _bodyController.text;
 
-              appointmentBloc.add(
-                AppointmentEventAdd(appointmentForm),
-              );
+                AppointmentForm appointmentForm = AppointmentForm(
+                  title: appointmentTitle,
+                  body: appointmentBody,
+                  date: widget.selectedDate != ""
+                      ? widget.selectedDate
+                      : formattedDate,
+                  time: widget.selectedTime != ""
+                      ? widget.selectedTime
+                      : formattedTime,
+                );
 
-              // Access appointmentBloc here and perform necessary operations
-            },
-            icon: const Icon(Icons.send),
+                print(appointmentForm.body);
+                print(appointmentForm.date);
+
+                appointmentBloc.add(
+                  AppointmentEventAdd(appointmentForm),
+                );
+
+                // Access appointmentBloc here and perform necessary operations
+              },
+              icon: const Icon(Icons.send),
+            ),
           ),
         ],
       ),

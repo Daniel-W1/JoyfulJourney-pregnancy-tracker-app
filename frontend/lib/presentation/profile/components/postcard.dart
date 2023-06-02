@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PostCard extends StatelessWidget {
-  final String title;
-  final String datePosted;
+  final String author;
   final String description;
   final int likeCount;
   final int commentCount;
@@ -10,8 +9,7 @@ class PostCard extends StatelessWidget {
 
   const PostCard({
     Key? key,
-    required this.title,
-    required this.datePosted,
+    required this.author,
     required this.description,
     required this.likeCount,
     required this.commentCount,
@@ -38,30 +36,19 @@ class PostCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   // Customize the avatar based on your requirements
-                  backgroundColor: Colors.blue,
+                  // create a background image
+                  backgroundImage: NetworkImage(imageUrl),
                   radius: 20,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                  ),
                 ),
                 SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      author,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      datePosted,
-                      style: TextStyle(
-                        color: Colors.grey,
                       ),
                       textAlign: TextAlign.left,
                     ),

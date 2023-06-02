@@ -41,7 +41,9 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
     try {
       var appointment =
           await appointmentAPI.createAppointment(appointmentForm.toDto());
+
       await databaseHelper.addAppointments([appointment]);
+
       return right(AppointmentDomain.fromJson(appointment.toJson()));
     } catch (e) {
       return left(AppointmentFailure.serverError());
@@ -52,8 +54,10 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
   Future<Either<AppointmentFailure, AppointmentDomain>> updateAppointment(
       AppointmentForm appointmentForm, String appointmentId) async {
     try {
+      print('app repo $appointmentForm');
       var AppointmentDomainDto = await appointmentAPI.updateAppointment(
           appointmentForm.toDto(), appointmentId);
+
       await databaseHelper
           .updateAppointment(AppointmentDomainDto.toAppointmentEntity());
       return right(AppointmentDomain.fromJson(AppointmentDomainDto.toJson()));

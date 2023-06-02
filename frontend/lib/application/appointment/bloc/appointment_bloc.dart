@@ -19,6 +19,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           await appointmentRepositoryInterface
               .addAppointment(event.appointmentForm);
 
+      print('bloc here');
+      print(result);
       result.fold((l) => emit(AppointmentStateFailure(l)),
           (r) => emit(AppointmentStateSuccess(r)));
     });
@@ -29,6 +31,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
       Either<AppointmentFailure, AppointmentDomain> result =
           await appointmentRepositoryInterface.updateAppointment(
               event.appointmentForm, event.appointmentId);
+
+      print('here bloc updating');
 
       result.fold((l) => emit(AppointmentStateFailure(l)),
           (r) => emit(AppointmentStateSuccess(r)));

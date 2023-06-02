@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/utils/hex_color.dart';
+import '../../core/utils/hex_color.dart';
 
 class DayDateItem extends StatelessWidget {
   const DayDateItem({

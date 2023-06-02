@@ -17,7 +17,7 @@ class AppointmentDomain {
 
   factory AppointmentDomain.fromJson(Map<String, dynamic> json) {
     return AppointmentDomain(
-      id: json['_id'] as String,
+      id: json['id'] as String,
       title: json['title'] as String,
       body: json['body'] as String,
       date: json['date'] as String,
