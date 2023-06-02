@@ -22,6 +22,12 @@ export class AuthController {
     return await this.authService.signup(body);
   }
 
+  @Patch('change-password')
+  @UseGuards(AuthGuard('jwt'))
+  async changePassword(@Body() body) {
+    return await this.authService.changePassword(body);
+  }
+
   @Post('logout')
   async logout(@Body() body) {
     return await this.authService.logout();

@@ -51,6 +51,17 @@ export class AuthService {
     return { user, ...token };
   }
 
+  async changePassword(body) {
+    const { username, oldPassword, newPassword } = body;
+    const user = await this.userService.findOneByUsername(username);
+    
+    if (user.password !== oldPassword) {
+      throw new ForbiddenException('Access Denied');
+    }
+    const update = { password: newPassword };
+    return await this.userService.update(user._id, update);
+  }
+
   async getToken(username: string, id: string, roles: Role[]) {
     const payload = { username, sub: id, roles: roles };
     const token = await this.jwtService.sign(payload, {
