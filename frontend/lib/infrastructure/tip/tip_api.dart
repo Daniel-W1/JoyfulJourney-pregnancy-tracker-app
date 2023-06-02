@@ -3,7 +3,7 @@ import 'package:frontend/infrastructure/tip/tip_dto.dart';
 import 'package:frontend/infrastructure/tip/tip_form_dto.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
-
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 class TipAPI {
   JJHttpClient _customHttpClient = JJHttpClient();
@@ -24,7 +24,7 @@ class TipAPI {
     var updatedTip = await _customHttpClient.put("tips/$id",
         body: json.encode(tipFormDto.toJson()));
 
-    if (updatedTip.statusCode == 201) {
+    if (updatedTip.statusCode == 200) {
       return TipDto.fromJson(jsonDecode(updatedTip.body));
     } else {
       throw JJHttpException(
@@ -35,8 +35,8 @@ class TipAPI {
 
   Future<void> deleteTip(String tipid) async {
     var response = await _customHttpClient.delete("tips/$tipid");
-
-    if (response.statusCode != 204) {
+    print("statusCode" + response.statusCode.toString());
+    if (response.statusCode != 200) {
       throw JJHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);
@@ -44,15 +44,20 @@ class TipAPI {
   }
 
   Future<List<TipDto>> getTips() async {
-    var tips = await _customHttpClient.get("tips");
+    try {
+      var tips = await _customHttpClient.get("tips").timeout(jjTimeout);
 
-    if (tips.statusCode == 201) {
-      return (jsonDecode(tips.body) as List)
-          .map((e) => TipDto.fromJson(e))
-          .toList();
-    } else {
-      throw JJHttpException(json.decode(tips.body)['message'] ?? "Unknown error",
-          tips.statusCode);
+      if (tips.statusCode == 200) {
+        return (jsonDecode(tips.body) as List)
+            .map((e) => TipDto.fromJson(e))
+            .toList();
+      } else {
+        throw JJHttpException(
+            json.decode(tips.body)['message'] ?? "Unknown error",
+            tips.statusCode);
+      }
+    } catch (e) {
+      throw JJTimeoutException();
     }
   }
 
@@ -70,15 +75,21 @@ class TipAPI {
   }
 
   Future<List<TipDto>> getTipsByType(String type) async {
-    var tips = await _customHttpClient.get("tips/bytype/$type");
+    try {
+      var tips =
+          await _customHttpClient.get("tips/bytype/$type").timeout(jjTimeout);
 
-    if (tips.statusCode == 201) {
-      return (jsonDecode(tips.body) as List)
-          .map((e) => TipDto.fromJson(e))
-          .toList();
-    } else {
-      throw JJHttpException(json.decode(tips.body)['message'] ?? "Unknown error",
-          tips.statusCode);
+      if (tips.statusCode == 200) {
+        return (jsonDecode(tips.body) as List)
+            .map((e) => TipDto.fromJson(e))
+            .toList();
+      } else {
+        throw JJHttpException(
+            json.decode(tips.body)['message'] ?? "Unknown error",
+            tips.statusCode);
+      }
+    } catch (e) {
+      throw JJTimeoutException();
     }
   }
 }
