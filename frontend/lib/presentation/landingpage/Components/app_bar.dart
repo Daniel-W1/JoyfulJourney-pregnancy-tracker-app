@@ -37,7 +37,7 @@ class LandingAppBar extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     alignment: Alignment.centerRight,
-                    child: const Column(
+                    child:  Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         CircleAvatar(
