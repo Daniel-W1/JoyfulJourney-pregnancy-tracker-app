@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'app_bar.dart';
 import 'choice_lists.dart';
 import 'cool_text.dart';

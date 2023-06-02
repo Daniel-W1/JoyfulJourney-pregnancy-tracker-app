@@ -11,6 +11,7 @@ class AppointmentFailure {
   factory AppointmentFailure.emptyDescriptionError() = EmptyDescriptionError;
   factory AppointmentFailure.emptyDateError() = EmptyDateError;
   factory AppointmentFailure.emptyTimeError() = EmptyTimeError;
+  factory AppointmentFailure.validationError(String message) = ValidationError;
 }
 
 class ServerError extends AppointmentFailure {
@@ -51,4 +52,10 @@ class EmptyDateError extends AppointmentFailure {
 
 class EmptyTimeError extends AppointmentFailure {
   const EmptyTimeError() : super._();
+}
+
+class ValidationError extends AppointmentFailure {
+  final String message;
+
+  const ValidationError(this.message) : super._();
 }
