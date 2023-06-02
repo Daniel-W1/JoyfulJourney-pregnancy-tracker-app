@@ -14,6 +14,8 @@ import 'package:frontend/infrastructure/note/note_repository.dart';
 import 'package:frontend/infrastructure/post/post_api.dart';
 import 'package:frontend/infrastructure/post/post_repository.dart';
 import 'package:frontend/presentation/core/Themes/light_theme.dart';
+import 'package:frontend/presentation/landingpage/landing_page.dart';
+import 'package:frontend/presentation/login/login_page.dart';
 import 'package:frontend/presentation/posts/posts_page.dart';
 // import 'package:frontend/infrastructure/profile/profile_api.dart';
 import 'package:frontend/infrastructure/profile/profile_repository.dart';
@@ -113,7 +115,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<ProfileBloc>.value(value: profileBloc),
         ],
         child: Scaffold(
-          body: PostsPage(),
+          body: LandingPage(),
         ),
       ),
     );

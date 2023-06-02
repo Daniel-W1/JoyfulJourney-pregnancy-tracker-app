@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/application/post/post_list/bloc/post_list_events.dart';
 import 'package:frontend/application/post/post_list/bloc/post_list_state.dart';
-import 'package:frontend/core/Themes/light_theme.dart';
+
 import 'package:frontend/domain/post/post.dart';
 import 'package:frontend/infrastructure/profile/profile_api.dart';
 import 'package:frontend/infrastructure/profile/profile_repository.dart';
