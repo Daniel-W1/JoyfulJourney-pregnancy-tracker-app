@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/presentation/core/constants/assets.dart';
 
 class ProfileWidget extends StatefulWidget {
-
   final String imagePath;
   final bool isEdit;
   final VoidCallback onClicked;
@@ -43,7 +41,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme.primary;
 
@@ -66,13 +63,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             ),
           ],
         ),
-
       ),
     );
   }
 
   Widget buildImage() {
-
     final image = _decodedImage;
     print(image);
 

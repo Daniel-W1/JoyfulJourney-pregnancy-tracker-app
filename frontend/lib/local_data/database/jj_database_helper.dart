@@ -113,7 +113,6 @@ class DatabaseHelper {
       ''');
   }
 
-
   // get all requests
   Future<List<PostDomain>> getPosts() async {
     final Database db = await database;
@@ -123,7 +122,7 @@ class DatabaseHelper {
         ? []
         : postsList.map((post) => PostEntity.fromSqlJson(post)).toList();
 
-    print('entity list');  
+    print('entity list');
     print(postEntityList);
 
     List<PostDomain> postDomainList = postEntityList.isEmpty
@@ -268,11 +267,12 @@ class DatabaseHelper {
 
     return tipDomainList;
   }
-  
+
   Future<ProfileDomain> getProfile(String id) async {
     final Database db = await database;
     final List<Map<String, dynamic>> profileList =
         await db.query("profile", where: "id = ?", whereArgs: [id]);
+
     ProfileEntity profileEntity = ProfileEntity.fromJson(profileList.first);
     return profileEntity.toProfileDomain();
   }

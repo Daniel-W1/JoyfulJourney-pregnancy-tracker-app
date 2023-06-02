@@ -16,9 +16,11 @@ class ProfileRepository implements ProfileRepositoryInterface {
   ProfileRepository(this.profileApi);
 
   @override
-  Future<Either<ProfileFailure, ProfileDomain>> updateProfile({required ProfileForm profileForm, required String profileId}) async {
+  Future<Either<ProfileFailure, ProfileDomain>> updateProfile(
+      {required ProfileForm profileForm, required String profileId}) async {
     try {
-      var profile = await profileApi.updateProfile(profileForm.toDto(), profileId);
+      var profile =
+          await profileApi.updateProfile(profileForm.toDto(), profileId);
       await databaseHelper.addProfiles([profile]);
       return right(profile.toProfile());
     } catch (e) {
@@ -27,12 +29,14 @@ class ProfileRepository implements ProfileRepositoryInterface {
   }
 
   @override
-  Future<Either<ProfileFailure, ProfileDomain>> getProfile(String userId) async {
+  Future<Either<ProfileFailure, ProfileDomain>> getProfile(
+      String userId) async {
     try {
       var profile = await profileApi.getProfile(userId);
       await databaseHelper.addProfiles([profile]);
       return right(profile.toProfile());
     } on JJTimeoutException catch (timeout) {
+      print("Timeout: $timeout");
       var profile = await databaseHelper.getProfile(userId);
       if (profile == null) {
         return left(ProfileFailure.serverError());
@@ -41,7 +45,6 @@ class ProfileRepository implements ProfileRepositoryInterface {
       }
     } catch (e) {
       return left(ProfileFailure.serverError());
-
     }
   }
 }

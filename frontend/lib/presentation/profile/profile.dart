@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage>
     fetchComments('64773ac7ba6d773eeec4120e');
     profileBloc
         .add(ProfileEventGetProfile(profileId: '64773ac7ba6d773eeec4120e'));
-
+  }
 
   Future<void> fetchPosts(String userId) async {
     print("fetching posts");
@@ -293,6 +293,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     return false;
   }
 }
+
 class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

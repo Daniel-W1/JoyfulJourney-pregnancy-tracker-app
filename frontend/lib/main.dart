@@ -19,6 +19,7 @@ import 'package:frontend/presentation/login/login_page.dart';
 import 'package:frontend/presentation/posts/posts_page.dart';
 // import 'package:frontend/infrastructure/profile/profile_api.dart';
 import 'package:frontend/infrastructure/profile/profile_repository.dart';
+import 'package:frontend/presentation/BabyStatus/baby_status_page.dart';
 import 'package:frontend/presentation/appointments/appointment_page.dart';
 import 'package:frontend/presentation/appointments/components/add_appointmentpage.dart';
 // import 'package:frontend/presentation/login/login_page.dart';
@@ -63,7 +64,6 @@ void main() {
   TipAPI tipApi = TipAPI();
   TipRepository tipRepository = TipRepository(tipApi);
   TipBloc tipBloc = TipBloc(tipRepositoryInterface: tipRepository);
-
 
   runApp(
     MultiBlocProvider(
@@ -115,9 +115,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<CommentBloc>.value(value: commentBloc),
           BlocProvider<ProfileBloc>.value(value: profileBloc),
         ],
-        child: Scaffold(
-          body: LandingPage(),
-        ),
+        child: ProfilePage(),
       ),
     );
   }

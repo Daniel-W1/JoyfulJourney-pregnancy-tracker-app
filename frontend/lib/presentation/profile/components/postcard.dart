@@ -9,7 +9,6 @@ import '../../../application/profile/bloc/profile_state.dart';
 import '../../core/constants/assets.dart';
 
 class PostCard extends StatefulWidget {
-
   final String author;
   final String description;
   final int likeCount;
@@ -136,7 +135,6 @@ class _PostCardState extends State<PostCard> {
           ),
         );
       },
-
     );
   }
 }

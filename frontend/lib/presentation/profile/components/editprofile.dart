@@ -22,7 +22,6 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-
   File? _image;
 
   Future<void> _pickImage(ImageSource source) async {
@@ -253,7 +252,6 @@ class _EditProfileState extends State<EditProfile> {
             return Center(child: Text('Failed to load profile'));
           }
         },
-
       ),
     );
   }
