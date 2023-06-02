@@ -17,8 +17,8 @@ class PostAPI {
     }
 
     var postDto = postFormDto.toAuthoredDto(author);
-    var post = await jjHttpClient.post("post",
-        body: json.encode(postDto.toJson()));
+    var post =
+        await jjHttpClient.post("post", body: json.encode(postDto.toJson()));
 
     print("API here, for create");
     print(post.statusCode);
@@ -86,9 +86,9 @@ class PostAPI {
   Future<List<PostDto>> getPostByUser(String author) async {
     var posts = await jjHttpClient.get("post/author/$author");
 
-    // print("API here");
-    // print(posts.statusCode);
-    // print(posts.body);
+    print("API here");
+    print(posts.statusCode);
+    print(posts.body);
 
     if (posts.statusCode == 200) {
       return (jsonDecode(posts.body) as List)

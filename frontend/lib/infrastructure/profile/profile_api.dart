@@ -8,11 +8,16 @@ import "package:frontend/util/jj_http_exception.dart";
 class ProfileApi {
   JJHttpClient _customHttpClient = JJHttpClient();
 
-  Future<ProfileDto> updateProfile(ProfileFormDto profileForm, String profileId) async {
+  Future<ProfileDto> updateProfile(
+      ProfileFormDto profileForm, String profileId) async {
     var updatedProfile = await _customHttpClient.put("profile/$profileId",
         body: json.encode(profileForm.toJson()));
 
-    if (updatedProfile.statusCode == 201) {
+    print(updatedProfile.body);
+    print(updatedProfile.statusCode);
+    print("--------------------------------");
+
+    if (updatedProfile.statusCode == 200) {
       return ProfileDto.fromJson(jsonDecode(updatedProfile.body));
     } else {
       throw JJHttpException(

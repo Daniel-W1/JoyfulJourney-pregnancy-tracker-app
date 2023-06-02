@@ -38,15 +38,17 @@ class PostRepository implements PostRepositoryInterface {
   Future<Either<PostFailure, List<PostDomain>>> getPostsForAuthor(
       String author) async {
     try {
-      var posts = await databaseHelper.getPostsByUser(author);
-
-      if (posts.isEmpty) {
+      // var posts = await databaseHelper.getPostsByUser(author);
+      print('repo here ----------------------------------');
+      if (true) {
         List<PostDto> postDto = await postApi.getPostByUser(author);
+        print(postDto);
         await databaseHelper.addPosts(postDto);
-        posts = await databaseHelper.getPostsByUser(author);
-      }
 
-      return Right(posts);
+        // posts = await databaseHelper.getPostsByUser(author);
+        return Right(
+            postDto.map((e) => PostDomain.fromJson(e.toJson())).toList());
+      }
     } catch (e) {
       return Left(PostFailure.serverError());
     }

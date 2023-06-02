@@ -30,6 +30,7 @@ class PostListBloc extends Bloc<PostListEvent, PostListState> {
       Either<PostFailure, List<PostDomain>> post =
           await postRepository.getPostsForAuthor(event.author);
 
+      print('getting posts for author ${event.author} $post');
       post.fold(
         (l) => emit(PostListStateFailure(postFailure: l)),
         (r) => emit(PostListStateSuccess(post: r)),
@@ -38,7 +39,7 @@ class PostListBloc extends Bloc<PostListEvent, PostListState> {
 
     on<PostListEventAddPost>((event, emit) async {
       emit(const PostListStateLoading());
-      
+
       // Add the new post to the repository
       Either<PostFailure, PostDomain> result =
           await postRepository.addPost(event.post);
@@ -47,7 +48,7 @@ class PostListBloc extends Bloc<PostListEvent, PostListState> {
         (l) => emit(PostListStateFailure(postFailure: l)),
         (_) => emit(const PostListStateAddSuccess()),
       );
-      
+
       // Refresh the post list
       add(const PostListEventRefresh());
     });

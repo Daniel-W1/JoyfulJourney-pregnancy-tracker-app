@@ -19,7 +19,7 @@ export class PostController {
 
     @Get('author/:author')
     findPostByAuthor(@Param('author') author: string) {
-        console.log("controller", author);
+        console.log("controller", author, "-----------------------------------s");
         
         return this.postService.findPostByAuthor(author);
     }

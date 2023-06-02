@@ -17,6 +17,7 @@ import 'package:frontend/presentation/appointments/appointment_page.dart';
 import 'package:frontend/presentation/appointments/components/add_appointmentpage.dart';
 import 'package:frontend/presentation/login/login_page.dart';
 import 'package:frontend/presentation/notes/symptoms/notes_page.dart';
+import 'package:frontend/presentation/profile/components/editprofile.dart';
 import 'package:frontend/presentation/profile/profile.dart';
 import 'package:frontend/presentation/signup/signup_page.dart';
 import 'package:frontend/presentation/tips/home_page.dart';
