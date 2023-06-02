@@ -112,25 +112,6 @@ class DatabaseHelper {
       ''');
   }
 
-  // Future<List<Question>> getQuestions() async {
-  //   final Database db = await database;
-  //   final List<Map<String, dynamic>> questionsList = await db.query("question");
-  //   List<QuestionEntity> questionEntityList = questionsList.isEmpty
-  //       ? []
-  //       : questionsList.map((e) => QuestionEntity.fromJson(e)).toList();
-  //   List<Question> finalResult = [];
-  //   for (QuestionEntity questionEntity in questionEntityList) {
-  //     final user = await getUser(questionEntity.authorId);
-  //     var tags = await db.query("tags",
-  //         where: "questionId = ?", whereArgs: [questionEntity.id]);
-  //     List<TagDto> tempTag = [];
-  //     for (var t in tags) {
-  //       tempTag.add(TagDto.fromJson(t));
-  //     }
-  //     finalResult.add(questionEntity.toQuestion(user.toUser(), tempTag));
-  //   }
-  //   return finalResult;
-  // }
 
   // get all requests
   Future<List<PostDomain>> getPosts() async {
@@ -176,8 +157,6 @@ class DatabaseHelper {
     
     return tipDomainList;
   }
-
-
 
   // get by id requests
   Future<List<AppointmentDomain>> getAppointmentsByUser(String author) async {
@@ -282,66 +261,7 @@ class DatabaseHelper {
 
     return tipDomainList;
   }
-
-  // Future<List<Question>> getQuestionsByAuthorId(int authorId) async {
-  //   final Database db = await database;
-  //   final List<Map<String, dynamic>> questionsList = await db
-  //       .query("question", where: "authorId = ?", whereArgs: [authorId]);
-  //   List<QuestionEntity> questionEntityList = questionsList.isEmpty
-  //       ? []
-  //       : questionsList.map((e) => QuestionEntity.fromJson(e)).toList();
-  //   List<Question> finalResult = [];
-  //   for (QuestionEntity questionEntity in questionEntityList) {
-  //     final user = await getUser(questionEntity.authorId);
-  //     var tags = await db.query("tags",
-  //         where: "questionId = ?", whereArgs: [questionEntity.id]);
-  //     List<TagDto> tempTag = [];
-  //     for (var t in tags) {
-  //       tempTag.add(TagDto.fromJson(t));
-  //     }
-  //     finalResult.add(questionEntity.toQuestion(user.toUser(), tempTag));
-  //   }
-  //   return finalResult;
-  // }
-
-  // get a single question
-  // Future<Question> getQuestion(int id) async {
-  //   final Database db = await database;
-  //   final List<Map<String, dynamic>> questionsList =
-  //       await db.query("question", where: "id = ?", whereArgs: [id]);
-  //   QuestionEntity questionEntity =
-  //       QuestionEntity.fromJson(questionsList.first);
-  //   final user = await getUser(questionEntity.authorId);
-  //   var tags = await db
-  //       .query("tags", where: "questionId = ?", whereArgs: [questionEntity.id]);
-  //   List<TagDto> tempTag = [];
-  //   for (var t in tags) {
-  //     tempTag.add(TagDto.fromJson(t));
-  //   }
-  //   return questionEntity.toQuestion(user.toUser(), tempTag);
-  // }
-
-  // // get answers to a question
-  // Future<List<AnswerEntity>> getAnswers(int questionId) async {
-  //   final Database db = await database;
-  //   final List<Map<String, dynamic>> answersList = await db
-  //       .query("answer", where: "questionId = ?", whereArgs: [questionId]);
-  //   List<AnswerEntity> answerEntityList = answersList.isEmpty
-  //       ? []
-  //       : answersList.map((e) => AnswerEntity.fromJson(e)).toList();
-  //   return answerEntityList;
-  // }
-
-  // // get a single answer
-  // Future<AnswerEntity> getAnswer(int answerId) async {
-  //   final Database db = await database;
-  //   final List<Map<String, dynamic>> answersList =
-  //       await db.query("answer", where: "id = ?", whereArgs: [answerId]);
-  //   AnswerEntity answerEntity = AnswerEntity.fromJson(answersList.first);
-  //   return answerEntity;
-  // }
-
-  // Profile
+  
   Future<ProfileDomain> getProfile(String id) async {
     final Database db = await database;
     final List<Map<String, dynamic>> profileList =
@@ -349,25 +269,6 @@ class DatabaseHelper {
     ProfileEntity profileEntity = ProfileEntity.fromJson(profileList.first);
     return profileEntity.toProfileDomain();
   }
-
-  // // get a single user
-  // Future<UserEntity> getUser(int id) async {
-  //   final Database db = await database;
-  //   final List<Map<String, dynamic>> usersList =
-  //       await db.query("user", where: "id = ?", whereArgs: [id]);
-  //   UserEntity userModel = UserEntity.fromJson(usersList.first);
-  //   return userModel;
-  // }
-
-  // Future<void> removeQuestion(int id) async {
-  //   final Database db = await database;
-  //   await db.delete("question", where: "id = ?", whereArgs: [id]);
-  // }
-
-  // Future<void> removeAnswer(int id) async {
-  //   final Database db = await database;
-  //   await db.delete("answer", where: "id = ?", whereArgs: [id]);
-  // }
 
   // remove requests
   Future<void> removeAppointment(String id) async {
@@ -411,45 +312,6 @@ class DatabaseHelper {
     batch.delete("tip");
     await batch.commit(noResult: true);
   }
-
-  // Future<void> addQuestions(List<QuestionDto> questionDtoList) async {
-  //   final Database db = await database;
-  //   await db.transaction((txn) async {
-  //     final batch = txn.batch();
-
-  //     for (var e in questionDtoList) {
-  //       batch.insert("question", e.toQuestionEntity().toJson(),
-  //           conflictAlgorithm: ConflictAlgorithm.replace);
-  //       batch.insert("user", e.author.toUserEntity().toJson(),
-  //           conflictAlgorithm: ConflictAlgorithm.replace);
-  //       for (var t in e.tags) {
-  //         Map<String, dynamic> tagMap = {
-  //           "questionId": e.id,
-  //           "tagId": t.id,
-  //           "name": t.name,
-  //         };
-  //         batch.insert("tags", tagMap,
-  //             conflictAlgorithm: ConflictAlgorithm.replace);
-  //       }
-  //     }
-  //     await batch.commit(noResult: true);
-  //   });
-  // }
-
-  // Future<void> addAnswers(List<AnswerDto> answerDtoList) async {
-  //   final Database db = await database;
-  //   await db.transaction((txn) async {
-  //     final batch = txn.batch();
-
-  //     for (var e in answerDtoList) {
-  //       batch.insert("answer", e.toAnswerEntity().toJson(),
-  //           conflictAlgorithm: ConflictAlgorithm.replace);
-  //       batch.insert("user", e.author.toUserEntity().toJson(),
-  //           conflictAlgorithm: ConflictAlgorithm.replace);
-  //     }
-  //     await batch.commit(noResult: true);
-  //   });
-  // }
 
   // add requests
   Future<void> addAppointments(List<AppointmentDto> appointmentDtoList) async {
