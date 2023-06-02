@@ -21,7 +21,6 @@ export class NotesController {
 
   @Get('user/:user_id')
   async findByUser(@Param('user_id') user_id: string) {
-    console.log(user_id, 'user_id');
     
     var res =  await this.notesService.findByUser(user_id);
     console.log(res, 'res');
