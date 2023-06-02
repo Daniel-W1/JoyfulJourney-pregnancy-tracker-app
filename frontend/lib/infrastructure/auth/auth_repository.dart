@@ -38,6 +38,7 @@ class AuthRepository implements AuthRepositoryInterface {
         username: loginForm.username,
         password: loginForm.password,
       );
+      print("response: $response");
       await sharedPreferences.setAccessToken(response.access_token);
       await sharedPreferences
           .setAuthenticatedUser(response.user.toUserDomain());

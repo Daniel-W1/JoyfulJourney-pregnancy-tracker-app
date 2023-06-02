@@ -3,6 +3,7 @@ import 'package:frontend/infrastructure/tip/tip_dto.dart';
 import 'package:frontend/infrastructure/tip/tip_form_dto.dart';
 import 'package:frontend/util/jj_http_client.dart';
 import 'package:frontend/util/jj_http_exception.dart';
+import 'package:frontend/util/jj_timeout_exception.dart';
 
 
 class TipAPI {
@@ -70,7 +71,15 @@ class TipAPI {
   }
 
   Future<List<TipDto>> getTipsByType(String type) async {
-    var tips = await _customHttpClient.get("tips/bytype/$type");
+    try{
+      const int timeoutDurationInSec = 5;
+      final timeoutFuture = Future.delayed(Duration(seconds: timeoutDurationInSec), () {
+        throw JJTimeoutException();
+      });
+
+      var timeout = Duration(seconds: timeoutDurationInSec);
+      var tips = await _customHttpClient.get("tips/bytype/$type").timeout(timeout);
+
 
     if (tips.statusCode == 200) {
       print("Yeah I did it, got 200");
@@ -81,9 +90,13 @@ class TipAPI {
       print(res);
       return res;
     } else {
+      throw JJTimeoutException();
       print("There has been an error" + tips.statusCode.toString());
       throw JJHttpException(json.decode(tips.body)['message'] ?? "Unknown error",
           tips.statusCode);
+    }
+    } catch (_) {
+      throw JJTimeoutException();
     }
   }
 }

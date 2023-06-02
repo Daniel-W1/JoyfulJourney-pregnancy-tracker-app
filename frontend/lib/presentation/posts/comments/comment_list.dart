@@ -4,6 +4,7 @@ import 'package:frontend/application/comment/bloc/comment_event.dart';
 import 'package:frontend/application/profile/bloc/profile_event.dart';
 import 'package:frontend/domain/comment/comment.dart';
 import 'package:frontend/infrastructure/profile/profile_api.dart';
+import 'package:frontend/presentation/core/Themes/light_theme.dart';
 
 import '../../../application/comment/bloc/comment_bloc.dart';
 import '../../../application/comment/bloc/comment_state.dart';
@@ -76,7 +77,7 @@ class CommentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    ThemeData theme = LightTheme().getThemeData;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
@@ -121,9 +122,24 @@ class CommentItem extends StatelessWidget {
                 ],
               );
               } else if (state is ProfileStateFailure) {
-                return Center(
-                  child: Text('Something went wrong'),
-                );
+                return Row(
+                        children: [
+                          Text(
+                            "Anonymous",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: theme.colorScheme.onSecondary),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "@anon",
+                            style: TextStyle(color: Colors.grey),
+                          )
+                        ],
+                      );
               } else if (state is ProfileStateLoading) {
                 return const Center(
                   child: CircularProgressIndicator(),
