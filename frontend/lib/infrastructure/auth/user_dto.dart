@@ -1,6 +1,6 @@
 class UserDto {
   final String? id;
-  final String username;
+  final String userName;
   final String password;
   final String email;
   final String profileId;
@@ -8,7 +8,7 @@ class UserDto {
 
   UserDto({
     this.id,
-    required this.username,
+    required this.userName,
     required this.password,
     required this.email,
     required this.profileId,
@@ -18,7 +18,7 @@ class UserDto {
   factory UserDto.fromJson(Map<String, dynamic> json) {
     return UserDto(
       id: json['_id'],
-      username: json['username'],
+      userName: json['userName'],
       password: json['password'],
       email: json['email'],
       profileId: json['profileId'],
@@ -29,7 +29,7 @@ class UserDto {
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
-      'username': username,
+      'userName': userName,
       'password': password,
       'email': email,
       'profileId': profileId,

@@ -4,6 +4,7 @@ import 'package:frontend/application/auth/login/bloc/login_bloc.dart';
 import 'package:frontend/application/auth/login/bloc/login_event.dart';
 import 'package:frontend/application/auth/signup/bloc/signup_bloc.dart';
 import 'package:frontend/application/auth/signup/bloc/signup_event.dart';
+import 'package:frontend/domain/auth/auth.dart';
 import 'package:frontend/infrastructure/user/user_api.dart';
 import 'package:frontend/infrastructure/user/user_repository.dart';
 import 'package:go_router/go_router.dart';
@@ -91,11 +92,24 @@ class _OthersBodyState extends State<OthersBody> {
                         child: const Text('Cancel'),
                       ),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           Navigator.of(context).pop();
                           UserRepository userRepository =
                               UserRepository(UserAPI());
-                          userRepository.deleteUser();
+                          var result = await userRepository.deleteUser();
+
+                          result.fold(
+                              (l) => ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(l.toString()),
+                                    backgroundColor: Colors.red,
+                                  )), (r) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Account deleted successfully"),
+                              backgroundColor: Colors.green,
+                            ));
+                            logout();
+                          });
                         },
                         child: const Text('Delete Account'),
                       ),

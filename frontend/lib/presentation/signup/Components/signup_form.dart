@@ -161,7 +161,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   // otherwise show an error message.
 
                   SignupForm signupForm = SignupForm(
-                    username: _nameController.text,
+                    userName: _nameController.text,
                     email: _emailController.text,
                     password: _passwordController.text,
                   );

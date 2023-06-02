@@ -5,7 +5,7 @@ extension UMapper on UserDto {
   UserDomain toUserDomain() {
     return UserDomain(
       id: id,
-      username: username,
+      userName: userName,
       password: password,
       email: email,
       profileId: profileId,
@@ -18,7 +18,7 @@ extension UDomain on UserDomain {
   UserDto toDto() {
     return UserDto(
       id: id,
-      username: username,
+      userName: userName,
       password: password,
       email: email,
       profileId: profileId,

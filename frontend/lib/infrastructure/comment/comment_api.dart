@@ -111,7 +111,7 @@ class CommentAPI {
           .get("comments/post/$postId")
           .timeout(jjTimeout);
 
-      if (comments.statusCode == 201) {
+      if (comments.statusCode == 200) {
         return (jsonDecode(comments.body) as List)
             .map((e) => CommentDto.fromJson(e))
             .toList();

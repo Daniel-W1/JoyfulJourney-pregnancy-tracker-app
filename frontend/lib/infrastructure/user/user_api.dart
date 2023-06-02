@@ -14,9 +14,8 @@ class UserAPI {
   Future<void> deleteUser() async {
     var user = await sharedPreferenceService.getAuthenticatedUser();
     try {
-      print(user!.id);
-      String? userId = user!.id;
-      var response = await jjHttpClient.delete("user/$userId");
+      String? userName = user?.userName;
+      var response = await jjHttpClient.delete("user/$userName");
 
       if (response.statusCode != 204) {
         throw JJHttpException(

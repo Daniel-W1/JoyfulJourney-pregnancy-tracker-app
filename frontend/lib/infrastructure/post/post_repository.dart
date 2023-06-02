@@ -19,7 +19,7 @@ class PostRepository implements PostRepositoryInterface {
   Future<Either<PostFailure, List<PostDomain>>> getPosts() async {
     try {
       List<PostDto> posts = await postApi.getPosts();
-      await databaseHelper.addPosts(posts);
+      // await databaseHelper.addPosts(posts);
 
       return Right(posts.map((e) => PostDomain.fromJson(e.toJson())).toList());
     // } on JJTimeoutException catch (timeout) {

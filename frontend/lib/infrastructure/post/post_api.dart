@@ -14,7 +14,6 @@ class PostAPI {
   Future<PostDto> createPost(PostFormDto postFormDto) async {
     String author = await sharedPreferences.getProfileId() ?? "";
     if (author == "") {
-      
       throw JJHttpException("Not Logged In", 404);
     }
 
@@ -32,9 +31,14 @@ class PostAPI {
   }
 
   Future<PostDto> updatePost(PostFormDto postFormDto, String postId) async {
+    String author = await sharedPreferences.getProfileId() ?? "";
+
+    if (author == "") {
+      throw JJHttpException("Not Logged In", 404);
+    }
+
     var updatedPost = await jjHttpClient.put("post/$postId",
-        body: json.encode(postFormDto.toJson()));
-    print(updatedPost.statusCode);
+        body: json.encode(postFormDto.toAuthoredDto(author).toJson()));
     if (updatedPost.statusCode == 200) {
       return PostDto.fromJson(jsonDecode(updatedPost.body));
     } else {
@@ -57,8 +61,10 @@ class PostAPI {
   Future<List<PostDto>> getPosts() async {
     try {
       var posts = await jjHttpClient.get("post");
+      print(posts.statusCode);
+      print(posts.body);
 
-      if (posts.statusCode == 201) {
+      if (posts.statusCode >= 200 && posts.statusCode < 300) {
         return (jsonDecode(posts.body) as List)
             .map((e) => PostDto.fromJson(e))
             .toList();
@@ -68,6 +74,7 @@ class PostAPI {
             posts.statusCode);
       }
     } catch (e) {
+      print(e);
       throw JJTimeoutException();
     }
   }

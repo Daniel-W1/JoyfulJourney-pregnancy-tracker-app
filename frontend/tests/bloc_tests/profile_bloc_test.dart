@@ -8,7 +8,8 @@ import 'package:frontend/application/profile/bloc/profile_state.dart';
 import 'package:frontend/domain/profile/profile.dart';
 import 'package:frontend/domain/profile/profile_repository_interface.dart';
 
-class MockProfileRepository extends Mock implements ProfileRepositoryInterface {}
+class MockProfileRepository extends Mock
+    implements ProfileRepositoryInterface {}
 
 void main() {
   group('ProfileBloc', () {
@@ -17,7 +18,8 @@ void main() {
 
     setUp(() {
       mockProfileRepository = MockProfileRepository();
-      profileBloc = ProfileBloc(profileRepositoryInterface: mockProfileRepository);
+      profileBloc =
+          ProfileBloc(profileRepositoryInterface: mockProfileRepository);
     });
 
     test('initial state should be ProfileStateInitial', () {
@@ -28,22 +30,20 @@ void main() {
       'emits loading and success states when getting profile is successful',
       () {
         // Set up the mock response for the repository call
-        when(mockProfileRepository.getProfile('profileId')).thenAnswer((_) async =>
-            Right(ProfileDomain(
-              id: 'profileId',
-              name: 'John Doe',
-              bio: '',
-              comments: [],
-              email: '',
-              firstName: '',
-              followers: [],
-              following: [],
-              lastName: '',
-              posts: [],
-              profilePicture: '',
-              socialMedia: [],
-              userName: '',
-            )));
+        when(mockProfileRepository.getProfile('profileId'))
+            .thenAnswer((_) async => Right(ProfileDomain(
+                  id: 'profileId',
+                  bio: '',
+                  comments: [],
+                  firstName: '',
+                  followers: [],
+                  following: [],
+                  lastName: '',
+                  posts: [],
+                  profilePicture: '',
+                  socialMedia: [],
+                  userName: '',
+                )));
 
         // Add the event to the bloc
         profileBloc.add(ProfileEventGetProfile(profileId: 'profileId'));
@@ -56,10 +56,8 @@ void main() {
             ProfileStateSuccess(
               profile: ProfileDomain(
                 id: 'profileId',
-                name: 'John Doe',
                 bio: '',
                 comments: [],
-                email: '',
                 firstName: '',
                 followers: [],
                 following: [],
@@ -79,8 +77,8 @@ void main() {
       'emits loading and failure states when getting profile fails',
       () {
         // Set up the mock response for the repository call
-        when(mockProfileRepository.getProfile('profileId')).thenAnswer((_) async => left("error" as ProfileFailure)
-        );
+        when(mockProfileRepository.getProfile('profileId'))
+            .thenAnswer((_) async => left("error" as ProfileFailure));
 
         // Add the event to the bloc
         profileBloc.add(ProfileEventGetProfile(profileId: 'profileId'));
@@ -90,7 +88,6 @@ void main() {
           profileBloc.stream,
           emitsInOrder([
             const ProfileStateLoading(),
-           
           ]),
         );
       },
@@ -100,19 +97,18 @@ void main() {
       'emits loading and success states when updating profile is successful',
       () {
         // Set up the mock response for the repository call
-        
+
         // Add the event to the bloc
         profileBloc.add(ProfileEventUpdate(
-          profileForm: ProfileForm(name: 'John Doe', bio: '', email: '',
-              
-              firstName: '',
-              followers: [],
-              following: [],
-              lastName: '',
-             
-              profilePicture: '',
-              socialMedia: [],
-              ),
+          profileForm: ProfileForm(
+            bio: '',
+            firstName: '',
+            followers: [],
+            following: [],
+            lastName: '',
+            profilePicture: '',
+            socialMedia: [],
+          ),
           profileId: 'profileId',
         ));
 
@@ -124,10 +120,8 @@ void main() {
             ProfileStateSuccess(
               profile: ProfileDomain(
                 id: 'profileId',
-                name: 'John Doe',
                 bio: '',
                 comments: [],
-                email: '',
                 firstName: '',
                 followers: [],
                 following: [],
@@ -142,7 +136,5 @@ void main() {
         );
       },
     );
-
-  
   });
 }

@@ -25,7 +25,7 @@ void main() {
   });
 
   group('SignupBloc', () {
-    final signupForm = SignupForm( email: '', password: '', username: ''); // Provide signup form data for testing
+    final signupForm = SignupForm( email: '', password: '', userName: ''); // Provide signup form data for testing
     final user = []; // Provide a user object for testing
     final failure = ('Failed to sign up'); // Provide a sign-up failure
 

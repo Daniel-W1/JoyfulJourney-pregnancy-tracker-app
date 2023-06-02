@@ -32,19 +32,18 @@ void main() {
           body: '',
           comments: [],
           likes: [],
-          title: '',
         ))).thenAnswer((_) async =>
             Right(PostDomain(
                 author: '',
                 body: '',
                 comments: [],
                 likes: [],
-                title: '')));
+                )));
 
         // Add the event to the bloc
         postCreateBloc.add(PostCreateEventSubmit(
             PostForm(
-                body: '', comments: [], likes: [], title: '')));
+                body: '', comments: [], likes: [], )));
 
         // Expect the emitted states
         expectLater(
@@ -57,7 +56,7 @@ void main() {
                     body: '',
                     comments: [],
                     likes: [],
-                    title: '')),
+                    )),
           ]),
         );
       },

@@ -22,8 +22,6 @@ class PostFormDto {
       'body': body,
       'comments': comments,
       'likes': likes,
-      'author': '644ec9e0da3f7fc3a4c30a2a',
     };
   }
 }
-

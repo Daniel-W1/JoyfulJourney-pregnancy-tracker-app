@@ -125,7 +125,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     final password = _passwordController.text;
     
                     LoginForm loginForm = LoginForm(
-                      username: email,
+                      userName: email,
                       password: password,
                     );
                     print(email);

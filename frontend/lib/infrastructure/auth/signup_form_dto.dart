@@ -1,17 +1,17 @@
 class SignupFormDto {
-  final String username;
+  final String userName;
   final String password;
   final String email;
 
   SignupFormDto({
-    required this.username,
+    required this.userName,
     required this.password,
     required this.email,
   });
 
   factory SignupFormDto.fromJson(Map<String, dynamic> json) {
     return SignupFormDto(
-      username: json['username'],
+      userName: json['userName'],
       password: json['password'],
       email: json['email'],
     );
@@ -19,7 +19,7 @@ class SignupFormDto {
 
   Map<String, dynamic> toJson() {
     return {
-      'username': username,
+      'userName': userName,
       'password': password,
       'email': email,
     };

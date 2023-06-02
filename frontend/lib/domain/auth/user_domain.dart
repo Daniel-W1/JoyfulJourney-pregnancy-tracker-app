@@ -1,6 +1,6 @@
 class UserDomain {
   final String? id;
-  final String username;
+  final String userName;
   final String password;
   final String email;
   final String profileId;
@@ -8,7 +8,7 @@ class UserDomain {
 
   UserDomain({
     this.id,
-    required this.username,
+    required this.userName,
     required this.password,
     required this.email,
     required this.profileId,
@@ -17,8 +17,8 @@ class UserDomain {
 
   factory UserDomain.fromJson(Map<String, dynamic> json) {
     return UserDomain(
-      id: json['id'] as String,
-      username: json['username'] as String,
+      id: json['_id'] as String,
+      userName: json['userName'] as String,
       password: json['password'] as String,
       email: json['email'] as String,
       profileId: json['profileId'] as String,
@@ -29,7 +29,7 @@ class UserDomain {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'username': username,
+      'userName': userName,
       'password': password,
       'email': email,
       'profileId': profileId,

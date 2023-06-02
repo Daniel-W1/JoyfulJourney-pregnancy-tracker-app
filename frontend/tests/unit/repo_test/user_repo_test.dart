@@ -20,8 +20,20 @@ void main() {
     test('should return a list of UserDomain when successful', () async {
       // Arrange
       final usersDto = [
-        UserDto(id: '1', username: 'User 1', email: '', password: '', profileId: '', roles: []),
-        UserDto(id: '2', username: '', email: '', password: '', profileId: '', roles: []),
+        UserDto(
+            id: '1',
+            userName: 'User 1',
+            email: '',
+            password: '',
+            profileId: '',
+            roles: []),
+        UserDto(
+            id: '2',
+            userName: '',
+            email: '',
+            password: '',
+            profileId: '',
+            roles: []),
       ];
       final expectedUsers = usersDto
           .map((userDto) => UserDomain.fromJson(userDto.toJson()))
@@ -34,7 +46,8 @@ void main() {
       expect(result, equals(Right(expectedUsers)));
     });
 
-    test('should return AuthFailure.serverError when an error occurs', () async {
+    test('should return AuthFailure.serverError when an error occurs',
+        () async {
       // Arrange
       final error = Exception('Server error');
 
@@ -61,7 +74,8 @@ void main() {
       expect(result, equals(Right(unit)));
     });
 
-    test('should return AuthFailure.serverError when an error occurs', () async {
+    test('should return AuthFailure.serverError when an error occurs',
+        () async {
       // Arrange
       final userId = '1';
       final error = Exception('Server error');
@@ -80,7 +94,13 @@ void main() {
   group('setUserRole', () {
     test('should return the updated user domain when successful', () async {
       // Arrange
-      final userDomain = UserDomain(id: '1',email: '', password: '', profileId: '', roles: [], username: '');
+      final userDomain = UserDomain(
+          id: '1',
+          email: '',
+          password: '',
+          profileId: '',
+          roles: [],
+          userName: '');
       final userDto = UserDto.fromJson(userDomain.toJson());
 
       // Mocking the UserAPI's setUserRole method to return the updated user DTO
@@ -93,9 +113,16 @@ void main() {
       expect(result, equals(Right(UserDomain.fromJson(userDto.toJson()))));
     });
 
-    test('should return AuthFailure.serverError when an error occurs', () async {
+    test('should return AuthFailure.serverError when an error occurs',
+        () async {
       // Arrange
-      final userDomain = UserDomain(id: '1', username: 'User', email: '', password: '', profileId: '', roles: []);
+      final userDomain = UserDomain(
+          id: '1',
+          userName: 'User',
+          email: '',
+          password: '',
+          profileId: '',
+          roles: []);
       final error = Exception('Server error');
 
       // Mocking the UserAPI's setUserRole method to throw an exception

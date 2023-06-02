@@ -19,9 +19,9 @@ class AuthApi {
   AuthApi();
 
   Future<LoginResponseDto> login(
-      {required String username, required String password}) async {
+      {required String userName, required String password}) async {
     var body = jsonEncode({
-      'username': username,
+      'userName': userName,
       'password': password,
     });
 
@@ -59,9 +59,9 @@ class AuthApi {
   Future<dynamic> changePassword(
       {required ChangePasswordForm changePasswordForm}) async {
     var user = await sharedPreferenceService.getAuthenticatedUser();
-    var username = user!.username;
+    var userName = user!.userName;
     var body = jsonEncode({
-      'username': username,
+      'userName': userName,
       'currentPassword': changePasswordForm.currentPassword,
       'newPassword': changePasswordForm.newPassword,
     });

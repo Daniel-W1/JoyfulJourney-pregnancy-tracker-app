@@ -25,7 +25,7 @@ void main() {
   });
 
   group('LoginBloc', () {
-    final loginForm = LoginForm(password: '', username: ''); // Provide login form data for testing
+    final loginForm = LoginForm(password: '', userName: ''); // Provide login form data for testing
     final token = 'token'; // Provide a token for testing
     final failure = ('Failed to authenticate'); // Provide an authentication failure
 

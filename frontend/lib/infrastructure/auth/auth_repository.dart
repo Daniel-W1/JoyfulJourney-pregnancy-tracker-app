@@ -38,7 +38,7 @@ class AuthRepository implements AuthRepositoryInterface {
       {required LoginForm loginForm}) async {
     try {
       LoginResponseDto response = await authApi.login(
-        username: loginForm.username,
+        userName: loginForm.userName,
         password: loginForm.password,
       );
       print("response: $response");
