@@ -18,7 +18,6 @@ export class AuthService {
   async signup(userDto: CreateUserDto) {
     try {
       const user = await this.userService.create(userDto);
-      console.log(user.id);
       return user;
     } catch (e) {
       throw e;
@@ -27,11 +26,8 @@ export class AuthService {
 
   @HttpCode(HttpStatus.CREATED)
   async login(loginData) {
-    // console.log(loginData, 'loginData');
     const { username, password } = loginData;
-    // console.log(username);
     const user = await this.userService.findOneByUsername(username);
-    // console.log(user);
 
     if (!user) {
       throw new ForbiddenException('Access Denied');

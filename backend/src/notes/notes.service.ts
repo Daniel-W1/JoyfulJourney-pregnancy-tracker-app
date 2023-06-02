@@ -46,7 +46,6 @@ export class NotesService {
   async findByUser(author: string) {
     try{
       const finder = {author: author};
-      console.log(author, 'author');
       
       return await this.NoteModel.find(finder).exec();
     } catch (error) {
