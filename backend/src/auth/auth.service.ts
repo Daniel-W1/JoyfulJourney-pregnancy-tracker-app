@@ -48,7 +48,7 @@ export class AuthService {
     console.log(user.role, 'user.role');
     const token = await this.getToken(username, user._id, user.roles);
 
-    return { id: user._id, username: user.username, ...token };
+    return { user, ...token };
   }
 
   async getToken(username: string, id: string, roles: Role[]) {
