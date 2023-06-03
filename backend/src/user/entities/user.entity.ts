@@ -8,7 +8,7 @@ export class User {
     profileId: string;
 
     @Prop({ required: true })
-    username: string;
+    userName: string;
     
     @Prop({ required: true })
     password: string;

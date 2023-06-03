@@ -50,12 +50,12 @@ export class UserService {
       let savedUser: UserInterface;
       let isUserNameUnique: boolean;
 
-      isUserNameUnique = await this.checkUsername(newUser.username);
+      isUserNameUnique = await this.checkUsername(newUser.userName);
       if (isUserNameUnique) {
         throw new ConflictException('UserName already Exist');
       } else {
         try {
-          let newProfile = await this.profileService.createFirst(createUserDto.username);
+          let newProfile = await this.profileService.createFirst(createUserDto.userName);
           newUser.profileId = newProfile._id;
 
           savedUser = await this.hashAndSave(newUser);
@@ -98,7 +98,7 @@ export class UserService {
   async findOneByUsername(username: string) {
     let user;
     try {
-      user = await this.userModel.findOne({ username });
+      user = await this.userModel.findOne({ userName: username });
      
     } catch (err) {
       throw new NotFoundException('User Not Found');
@@ -110,20 +110,29 @@ export class UserService {
   async update(id: string, updateUserDto: UpdateUserDto) {
     let updatedUser;
     try {
-      updatedUser = await this.userModel.findByIdAndUpdate(updateUserDto);
-      updatedUser = await this.hashAndSave(updatedUser);
+      const newPassword = updateUserDto.password;
+      const salt = 11;
+      let hashedPassword: string = await bcrypt.hash(newPassword, salt);
+      const update = {password: hashedPassword};
+      updatedUser = await this.userModel.findByIdAndUpdate(id, update).exec();
+      return updatedUser;
+      
     } catch (err) {
       throw new NotFoundException('User Not Found Exception');
     }
     return updatedUser;
   }
 
-  async remove(id: string) {
+  async remove(username: string) {
     try {
-      const user = await this.userModel.findById(id).exec();
-      const profileId = user.profileId;
-      let deletedProfile = await this.profileService.removeProfile(profileId);
-      return this.userModel.deleteOne({ _id: id }).exec();
+      const filter = {userName: username};
+      // console.log(username);
+      const user = await this.userModel.findOne(filter).exec();
+      if (user.profileId !== null) {
+        const profileId = user.profileId;
+        let deletedProfile = await this.profileService.removeProfile(profileId);
+      }        
+      return this.userModel.deleteOne({ userName: username }).exec();
     } catch (error) {
         throw error;
     }

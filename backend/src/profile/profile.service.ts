@@ -37,7 +37,7 @@ export class ProfileService {
 
     async findByUser(userName: string) {
         try {
-            const finder = { username: userName };
+            const finder = { userName: userName };
             return await this.ProfileModel.find(finder).exec();
         } catch (error) {
             throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);

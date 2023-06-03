@@ -5,7 +5,6 @@ import { IsNotEmpty } from "class-validator";
 
 export class ProfileDto{
 
-    @IsNotEmpty()
     firstName: string;
 
     lastName: string;

@@ -2,7 +2,7 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateUserDto {
     @IsNotEmpty()
-    username: string;
+    userName: string;
 
     @IsNotEmpty()
     password: string;

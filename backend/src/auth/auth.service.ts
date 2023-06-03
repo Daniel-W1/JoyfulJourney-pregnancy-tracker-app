@@ -5,6 +5,8 @@ import { ConfigService } from '@nestjs/config';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { compare } from 'bcrypt';
 import { Role } from './roles.enum';
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class AuthService {
@@ -26,8 +28,10 @@ export class AuthService {
 
   @HttpCode(HttpStatus.CREATED)
   async login(loginData) {
-    const { username, password } = loginData;
-    const user = await this.userService.findOneByUsername(username);
+    const { userName, password } = loginData;
+    console.log(userName, password, 'loginData');
+    const user = await this.userService.findOneByUsername(userName);
+    console.log(user, 'user');
 
     if (!user) {
       throw new ForbiddenException('Access Denied');
@@ -36,25 +40,31 @@ export class AuthService {
     const match = await compare(password, user.password);
 
     if (!match) {
-      console.log("passowrd don't match");
 
       throw new ForbiddenException('Access Denied');
     }
 
-    console.log(user.role, 'user.role');
-    const token = await this.getToken(username, user._id, user.roles);
+    const token = await this.getToken(userName, user._id, user.roles);
 
     return { user, ...token };
   }
 
   async changePassword(body) {
-    const { username, oldPassword, newPassword } = body;
-    const user = await this.userService.findOneByUsername(username);
+    let userName = body.userName;
+    let currentPassword = body.currentPassword;
+    let newPassword = body.newPassword;
+
+    console.log(userName, currentPassword, newPassword, 'body');
+    const user = await this.userService.findOneByUsername(userName);
+
+    const match = await compare(currentPassword, user.password);
     
-    if (user.password !== oldPassword) {
+    if (!match) {
       throw new ForbiddenException('Access Denied');
     }
     const update = { password: newPassword };
+    console.log(update);
+    console.log(user._id, 'user._id');
     return await this.userService.update(user._id, update);
   }
 
