@@ -34,8 +34,30 @@ class TipRepository implements TipRepositoryInterface {
       var updatedTipDto = await tipApi.updateTip(tipForm.toDto(), tipId);
       await databaseHelper.updateTip(updatedTipDto.toTipEntity());
       return right(TipDomain.fromJson(updatedTipDto.toJson()));
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(TipFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(TipFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(TipFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(TipFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(TipFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(TipFailure.forbidden());
+    } on EmptyTitleError catch (e) {
+      return left(TipFailure.emptyTitleError());
+    } on EmptyDescriptionError catch (e) {
+      return left(TipFailure.emptyDescriptionError());
+    } on EmptyAuthorError catch (e) {
+      return left(TipFailure.emptyAuthorError());
+    } on InvalidCommentError catch (e) {
+      return left(TipFailure.invalidCommentError());
+    } on InvalidLikeError catch (e) {
+      return left(TipFailure.invalidLikeError());
+    } catch (e) {
+      return left(TipFailure.customError(e.toString()));
     }
   }
 
@@ -44,8 +66,30 @@ class TipRepository implements TipRepositoryInterface {
     try {
       var tip = await tipApi.getOneTip(tipId);
       return right(TipDomain.fromJson(tip.toJson()));
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(TipFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(TipFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(TipFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(TipFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(TipFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(TipFailure.forbidden());
+    } on EmptyTitleError catch (e) {
+      return left(TipFailure.emptyTitleError());
+    } on EmptyDescriptionError catch (e) {
+      return left(TipFailure.emptyDescriptionError());
+    } on EmptyAuthorError catch (e) {
+      return left(TipFailure.emptyAuthorError());
+    } on InvalidCommentError catch (e) {
+      return left(TipFailure.invalidCommentError());
+    } on InvalidLikeError catch (e) {
+      return left(TipFailure.invalidLikeError());
+    } catch (e) {
+      return left(TipFailure.customError(e.toString()));
     }
   }
 
@@ -55,8 +99,30 @@ class TipRepository implements TipRepositoryInterface {
       await databaseHelper.removeTip(tipId);
       await tipApi.deleteTip(tipId);
       return right(unit);
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(TipFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(TipFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(TipFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(TipFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(TipFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(TipFailure.forbidden());
+    } on EmptyTitleError catch (e) {
+      return left(TipFailure.emptyTitleError());
+    } on EmptyDescriptionError catch (e) {
+      return left(TipFailure.emptyDescriptionError());
+    } on EmptyAuthorError catch (e) {
+      return left(TipFailure.emptyAuthorError());
+    } on InvalidCommentError catch (e) {
+      return left(TipFailure.invalidCommentError());
+    } on InvalidLikeError catch (e) {
+      return left(TipFailure.invalidLikeError());
+    } catch (e) {
+      return left(TipFailure.customError(e.toString()));
     }
   }
 
@@ -74,23 +140,31 @@ class TipRepository implements TipRepositoryInterface {
       } else {
         return right(tips);
       }
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(TipFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(TipFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(TipFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(TipFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(TipFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(TipFailure.forbidden());
+    } on EmptyTitleError catch (e) {
+      return left(TipFailure.emptyTitleError());
+    } on EmptyDescriptionError catch (e) {
+      return left(TipFailure.emptyDescriptionError());
+    } on EmptyAuthorError catch (e) {
+      return left(TipFailure.emptyAuthorError());
+    } on InvalidCommentError catch (e) {
+      return left(TipFailure.invalidCommentError());
+    } on InvalidLikeError catch (e) {
+      return left(TipFailure.invalidLikeError());
+    } catch (e) {
+      return left(TipFailure.customError(e.toString()));
     }
-
-    // try {
-    //   var tips = await databaseHelper.getTipsByType(type);
-
-    //   if (tips.isEmpty) {
-    //     List<TipDto> tipDto = await tipApi.getTipsByType(type);
-    //     await databaseHelper.addTips(tipDto);
-    //     tips = await databaseHelper.getTipsByType(type);
-    //   }
-
-    //   return Right(tips);
-    // } catch (e) {
-    //   return Left(TipFailure.serverError());
-    // }
   }
 
   @override
@@ -107,8 +181,30 @@ class TipRepository implements TipRepositoryInterface {
       } else {
         return right(tips);
       }
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(TipFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(TipFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(TipFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(TipFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(TipFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(TipFailure.forbidden());
+    } on EmptyTitleError catch (e) {
+      return left(TipFailure.emptyTitleError());
+    } on EmptyDescriptionError catch (e) {
+      return left(TipFailure.emptyDescriptionError());
+    } on EmptyAuthorError catch (e) {
+      return left(TipFailure.emptyAuthorError());
+    } on InvalidCommentError catch (e) {
+      return left(TipFailure.invalidCommentError());
+    } on InvalidLikeError catch (e) {
+      return left(TipFailure.invalidLikeError());
+    } catch (e) {
+      return left(TipFailure.customError(e.toString()));
     }
   }
 }

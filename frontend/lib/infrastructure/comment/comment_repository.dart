@@ -36,8 +36,22 @@ class CommentRepository implements CommentRepositoryInterface {
       } else {
         return right(comments);
       }
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(CommentFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(CommentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(CommentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(CommentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(CommentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(CommentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(CommentFailure.validationError(e.message));
+    } catch (e) {
+      return left(CommentFailure.customError(e.toString()));
     }
   }
 
@@ -48,8 +62,22 @@ class CommentRepository implements CommentRepositoryInterface {
       var comment = await commentApi.createComment(commentForm.toDto());
       await databaseHelper.addComments([comment]);
       return right(CommentDomain.fromJson(comment.toJson()));
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(CommentFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(CommentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(CommentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(CommentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(CommentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(CommentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(CommentFailure.validationError(e.message));
+    } catch (e) {
+      return left(CommentFailure.customError(e.toString()));
     }
   }
 
@@ -61,8 +89,22 @@ class CommentRepository implements CommentRepositoryInterface {
           await commentApi.updateComment(commentForm.toDto(), commentId);
       await databaseHelper.updateComment(commentDomainDto.toCommentEntity());
       return right(CommentDomain.fromJson(commentDomainDto.toJson()));
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(CommentFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(CommentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(CommentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(CommentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(CommentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(CommentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(CommentFailure.validationError(e.message));
+    } catch (e) {
+      return left(CommentFailure.customError(e.toString()));
     }
   }
 
@@ -72,8 +114,22 @@ class CommentRepository implements CommentRepositoryInterface {
       await databaseHelper.removeComment(commentId);
       await commentApi.deleteComment(commentId);
       return right(unit);
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(CommentFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(CommentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(CommentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(CommentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(CommentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(CommentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(CommentFailure.validationError(e.message));
+    } catch (e) {
+      return left(CommentFailure.customError(e.toString()));
     }
   }
 
@@ -93,8 +149,22 @@ class CommentRepository implements CommentRepositoryInterface {
       } else {
         return right(comments);
       }
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(CommentFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(CommentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(CommentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(CommentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(CommentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(CommentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(CommentFailure.validationError(e.message));
+    } catch (e) {
+      return left(CommentFailure.customError(e.toString()));
     }
   }
 
@@ -110,8 +180,22 @@ class CommentRepository implements CommentRepositoryInterface {
       }
 
       return Right(allComments);
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(CommentFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(CommentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(CommentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(CommentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(CommentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(CommentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(CommentFailure.validationError(e.message));
+    } catch (e) {
+      return left(CommentFailure.customError(e.toString()));
     }
   }
 }

@@ -40,12 +40,10 @@ class AuthApi {
   }
 
   Future<UserDto> signup({required SignupFormDto signupFormDto}) async {
-    print(signupFormDto.toJson());
     var response = await _httpClient.post(_signupUrl,
         body: json.encode(signupFormDto.toJson()));
 
     final Map<String, dynamic> data = json.decode(response.body);
-    print(response.statusCode);
     if (response.statusCode == 201) {
       return UserDto.fromJson(data);
     } else {

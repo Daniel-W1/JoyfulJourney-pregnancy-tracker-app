@@ -39,7 +39,7 @@ class PostAPI {
 
     var updatedPost = await jjHttpClient.put("post/$postId",
         body: json.encode(postFormDto.toAuthoredDto(author).toJson()));
-    if (updatedPost.statusCode == 200) {
+    if (updatedPost.statusCode >= 200 && updatedPost.statusCode < 300) {
       return PostDto.fromJson(jsonDecode(updatedPost.body));
     } else {
       throw JJHttpException(
@@ -51,7 +51,7 @@ class PostAPI {
   Future<void> deletePost(String postId) async {
     var response = await jjHttpClient.delete("post/$postId");
     print(response.statusCode);
-    if (response.statusCode != 200) {
+    if (response.statusCode < 200 || response.statusCode >= 300) {
       throw JJHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);
@@ -60,9 +60,7 @@ class PostAPI {
 
   Future<List<PostDto>> getPosts() async {
     try {
-      var posts = await jjHttpClient.get("post");
-      print(posts.statusCode);
-      print(posts.body);
+      var posts = await jjHttpClient.get("post").timeout(jjTimeout);
 
       if (posts.statusCode >= 200 && posts.statusCode < 300) {
         return (jsonDecode(posts.body) as List)
@@ -96,7 +94,7 @@ class PostAPI {
   Future<List<PostDto>> getPostByUser(String author) async {
     var posts = await jjHttpClient.get("post/author/$author");
 
-    if (posts.statusCode == 200) {
+    if (posts.statusCode >= 200 && posts.statusCode < 300) {
       return (jsonDecode(posts.body) as List)
           .map((e) => PostDto.fromJson(e))
           .toList();

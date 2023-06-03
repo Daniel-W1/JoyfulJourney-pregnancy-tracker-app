@@ -49,7 +49,7 @@ class ProfileEntity {
       firstName: json['firstName'],
       lastName: json['lastName'],
       bio: json['bio'],
-      profilePicture: json['profilePicture'],
+      profilePicture: '',
       followers: List<String>.from(json['followers'].split(',')),
       following: List<String>.from(json['following'].split(',')),
       comments: List<String>.from(json['comments'].split(',')),

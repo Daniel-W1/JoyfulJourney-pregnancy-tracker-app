@@ -23,9 +23,6 @@ class AppointmentAPI {
     var appointment = await _customHttpClient.post("appointment",
         body: json.encode(appointmentDto.toJson()));
 
-    print('appointment api: $appointment');
-    print(appointment.statusCode);
-    print(json.encode(appointmentDto.toJson()));
     if (appointment.statusCode == 201) {
       var res = AppointmentDto.fromJson(jsonDecode(appointment.body));
       print('res here and dfasdjf $res');
@@ -44,7 +41,7 @@ class AppointmentAPI {
         body: json.encode(appointmentFormDto.toJson()));
 
     print(apppointment.statusCode);
-    if (apppointment.statusCode == 200) {
+    if (apppointment.statusCode >= 200 && apppointment.statusCode < 300) {
       return AppointmentDto.fromJson(jsonDecode(apppointment.body));
     } else {
       throw JJHttpException(
@@ -68,7 +65,7 @@ class AppointmentAPI {
   Future<List<AppointmentDto>> getAppointments() async {
     var appointment = await _customHttpClient.get("appointment");
 
-    if (appointment.statusCode == 201) {
+    if (appointment.statusCode >= 200 && appointment.statusCode < 300) {
       return (jsonDecode(appointment.body) as List)
           .map((e) => AppointmentDto.fromJson(e))
           .toList();
@@ -96,7 +93,7 @@ class AppointmentAPI {
   Future<List<AppointmentDto>> getAppointmentsByUser(String author) async {
     var appointment = await _customHttpClient.get("appointment/user/$author");
 
-    if (appointment.statusCode == 200) {
+    if (appointment.statusCode >= 200 && appointment.statusCode < 300) {
       return (jsonDecode(appointment.body) as List)
           .map((e) => AppointmentDto.fromJson(e))
           .toList();

@@ -68,7 +68,7 @@ void main() {
       final userId = '1';
 
       // Act
-      final result = await userRepository.deleteUser(userId);
+      final result = await userRepository.deleteUser();
 
       // Assert
       expect(result, equals(Right(unit)));
@@ -84,7 +84,7 @@ void main() {
       (userId) => throw error;
 
       // Act
-      final result = await userRepository.deleteUser(userId);
+      final result = await userRepository.deleteUser();
 
       // Assert
       expect(result, equals(Left(AuthFailure.serverError())));

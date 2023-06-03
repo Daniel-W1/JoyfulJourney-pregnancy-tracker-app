@@ -1,3 +1,5 @@
+import 'package:frontend/domain/note/note_failure.dart';
+
 class NoteDomain {
   String? id;
   final String body;
@@ -39,5 +41,28 @@ class NoteDomain {
   @override
   int get hashCode {
     return id.hashCode ^ body.hashCode ^ title.hashCode ^ author.hashCode;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'body': body,
+      'title': title,
+      'author': author,
+    };
+  }
+
+  void validate() {
+    if (body.isEmpty) {
+      throw ValidationError('Body cannot be empty');
+    }
+
+    if (title.isEmpty) {
+      throw ValidationError('Title cannot be empty');
+    }
+
+    if (author.isEmpty) {
+      throw ValidationError('Author cannot be empty');
+    }
   }
 }

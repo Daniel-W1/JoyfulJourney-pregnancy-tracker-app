@@ -23,7 +23,7 @@ class UserRepository implements UserRepositoryInterface {
           .map((UserDto userDto) => UserDomain.fromJson(userDto.toJson()))
           .toList());
     } catch (e) {
-      return left( AuthFailure.serverError());
+      return left(AuthFailure.serverError());
     }
   }
 
@@ -31,6 +31,8 @@ class UserRepository implements UserRepositoryInterface {
   Future<Either<AuthFailure, Unit>> deleteUser() async {
     try {
       await userApi.deleteUser();
+
+      print("deleting user");
 
       await sharedPreferenceService.removeAccessToken();
       await sharedPreferenceService.removeAuthenticatedUser();

@@ -9,6 +9,8 @@ class NoteFailure {
   factory NoteFailure.forbidden() = Forbidden;
   factory NoteFailure.emptyTitleError() = EmptyTitleError;
   factory NoteFailure.emptyDescriptionError() = EmptyDescriptionError;
+  factory NoteFailure.validationError(String message) = ValidationError;
+  factory NoteFailure.customError(String message) = CustomError;
 }
 
 class ServerError extends NoteFailure {
@@ -41,4 +43,14 @@ class EmptyTitleError extends NoteFailure {
 
 class EmptyDescriptionError extends NoteFailure {
   const EmptyDescriptionError() : super._();
+}
+
+class ValidationError extends NoteFailure {
+  final String message;
+  const ValidationError(this.message) : super._();
+}
+
+class CustomError extends NoteFailure {
+  final String message;
+  const CustomError(this.message) : super._();
 }

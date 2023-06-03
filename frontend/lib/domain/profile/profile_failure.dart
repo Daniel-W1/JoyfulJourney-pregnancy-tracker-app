@@ -6,6 +6,7 @@ class ProfileFailure {
   factory ProfileFailure.serverError() = _ServerError;
   factory ProfileFailure.invalidEmail() = _InvalidEmail;
   factory ProfileFailure.emailAlreadyInUse() = _EmailAlreadyInUse;
+  factory ProfileFailure.customError(String message) = _CustomError;
 }
 
 class _UnexpectedError extends ProfileFailure {
@@ -26,4 +27,10 @@ class _InvalidEmail extends ProfileFailure {
 
 class _EmailAlreadyInUse extends ProfileFailure {
   const _EmailAlreadyInUse() : super._();
+}
+
+class _CustomError extends ProfileFailure {
+  final String message;
+
+  const _CustomError(this.message) : super._();
 }

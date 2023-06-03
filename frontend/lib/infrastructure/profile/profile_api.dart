@@ -14,11 +14,7 @@ class ProfileApi {
     var updatedProfile = await _customHttpClient.put("profile/$profileId",
         body: json.encode(profileForm.toJson()));
 
-    print(updatedProfile.body);
-    print(updatedProfile.statusCode);
-    print("--------------------------------");
-
-    if (updatedProfile.statusCode == 200) {
+    if (updatedProfile.statusCode >= 200 && updatedProfile.statusCode < 300) {
       return ProfileDto.fromJson(jsonDecode(updatedProfile.body));
     } else {
       throw JJHttpException(
@@ -29,9 +25,10 @@ class ProfileApi {
 
   Future<ProfileDto> getProfile(String profileId) async {
     try {
-      var response = await _customHttpClient.get("profile/$profileId");
+      var response =
+          await _customHttpClient.get("profile/$profileId").timeout(jjTimeout);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
         return ProfileDto.fromJson(json.decode(response.body));
       } else {
         throw JJHttpException(

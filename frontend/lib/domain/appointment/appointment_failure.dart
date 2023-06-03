@@ -12,6 +12,7 @@ class AppointmentFailure {
   factory AppointmentFailure.emptyDateError() = EmptyDateError;
   factory AppointmentFailure.emptyTimeError() = EmptyTimeError;
   factory AppointmentFailure.validationError(String message) = ValidationError;
+  factory AppointmentFailure.customError(String message) = CustomError;
 }
 
 class ServerError extends AppointmentFailure {
@@ -58,4 +59,10 @@ class ValidationError extends AppointmentFailure {
   final String message;
 
   const ValidationError(this.message) : super._();
+}
+
+class CustomError extends AppointmentFailure {
+  final String message;
+
+  const CustomError(this.message) : super._();
 }

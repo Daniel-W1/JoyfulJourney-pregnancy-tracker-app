@@ -54,8 +54,9 @@ class _OthersBodyState extends State<OthersBody> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          
                           logout();
+                          Navigator.of(context).pop();
                         },
                         child: const Text('Logout'),
                       ),
@@ -93,23 +94,13 @@ class _OthersBodyState extends State<OthersBody> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          Navigator.of(context).pop();
+                          
                           UserRepository userRepository =
                               UserRepository(UserAPI());
                           var result = await userRepository.deleteUser();
 
-                          result.fold(
-                              (l) => ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text(l.toString()),
-                                    backgroundColor: Colors.red,
-                                  )), (r) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text("Account deleted successfully"),
-                              backgroundColor: Colors.green,
-                            ));
-                            logout();
-                          });
+                          Navigator.of(context).pop();
+                          logout();
                         },
                         child: const Text('Delete Account'),
                       ),

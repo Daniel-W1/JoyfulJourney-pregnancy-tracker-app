@@ -19,19 +19,29 @@ class PostRepository implements PostRepositoryInterface {
   Future<Either<PostFailure, List<PostDomain>>> getPosts() async {
     try {
       List<PostDto> posts = await postApi.getPosts();
-      // await databaseHelper.addPosts(posts);
+      await databaseHelper.addPosts(posts);
 
       return Right(posts.map((e) => PostDomain.fromJson(e.toJson())).toList());
-    // } on JJTimeoutException catch (timeout) {
-    //   var posts = await databaseHelper.getPosts();
-    //   if (posts.isEmpty) {
-    //     return left(PostFailure.serverError());
-    //   } else {
-    //     return right(posts);
-    //   }
-    } catch (e) {
-      print("Error: $e");
+    } on JJTimeoutException catch (timeout) {
+      var posts = await databaseHelper.getPosts();
+
+      return right(posts);
+    } on ServerError catch (e) {
       return left(PostFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(PostFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(PostFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(PostFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(PostFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(PostFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(PostFailure.validationError(e.message));
+    } catch (e) {
+      return left(PostFailure.customError(e.toString()));
     }
   }
 
@@ -39,31 +49,57 @@ class PostRepository implements PostRepositoryInterface {
   Future<Either<PostFailure, List<PostDomain>>> getPostsForAuthor(
       String author) async {
     try {
-      // var posts = await databaseHelper.getPostsByUser(author);
-      print('repo here ----------------------------------');
-      if (true) {
+      var posts = await databaseHelper.getPostsByUser(author);
+      if (posts.isEmpty) {
         List<PostDto> postDto = await postApi.getPostByUser(author);
-        print(postDto);
         await databaseHelper.addPosts(postDto);
 
-        // posts = await databaseHelper.getPostsByUser(author);
         return Right(
             postDto.map((e) => PostDomain.fromJson(e.toJson())).toList());
       }
+
+      return Right(posts);
+    } on ServerError catch (e) {
+      return left(PostFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(PostFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(PostFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(PostFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(PostFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(PostFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(PostFailure.validationError(e.message));
     } catch (e) {
-      return Left(PostFailure.serverError());
+      return left(PostFailure.customError(e.toString()));
     }
   }
 
   @override
   Future<Either<PostFailure, PostDomain>> addPost(PostForm postForm) async {
     try {
-      print("add post called");
       var createdPost = await postApi.createPost(postForm.toDto());
       await databaseHelper.addPosts([createdPost]);
       return right(PostDomain.fromJson(createdPost.toJson()));
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(PostFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(PostFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(PostFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(PostFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(PostFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(PostFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(PostFailure.validationError(e.message));
+    } catch (e) {
+      return left(PostFailure.customError(e.toString()));
     }
   }
 
@@ -74,8 +110,22 @@ class PostRepository implements PostRepositoryInterface {
       var updatedPost = await postApi.updatePost(postForm.toDto(), postId);
       await databaseHelper.updatePost(updatedPost.toPostEntity());
       return right(PostDomain.fromJson(updatedPost.toJson()));
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(PostFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(PostFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(PostFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(PostFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(PostFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(PostFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(PostFailure.validationError(e.message));
+    } catch (e) {
+      return left(PostFailure.customError(e.toString()));
     }
   }
 
@@ -85,8 +135,22 @@ class PostRepository implements PostRepositoryInterface {
       await databaseHelper.removePost(postId);
       await postApi.deletePost(postId);
       return right(unit);
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(PostFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(PostFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(PostFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(PostFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(PostFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(PostFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(PostFailure.validationError(e.message));
+    } catch (e) {
+      return left(PostFailure.customError(e.toString()));
     }
   }
 
@@ -97,8 +161,22 @@ class PostRepository implements PostRepositoryInterface {
       var updatedPost = await postApi.changeLike(liker, postId);
       await databaseHelper.updatePost(updatedPost.toPostEntity());
       return right(PostDomain.fromJson(updatedPost.toJson()));
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(PostFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(PostFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(PostFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(PostFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(PostFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(PostFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(PostFailure.validationError(e.message));
+    } catch (e) {
+      return left(PostFailure.customError(e.toString()));
     }
   }
 }

@@ -12,6 +12,8 @@ class PostFailure {
   factory PostFailure.emptyauthorError() = EmptyauthorError;
   factory PostFailure.InvalidcommentError() = InvalidcommentError;
   factory PostFailure.InvalidlikeError() = InvalidlikeError;
+  factory PostFailure.validationError(String message) = ValidationError;
+  factory PostFailure.customError(String message) = CustomError;
 }
 
 class ServerError extends PostFailure {
@@ -56,4 +58,14 @@ class InvalidcommentError extends PostFailure {
 
 class InvalidlikeError extends PostFailure {
   const InvalidlikeError() : super._();
+}
+
+class ValidationError extends PostFailure {
+  final String message;
+  const ValidationError(this.message) : super._();
+}
+
+class CustomError extends PostFailure {
+  final String message;
+  const CustomError(this.message) : super._();
 }

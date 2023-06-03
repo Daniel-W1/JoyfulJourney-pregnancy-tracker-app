@@ -21,8 +21,22 @@ class NoteRepository implements NoteRepositoryInterface {
       var note = await noteApi.createNote(noteForm.toDto());
       await databaseHelper.addNotes([note]);
       return right(NoteDomain.fromJson(note.toJson()));
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(NoteFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(NoteFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(NoteFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(NoteFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(NoteFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(NoteFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(NoteFailure.validationError(e.message));
+    } catch (e) {
+      return left(NoteFailure.customError(e.toString()));
     }
   }
 
@@ -33,8 +47,22 @@ class NoteRepository implements NoteRepositoryInterface {
       var updatedNoteDto = await noteApi.updateNote(noteForm.toDto(), noteId);
       await databaseHelper.updateNote(updatedNoteDto.toNoteEntity());
       return right(NoteDomain.fromJson(updatedNoteDto.toJson()));
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(NoteFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(NoteFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(NoteFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(NoteFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(NoteFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(NoteFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(NoteFailure.validationError(e.message));
+    } catch (e) {
+      return left(NoteFailure.customError(e.toString()));
     }
   }
 
@@ -44,8 +72,22 @@ class NoteRepository implements NoteRepositoryInterface {
       await databaseHelper.removeNote(noteId);
       await noteApi.deleteNote(noteId);
       return right(unit);
-    } catch (e) {
+    } on ServerError catch (e) {
       return left(NoteFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(NoteFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(NoteFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(NoteFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(NoteFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(NoteFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(NoteFailure.validationError(e.message));
+    } catch (e) {
+      return left(NoteFailure.customError(e.toString()));
     }
   }
 
@@ -55,15 +97,29 @@ class NoteRepository implements NoteRepositoryInterface {
     try {
       var notes = await databaseHelper.getNotesByUser(userId);
 
-      if (true) {
+      if (notes.isEmpty) {
         List<NoteDto> noteDto = await noteApi.getNotesForUser(userId);
         await databaseHelper.addNotes(noteDto);
         notes = await databaseHelper.getNotesByUser(userId);
       }
 
       return Right(notes);
+    } on ServerError catch (e) {
+      return left(NoteFailure.serverError());
+    } on NetworkError catch (e) {
+      return left(NoteFailure.networkError());
+    } on Unauthorized catch (e) {
+      return left(NoteFailure.unauthorized());
+    } on NotFound catch (e) {
+      return left(NoteFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return left(NoteFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return left(NoteFailure.forbidden());
+    } on ValidationError catch (e) {
+      return left(NoteFailure.validationError(e.message));
     } catch (e) {
-      return Left(NoteFailure.serverError());
+      return left(NoteFailure.customError(e.toString()));
     }
   }
 }

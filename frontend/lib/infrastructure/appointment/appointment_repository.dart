@@ -30,8 +30,22 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
       }
 
       return Right(appointments);
-    } catch (e) {
+    } on ServerError catch (e) {
       return Left(AppointmentFailure.serverError());
+    } on NetworkError catch (e) {
+      return Left(AppointmentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return Left(AppointmentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return Left(AppointmentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return Left(AppointmentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return Left(AppointmentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return Left(AppointmentFailure.validationError(e.message));
+    } catch (e) {
+      return Left(AppointmentFailure.customError(e.toString()));
     }
   }
 
@@ -45,8 +59,22 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
       await databaseHelper.addAppointments([appointment]);
 
       return right(AppointmentDomain.fromJson(appointment.toJson()));
+    } on ServerError catch (e) {
+      return Left(AppointmentFailure.serverError());
+    } on NetworkError catch (e) {
+      return Left(AppointmentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return Left(AppointmentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return Left(AppointmentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return Left(AppointmentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return Left(AppointmentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return Left(AppointmentFailure.validationError(e.message));
     } catch (e) {
-      return left(AppointmentFailure.serverError());
+      return Left(AppointmentFailure.customError(e.toString()));
     }
   }
 
@@ -61,8 +89,22 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
       await databaseHelper
           .updateAppointment(AppointmentDomainDto.toAppointmentEntity());
       return right(AppointmentDomain.fromJson(AppointmentDomainDto.toJson()));
+    } on ServerError catch (e) {
+      return Left(AppointmentFailure.serverError());
+    } on NetworkError catch (e) {
+      return Left(AppointmentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return Left(AppointmentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return Left(AppointmentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return Left(AppointmentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return Left(AppointmentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return Left(AppointmentFailure.validationError(e.message));
     } catch (e) {
-      return left(AppointmentFailure.serverError());
+      return Left(AppointmentFailure.customError(e.toString()));
     }
   }
 
@@ -73,8 +115,22 @@ class AppointmentRepository implements AppointmentRepositoryInterface {
       await databaseHelper.removeAppointment(appointmentId);
       await appointmentAPI.deleteAppointment(appointmentId);
       return right(unit);
+    } on ServerError catch (e) {
+      return Left(AppointmentFailure.serverError());
+    } on NetworkError catch (e) {
+      return Left(AppointmentFailure.networkError());
+    } on Unauthorized catch (e) {
+      return Left(AppointmentFailure.unauthorized());
+    } on NotFound catch (e) {
+      return Left(AppointmentFailure.notFound());
+    } on PermissionDenied catch (e) {
+      return Left(AppointmentFailure.permissionDenied());
+    } on Forbidden catch (e) {
+      return Left(AppointmentFailure.forbidden());
+    } on ValidationError catch (e) {
+      return Left(AppointmentFailure.validationError(e.message));
     } catch (e) {
-      return left(AppointmentFailure.serverError());
+      return Left(AppointmentFailure.customError(e.toString()));
     }
   }
 }

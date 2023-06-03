@@ -23,8 +23,8 @@ void main() {
         () async {
       // Arrange
       final postDomainList = [
-        PostDomain(id: '1', title: 'Post 1', author: 'John Doe', body: '', comments: [], likes: []),
-        PostDomain(id: '2', title: 'Post 2', author: 'John Doe', body: '', comments: [], likes: []),
+        PostDomain(id: '1', author: 'John Doe', body: '', comments: [], likes: []),
+        PostDomain(id: '2', author: 'John Doe', body: '', comments: [], likes: []),
       ];
 
       when(mockPostRepository.getPosts())
@@ -58,8 +58,8 @@ void main() {
       // Arrange
       final author = 'John Doe';
       final postDomainList = [
-        PostDomain(id: '1', title: 'Post 1', author: author, comments: [], likes: [], body: ''),
-        PostDomain(id: '2', title: 'Post 2', author: author, comments: [], likes: [], body: ''),
+        PostDomain(id: '1', author: author, comments: [], likes: [], body: ''),
+        PostDomain(id: '2', author: author, comments: [], likes: [], body: ''),
       ];
 
       when(mockPostRepository.getPostsForAuthor(author))

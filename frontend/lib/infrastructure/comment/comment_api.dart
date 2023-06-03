@@ -18,11 +18,9 @@ class CommentAPI {
     if (author == "") {
       throw JJHttpException("Not Logged In", 404);
     }
-    print('post comment called');
     var comment = await _customHttpClient.post("comments",
         body: json.encode(commentFormDto.toAuthoredDto(author).toJson()));
 
-    print(comment.statusCode);
     if (comment.statusCode == 201) {
       return CommentDto.fromJson(jsonDecode(comment.body));
     } else {
@@ -91,7 +89,7 @@ class CommentAPI {
           .get("comments/user/$author")
           .timeout(jjTimeout);
 
-      if (comments.statusCode == 200) {
+      if (comments.statusCode >= 200 && comments.statusCode < 300) {
         return (jsonDecode(comments.body) as List)
             .map((e) => CommentDto.fromJson(e))
             .toList();
@@ -111,7 +109,7 @@ class CommentAPI {
           .get("comments/post/$postId")
           .timeout(jjTimeout);
 
-      if (comments.statusCode == 200) {
+      if (comments.statusCode >= 200 && comments.statusCode < 300) {
         return (jsonDecode(comments.body) as List)
             .map((e) => CommentDto.fromJson(e))
             .toList();

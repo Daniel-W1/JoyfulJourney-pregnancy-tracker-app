@@ -27,9 +27,7 @@ void main() {
 
       await tester.pumpWidget(
         // Provide the LoginPage with the required dependencies
-        LoginPage(
-          loginBloc as Type,
-        ),
+        LoginPage(),
       );
 
       // Perform the necessary login actions (e.g., enter credentials, submit form)

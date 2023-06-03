@@ -18,12 +18,9 @@ class NoteAPI {
       throw JJHttpException("Not Logged In", 404);
     }
 
-    print(json.encode(noteFormDto..toAuthoredDto(author)));
     var note = await _customHttpClient.post("notes",
-        body: json.encode(
-            noteFormDto.toAuthoredDto(author).toJson()));
+        body: json.encode(noteFormDto.toAuthoredDto(author).toJson()));
 
-    print(note.statusCode);
     if (note.statusCode == 201) {
       return NoteDto.fromJson(jsonDecode(note.body));
     } else {
@@ -38,7 +35,7 @@ class NoteAPI {
         body: json.encode(noteFormDto.toJson()));
 
     print(updatedNote.statusCode);
-    if (updatedNote.statusCode == 200) {
+    if (updatedNote.statusCode >= 200 && updatedNote.statusCode < 300) {
       return NoteDto.fromJson(jsonDecode(updatedNote.body));
     } else {
       throw JJHttpException(
@@ -50,7 +47,7 @@ class NoteAPI {
   Future<void> deleteNote(String noteId) async {
     var response = await _customHttpClient.delete("notes/$noteId");
 
-    if (response.statusCode != 200) {
+    if (response.statusCode < 200 || response.statusCode >= 300) {
       throw JJHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);
@@ -59,7 +56,7 @@ class NoteAPI {
 
   Future<List<NoteDto>> getNotesForUser(String userId) async {
     var notes = await _customHttpClient.get("notes/user/$userId");
-    if (notes.statusCode == 200) {
+    if (notes.statusCode >= 200 && notes.statusCode < 300) {
       return (jsonDecode(notes.body) as List)
           .map((e) => NoteDto.fromJson(e))
           .toList();

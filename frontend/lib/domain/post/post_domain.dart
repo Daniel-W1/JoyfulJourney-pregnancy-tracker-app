@@ -1,3 +1,5 @@
+import 'package:frontend/domain/post/post_failure.dart';
+
 class PostDomain {
   final String body;
   final String author;
@@ -31,5 +33,15 @@ class PostDomain {
       'likes': likes,
       'id': id,
     };
+  }
+
+  void validate() {
+    if (body.isEmpty) {
+      throw ValidationError('Body cannot be empty');
+    }
+
+    if (author.isEmpty) {
+      throw ValidationError('Author cannot be empty');
+    }
   }
 }

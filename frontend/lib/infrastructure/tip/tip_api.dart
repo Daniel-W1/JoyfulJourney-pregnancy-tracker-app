@@ -25,7 +25,7 @@ class TipAPI {
     var updatedTip = await _customHttpClient.put("tips/$id",
         body: json.encode(tipFormDto.toJson()));
 
-    if (updatedTip.statusCode == 200) {
+    if (updatedTip.statusCode >= 200 && updatedTip.statusCode < 300) {
       return TipDto.fromJson(jsonDecode(updatedTip.body));
     } else {
       throw JJHttpException(
@@ -36,8 +36,7 @@ class TipAPI {
 
   Future<void> deleteTip(String tipid) async {
     var response = await _customHttpClient.delete("tips/$tipid");
-    print("statusCode" + response.statusCode.toString());
-    if (response.statusCode != 200) {
+    if (response.statusCode < 200 || response.statusCode >= 300) {
       throw JJHttpException(
           json.decode(response.body)['message'] ?? "Unknown error",
           response.statusCode);
@@ -48,7 +47,7 @@ class TipAPI {
     try {
       var tips = await _customHttpClient.get("tips").timeout(jjTimeout);
 
-      if (tips.statusCode == 200) {
+      if (tips.statusCode >= 200 && tips.statusCode < 300) {
         return (jsonDecode(tips.body) as List)
             .map((e) => TipDto.fromJson(e))
             .toList();
@@ -80,7 +79,7 @@ class TipAPI {
       var tips =
           await _customHttpClient.get("tips/bytype/$type").timeout(jjTimeout);
 
-      if (tips.statusCode == 200) {
+      if (tips.statusCode >= 200 && tips.statusCode < 300) {
         return (jsonDecode(tips.body) as List)
             .map((e) => TipDto.fromJson(e))
             .toList();

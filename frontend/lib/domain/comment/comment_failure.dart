@@ -9,11 +9,11 @@ class CommentFailure {
   factory CommentFailure.forbidden() = Forbidden;
   factory CommentFailure.emptyTitleError() = EmptyTitleError;
   factory CommentFailure.emptyDescriptionError() = EmptyDescriptionError;
-
+  factory CommentFailure.validationError(String message) = ValidationError;
+  factory CommentFailure.customError(String message) = CustomError;
 }
-  
 
-class ServerError extends CommentFailure implements Exception{
+class ServerError extends CommentFailure implements Exception {
   const ServerError() : super._();
 }
 
@@ -43,4 +43,14 @@ class EmptyTitleError extends CommentFailure {
 
 class EmptyDescriptionError extends CommentFailure {
   const EmptyDescriptionError() : super._();
+}
+
+class ValidationError extends CommentFailure {
+  final String message;
+  const ValidationError(this.message) : super._();
+}
+
+class CustomError extends CommentFailure {
+  final String message;
+  const CustomError(this.message) : super._();
 }

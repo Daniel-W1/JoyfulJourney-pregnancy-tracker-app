@@ -22,8 +22,8 @@ void main() {
     test('should return ProfileDomain when repository call is successful', () async {
       // Arrange
       final profileId = '123';
-      final profileForm = ProfileForm(name: 'John Doe', email: 'john@example.com', bio: '', firstName: '', followers: [], following: [], lastName: '', profilePicture: '', socialMedia: []);
-      final profileDomain = ProfileDomain(id: profileId, name: 'John Doe', email: 'john@example.com', bio: '', comments: [], firstName: '', followers: [], following: [], lastName: '', posts: [], profilePicture: '', socialMedia: [], userName: '');
+      final profileForm = ProfileForm( bio: '', firstName: '', followers: [], following: [], lastName: '', profilePicture: '', socialMedia: []);
+      final profileDomain = ProfileDomain(id: profileId, bio: '', comments: [], firstName: '', followers: [], following: [], lastName: '', posts: [], profilePicture: '', socialMedia: [], userName: '');
 
       when(mockProfileRepository.updateProfile(profileForm: profileForm, profileId: profileId))
           .thenAnswer((_) async => right(profileDomain));
@@ -39,7 +39,7 @@ void main() {
     test('should return ProfileFailure.serverError when repository call fails', () async {
       // Arrange
       final profileId = '123';
-      final profileForm = ProfileForm(name: 'John Doe', email: 'john@example.com', bio: '', firstName: '', followers: [], following: [], lastName: '', profilePicture: '', socialMedia: []);
+      final profileForm = ProfileForm(bio: '', firstName: '', followers: [], following: [], lastName: '', profilePicture: '', socialMedia: []);
 
       when(mockProfileRepository.updateProfile(profileForm: profileForm, profileId: profileId))
           .thenAnswer((_) async => left(ProfileFailure.serverError()));
@@ -57,7 +57,7 @@ void main() {
     test('should return ProfileDomain when repository call is successful', () async {
       // Arrange
       final userId = '123';
-      final profileDomain = ProfileDomain(id: '123', name: 'John Doe', email: 'john@example.com', bio: '', comments: [], firstName: '', followers: [], following: [], lastName: '', posts: [], profilePicture: '', socialMedia: [], userName: '');
+      final profileDomain = ProfileDomain(id: '123', bio: '', comments: [], firstName: '', followers: [], following: [], lastName: '', posts: [], profilePicture: '', socialMedia: [], userName: '');
 
       when(mockProfileRepository.getProfile(userId))
           .thenAnswer((_) async => right(profileDomain));

@@ -12,6 +12,7 @@ class TipFailure {
   factory TipFailure.emptyAuthorError() = EmptyAuthorError;
   factory TipFailure.invalidCommentError() = InvalidCommentError;
   factory TipFailure.invalidLikeError() = InvalidLikeError;
+  factory TipFailure.customError(String message) = CustomError;
 }
 
 class ServerError extends TipFailure {
@@ -56,4 +57,9 @@ class InvalidCommentError extends TipFailure {
 
 class InvalidLikeError extends TipFailure {
   const InvalidLikeError() : super._();
+}
+
+class CustomError extends TipFailure {
+  final String message;
+  const CustomError(this.message) : super._();
 }
